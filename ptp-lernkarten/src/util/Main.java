@@ -2,7 +2,7 @@ package util;
 
 import view.Gui;
 
-public class DemoDatabase {
+public class Main {
 	 public static void main (String[] args) {
 		 
 		 new Gui();
