@@ -28,7 +28,7 @@ public class Deck {
 	public void loadInCSV() {
 		DeckManager.createDirectories();
 
-		Path pathCSV = Paths.get(DeckManager.createDirectories(), deckname + ".csv");
+		Path pathCSV = Paths.get(DeckManager.getPathtoString(), deckname + ".csv");
 
 		try (BufferedWriter writeBuffer = Files.newBufferedWriter(pathCSV);) {
 			for (Flashcard f : deck) {
