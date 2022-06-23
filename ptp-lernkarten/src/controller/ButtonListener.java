@@ -54,6 +54,9 @@ public class ButtonListener implements ActionListener {
 			deck = newDeck;
 			DeckManager.addDeck(index, newDeck);
 			new QAGUI();
+		} else if (cmd.equals("startCardButton")) {
+			
+			
 		}
 	}
 }
