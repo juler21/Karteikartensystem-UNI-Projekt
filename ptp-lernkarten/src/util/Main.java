@@ -1,10 +1,10 @@
 package util;
 
-import view.Gui;
+import view.DeckErstellenGui;
 
 public class Main {
 	 public static void main (String[] args) {
 		 
-		 new Gui();
+		 new DeckErstellenGui();
 	 }
 }

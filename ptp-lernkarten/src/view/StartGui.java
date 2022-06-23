@@ -161,6 +161,7 @@ public class StartGui extends JFrame {
 		deckErstellenButton.setFont(new Font("Ubuntu", Font.PLAIN, 13));
 		deckErstellenButton.setBackground(Color.GREEN);
 		deckErstellenButton.setForeground(new Color (2, 48, 89));
+		deckErstellenButton.addActionListener(new ButtonListener(this, "deckErstellen"));
 		
 		JButton deckBearbeitenButton = new JButton("Deck Bearbeiten");
 		decksCard.add(deckBearbeitenButton);

@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 import model.Deck;
 import model.DeckManager;
 import model.Flashcard;
-import view.Gui;
+import view.DeckErstellenGui;
 import view.QAGUI;
 
 public class ButtonListener implements ActionListener {
@@ -50,13 +50,12 @@ public class ButtonListener implements ActionListener {
 			deck.loadInCSV();
 
 		} else if (cmd.equals("confirmDeck")) {
-			Deck newDeck = new Deck(((Gui) (gui)).getDeckName().getText());
+			Deck newDeck = new Deck(((DeckErstellenGui) (gui)).getDeckName().getText());
 			deck = newDeck;
 			DeckManager.addDeck(index, newDeck);
 			new QAGUI();
-		} else if (cmd.equals("startCardButton")) {
-			
-			
+		} else if (cmd.equals("deckErstellen")) {
+			 new DeckErstellenGui();	
 		}
 	}
 }

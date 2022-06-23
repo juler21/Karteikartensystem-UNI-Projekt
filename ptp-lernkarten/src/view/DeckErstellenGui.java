@@ -9,11 +9,11 @@ import javax.swing.JTextField;
 
 import controller.ButtonListener;
 
-public class Gui extends JFrame {
+public class DeckErstellenGui extends JFrame {
 
 	private JTextField deckName;
 
-	public Gui() {
+	public DeckErstellenGui() {
 		super("Deck erstellen");
 		setLayout(new BorderLayout());
 
