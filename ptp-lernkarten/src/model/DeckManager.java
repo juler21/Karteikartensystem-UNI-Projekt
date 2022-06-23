@@ -44,23 +44,19 @@ public void getData(String path) {
 		e.printStackTrace();
 	}
 }
-public static File createDirectories() {
-	File directory = new File("user.home"+ "decks");
-	
-	if(!directory.exists()) {
-		String path = System.getProperty("user.home");
-		Path pathDirectory = Paths.get(path, "decks");
-		try {
-			Files.createDirectories(pathDirectory);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+public static String createDirectories() {
+
+	String path = System.getProperty("user.home");
+	Path pathDirectory = Paths.get(path, "decks");
+	try {
+		Files.createDirectories(pathDirectory);
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
 	}
-	return directory;
-	
-	
+System.out.println(pathDirectory);	
+
+return pathDirectory.toString();	
 }
  
 }
