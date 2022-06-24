@@ -18,4 +18,11 @@ public class Main {
 		System.out.println(DeckManager.getDecks().get(2).getDeckname());
 
 	}
+	
+	//API
+	
+	public void lernkarteErstellen(String question, String answer){
+		
+		
+	}
 }
