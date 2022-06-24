@@ -32,13 +32,13 @@ public class ButtonListener implements ActionListener {
 
 	private void doCommand(String cmd) {
 		if (cmd.equals("ok")) {
-			String question = ((QAGUI) gui).getQuestion().getText();
-			String answer = ((QAGUI) gui).getAnswer().getText();
+			String question = ((DeckErstellenGui) gui).getQuestion().getText();
+			String answer = ((DeckErstellenGui) gui).getAnswer().getText();
 
 			deck.addFlashcard(new Flashcard(index, question, answer));
 			index++;
-			((QAGUI) gui).getQuestion().setText("");
-			((QAGUI) gui).getAnswer().setText("");
+			((DeckErstellenGui) gui).getQuestion().setText("");
+			((DeckErstellenGui) gui).getAnswer().setText("");
 		} else if (cmd.equals("confirm")) {
 			System.out.println(DeckManager.getDecks().get(1).getDeckname());
 			for (Flashcard f : deck.getDeck()) {
@@ -49,11 +49,10 @@ public class ButtonListener implements ActionListener {
 
 			deck.loadInCSV();
 
-		} else if (cmd.equals("confirmDeck")) {
+		} else if (cmd.equals("Deckname Bestätigen")) {
 			Deck newDeck = new Deck(((DeckErstellenGui) (gui)).getDeckName().getText());
 			deck = newDeck;
 			DeckManager.addDeck(index, newDeck);
-			new QAGUI();
 		} else if (cmd.equals("deckErstellen")) {
 			 new DeckErstellenGui();	
 		}

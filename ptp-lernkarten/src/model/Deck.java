@@ -11,6 +11,7 @@ import java.util.List;
 public class Deck {
 	private List<Flashcard> deck = new ArrayList<Flashcard>();
 	private String deckname;
+	private int fragenIndex;
 
 	public Deck(String deck) {
 		deckname = deck;
