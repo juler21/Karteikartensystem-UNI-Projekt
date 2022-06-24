@@ -43,12 +43,31 @@ public class DeckManager {
 		return paths;
 	}
 
+	public static Path[] findAllFilesInFolderPath(File folder) {
+		Path[] paths = new Path[folder.listFiles().length];
+		for (int i = 0; i < folder.listFiles().length; i++) {
+			paths[i] = folder.listFiles()[i].toPath();
+		}
+		for (Path s : paths) {
+			System.out.println(s);
+		}
+		System.out.println("--------------------------------------------------");
+		return paths;
+	}
+
+	public static String pathToFileName(Path path) {
+		int length = path.getFileName().toString().length() - 4;
+		String name = path.getFileName().toString().substring(0, length);
+		return name;
+	}
+
+//TODO nehme eine Methode
 	public static void getData(File folder) {
 		String[] paths = findAllFilesInFolder(folder);
+		Path[] paths1 = findAllFilesInFolderPath(folder);
 		String line = "";
-//		HashMap<Integer, Deck> newdecks = new HashMap<Integer, Deck>();
 		for (int i = 0; i < paths.length; i++) {
-			Deck newdeck = new Deck(paths[i]);
+			Deck newdeck = new Deck(pathToFileName(paths1[i]));
 			try {
 				BufferedReader br = new BufferedReader(new FileReader(paths[i]));
 				while ((line = br.readLine()) != null) {
