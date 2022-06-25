@@ -12,6 +12,7 @@ import java.io.File;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -50,7 +51,7 @@ public class StartGui extends JFrame {
 	private JPanel topButtonPanel;
 	//ContentPanel auf dem verschiedene CardLayout Karten liegen 
 	private JPanel contentPanel;
-	private JList<String> chooseDeckList;
+	private JComboBox<String> chooseDeckList;
 
 
 	public StartGui(Main app) {	
@@ -161,7 +162,7 @@ public class StartGui extends JFrame {
 
 		// Decks-Karte
 		JPanel decksCard = new JPanel();
-		decksCard.setLayout(new GridLayout(1, 2, 0, 0));
+		decksCard.setLayout(new GridLayout(3, 1, 0, 0));
 		contentPanel.add(decksCard, "decksCard");
 
 		deckListeErstellen();
@@ -203,7 +204,7 @@ public class StartGui extends JFrame {
 			decksArray[key] = value.getDeckname();
 		});
 
-		chooseDeckList = new JList<>(decksArray);
+		chooseDeckList = new JComboBox<String>(decksArray);
 
 	}
 }
