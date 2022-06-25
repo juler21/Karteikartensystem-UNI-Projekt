@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Deck {
-	private List<Flashcard> deck = new ArrayList<Flashcard>();
+	private List<Flashcard> flashcardList = new ArrayList<Flashcard>();
 	private String deckname;
 	private int fragenIndex;
 
@@ -19,12 +19,12 @@ public class Deck {
 	}
 
 	public void addFlashcard(Flashcard flash) {
-		deck.add(flash);
+		flashcardList.add(flash);
 		saveFlashcardCSV(flash);
 	}
 
 	public Flashcard getFlashcard(int index) {
-		return deck.get(index);
+		return flashcardList.get(index);
 	}
 
 	public void saveDeckCSV() {
@@ -54,8 +54,8 @@ public class Deck {
 		}
 	}
 
-	public List<Flashcard> getDeck() {
-		return deck;
+	public List<Flashcard> getDeckFlashcardlist() {
+		return flashcardList;
 	}
 
 	public String getDeckname() {

@@ -30,13 +30,13 @@ public class Main {
 	// API
 
 	public void addFlashcard(Deck deck, String question, String answer) {
-		int position = deck.getDeck().size();
+		int position = deck.getDeckFlashcardlist().size();
 		Flashcard newFlashcard = new Flashcard(position, question, answer);
 		deck.addFlashcard(newFlashcard);
 	}
 
 	public void deleteFlashcard(Deck deck, int position) {
-		deck.getDeck().remove(position);
+		deck.getDeckFlashcardlist().remove(position);
 	}
 
 	public void createDeck(String deckname) {

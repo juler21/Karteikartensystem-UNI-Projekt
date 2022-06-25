@@ -44,7 +44,7 @@ public class ButtonListener implements ActionListener {
 			((CreateDeckGui) gui).getAnswer().setText("");
 		} else if (cmd.equals("confirm")) {
 			System.out.println(DeckManager.getDecks().get(1).getDeckname());
-			for (Flashcard f : deck.getDeck()) {
+			for (Flashcard f : deck.getDeckFlashcardlist()) {
 				System.out.println(f.getIndex());
 				System.out.println(f.getQuestion());
 				System.out.println(f.getAnswer());
