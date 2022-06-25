@@ -12,7 +12,6 @@ import java.io.File;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -177,27 +176,23 @@ public class StartGui extends JFrame implements Observer {
 	private void deckListeErstellen() {
 
 		chooseDeckList = new JComboBox<Deck>();
-		
+
 		deckmanager.getData(new File(deckmanager.getPathtoString()));
 		update();
-//		for (int i = 0; i < deckmanager.getDecks().size(); i++) {
-//			
-//			decksArray[i] = deckmanager.getDeck(i);
-//		}
 
+//
 
 	}
 
 	@Override
 	public void update() {
-		
+
 		System.out.println("update");
-		//combobox update 
+		// combobox update
 		chooseDeckList.removeAllItems();
-		for (int i = 0; i < deckmanager.getDecks().size(); i++) {
-			
-			chooseDeckList.addItem(deckmanager.getDeck(i));
-		}
-		
+		deckmanager.getDecks().forEach((key, value) -> {
+			chooseDeckList.addItem(deckmanager.getDeck(key));
+		});
+
 	}
 }

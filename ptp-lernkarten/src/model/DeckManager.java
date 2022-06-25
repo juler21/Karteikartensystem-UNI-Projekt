@@ -10,8 +10,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 
-import view.Observer;
-
 public class DeckManager extends Observable {
 
 	private HashMap<String, Deck> decks;
@@ -27,12 +25,9 @@ public class DeckManager extends Observable {
 
 	public void addDeck(Deck d) {
 		anzahlDecks++;
-<<<<<<< HEAD
 		decks.put(d.getDeckname(), d);
-=======
-		decks.add(d);
+
 		notifyObserver();
->>>>>>> branch 'main' of https://git.informatik.uni-hamburg.de/0sterkel/ptp22-do08-lernkarten.git
 	}
 
 	public Deck getDeck(String deckname) {
@@ -124,6 +119,5 @@ public class DeckManager extends Observable {
 		pathDirectory = Paths.get(path, "decks");
 		return pathDirectory.toString();
 	}
-
 
 }
