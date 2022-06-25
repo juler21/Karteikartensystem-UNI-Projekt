@@ -3,7 +3,6 @@ import java.io.File;
 
 import model.Deck;
 import model.DeckManager;
-import view.DeckErstellenGui;
 import view.StartGui;
 
 
@@ -13,7 +12,7 @@ public class Main {
 	
 	public Main () {
 		
-		gui=new StartGui(this);
+		new StartGui(this);
 	}
 
 	public static void main(String[] args) {
@@ -21,10 +20,10 @@ public class Main {
 		new Main();
 		File folder = new File(DeckManager.getPathtoString());
 		DeckManager.getData(folder);
-		System.out.println(DeckManager.getDecks().get(0).getDeckname());
-		System.out.println(DeckManager.getDecks().get(1).getDeckname());
-		System.out.println(DeckManager.getDecks().get(2).getDeckname());
-		System.out.println(DeckManager.getDecks().get(2).getDeckname());
+//		System.out.println(DeckManager.getDecks().get(0).getDeckname());
+//		System.out.println(DeckManager.getDecks().get(1).getDeckname());
+//		System.out.println(DeckManager.getDecks().get(2).getDeckname());
+//		System.out.println(DeckManager.getDecks().get(2).getDeckname());
 
 	}
 	

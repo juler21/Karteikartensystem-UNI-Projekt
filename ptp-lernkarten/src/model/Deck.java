@@ -17,7 +17,6 @@ public class Deck {
 		deckname = deck;
 		speichernCSV();
 		
-
 	}
 
 	public void addFlashcard(Flashcard flash) {

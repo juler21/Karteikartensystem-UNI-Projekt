@@ -38,24 +38,24 @@ import model.DeckManager;
 
 
 public class StartGui extends JFrame {
- 	private Main app;
-
-
+	
+ 	//Applikation
+	private Main app;
+	
+	//Fenster	
 	private JFrame mainFrame;
-	private JPanel frameContentPane;
-	private JPanel startContentPane;
+	private JPanel framePanel;
+	
+	//TopButton Panel mit Navigationsknöpfen 
 	private JPanel topButtonPanel;
-	private JList<String> deckAuswahlList;
+	//ContentPanel auf dem verschiedene CardLayout Karten liegen 
+	private JPanel contentPanel;
+	private JList<String> chooseDeckList;
 
-	/**
-	 * Create the frame.
-	 */
 
 	public StartGui(Main app) {	
 		
 		this.app = app;
-
-
 
 		// JFrame erstellen
 		mainFrame = new JFrame();
@@ -65,87 +65,92 @@ public class StartGui extends JFrame {
 		mainFrame.setBounds(100, 100, 500, 300);
 
 		// frameContentPane erstellen, dass direkt auf dem JFrame liegt
-		frameContentPane = new JPanel();
-		frameContentPane.setBackground(new Color(244, 244, 244));
-		frameContentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		mainFrame.setContentPane(frameContentPane);
-		frameContentPane.setLayout(new BorderLayout(0, 0));
+		framePanel = new JPanel();
+		framePanel.setBackground(new Color(244, 244, 244));
+		framePanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		framePanel.setLayout(new BorderLayout(0, 0));
+		mainFrame.setContentPane(framePanel);
 
 		// topButtonPanel mit entsprechenden Buttons erstellen
-		topButtonsErstellen();
+		generateTopButtons();
 
 		// startContentPane mit Karten das auf dem frameContentPane liegt erstellen
-		startContentPaneErstellen();
+		generateContentPanel();
+		
+		mainFrame.setVisible(true);
 
 	}
 
-	private void topButtonsErstellen() {
+	private void generateTopButtons() {
 
 		// topButtonPanel erstellen und zum frameContentPane hinzufügen
 		topButtonPanel = new JPanel();
-		frameContentPane.add(topButtonPanel, BorderLayout.NORTH);
+		framePanel.add(topButtonPanel, BorderLayout.NORTH);
 		topButtonPanel.setBackground(new Color(244, 244, 244));
 
+		
+		//START BUTTON
 		JButton startButton = new JButton("START");
-		topButtonPanel.add(startButton);
 		startButton.setFont(new Font("Ubuntu", Font.PLAIN, 13));
 		startButton.setForeground(new Color(2, 48, 89));
 		startButton.setBackground(Color.GREEN);
-
 		startButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				((CardLayout) startContentPane.getLayout()).show(startContentPane, "startCard");
+				((CardLayout) contentPanel.getLayout()).show(contentPanel, "startCard");
 			}
 		});
+		topButtonPanel.add(startButton);
 
+		//DECKS BUTTON
 		JButton decksButton = new JButton("DECKS");
-		topButtonPanel.add(decksButton);
 		decksButton.setFont(new Font("Ubuntu", Font.PLAIN, 13));
 		decksButton.setForeground(new Color(2, 48, 89));
 		decksButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				((CardLayout) startContentPane.getLayout()).show(startContentPane, "decksCard");
+				((CardLayout) contentPanel.getLayout()).show(contentPanel, "decksCard");
 			}
 		});
+		topButtonPanel.add(decksButton);
 
+		//STATISTIK BUTTON
 		JButton statistikButton = new JButton("STATISTIK");
-		topButtonPanel.add(statistikButton);
 		statistikButton.setFont(new Font("Ubuntu", Font.PLAIN, 13));
 		statistikButton.setForeground(new Color(2, 48, 89));
 
 		statistikButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				((CardLayout) startContentPane.getLayout()).show(startContentPane, "statistikCard");
+				((CardLayout) contentPanel.getLayout()).show(contentPanel, "statistikCard");
 			}
 		});
+		topButtonPanel.add(statistikButton);
 
+		//EINSTELLUNGEN BUTTON
 		JButton einstellungenButton = new JButton("EINSTELLUNGEN");
-		topButtonPanel.add(einstellungenButton);
 		einstellungenButton.setFont(new Font("Ubuntu", Font.PLAIN, 13));
 		einstellungenButton.setForeground(new Color(2, 48, 89));
 
 		einstellungenButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				((CardLayout) startContentPane.getLayout()).show(startContentPane, "einstellungenCard");
+				((CardLayout) contentPanel.getLayout()).show(contentPanel, "einstellungenCard");
 			}
 		});
+		topButtonPanel.add(einstellungenButton);
 
 	}
 
-	private void startContentPaneErstellen() {
+	private void generateContentPanel() {
 
-		startContentPane = new JPanel();
-		frameContentPane.add(startContentPane, BorderLayout.CENTER);
-		frameContentPane.setBackground(new Color(244, 244, 244));
-		startContentPane.setLayout(new CardLayout(0, 0));
+		contentPanel = new JPanel();
+		contentPanel.setLayout(new CardLayout(0, 0));
+		framePanel.add(contentPanel, BorderLayout.CENTER);
 
 		// Start-Karte
 		JPanel startCard = new JPanel();
-		startContentPane.add(startCard, "startCard");
+		contentPanel.add(startCard, "startCard");
 		startCard.setLayout(null);
 		JButton lernenBeginnenButton = new JButton("Lernen Beginnen");
 		lernenBeginnenButton.setBounds(146, 93, 141, 29);
@@ -156,56 +161,49 @@ public class StartGui extends JFrame {
 
 		// Decks-Karte
 		JPanel decksCard = new JPanel();
-		startContentPane.add(decksCard, "decksCard");
 		decksCard.setLayout(new GridLayout(1, 2, 0, 0));
+		contentPanel.add(decksCard, "decksCard");
 
 		deckListeErstellen();
-
-		decksCard.add(deckAuswahlList);
+		decksCard.add(chooseDeckList);
 
 		JButton deckErstellenButton = new JButton("Deck Erstellen");
-
-		Icon i = new ImageIcon("/ptp-lernkarten/the-button-859346_1280.png");
-		deckErstellenButton.setIcon(i);
-
 		deckErstellenButton.setBounds(146, 93, 141, 29);
-		decksCard.add(deckErstellenButton);
 		deckErstellenButton.setFont(new Font("Ubuntu", Font.PLAIN, 13));
 		deckErstellenButton.setBackground(Color.GREEN);
 		deckErstellenButton.setForeground(new Color (2, 48, 89));
 		deckErstellenButton.addActionListener(new ButtonListener(app, this, "deckErstellen"));
+		decksCard.add(deckErstellenButton);
 		
 
 		JButton deckBearbeitenButton = new JButton("Deck Bearbeiten");
-		decksCard.add(deckBearbeitenButton);
 		deckBearbeitenButton.setFont(new Font("Ubuntu", Font.PLAIN, 13));
 		deckBearbeitenButton.setForeground(new Color(2, 48, 89));
 		deckBearbeitenButton.addActionListener(new ButtonListener(app, this, "deckBearbeiten"));
+		decksCard.add(deckBearbeitenButton);
 
 		// Statistik-Karte
 		JPanel statistikCard = new JPanel();
-		startContentPane.add(statistikCard, "statistikCard");
+		contentPanel.add(statistikCard, "statistikCard");
 
-		// Statistik-Karte
+		// Einstellungen-Karte
 		JPanel einstellungenCard = new JPanel();
-		startContentPane.add(einstellungenCard, "einstellungenCard");
+		contentPanel.add(einstellungenCard, "einstellungenCard");
 
 		// Anfangsbildschirm setzten auf "Start"
-		((CardLayout) startContentPane.getLayout()).show(startContentPane, "startCard");
-		mainFrame.setVisible(true);
+		((CardLayout) contentPanel.getLayout()).show(contentPanel, "startCard");
 
 	}
 
 	private void deckListeErstellen() {
 
-		// DummY Items für die Liste
 		String[] decksArray = new String[10];
 		DeckManager.getData(new File(DeckManager.getPathtoString()));
 		DeckManager.getDecks().forEach((key, value) -> {
 			decksArray[key] = value.getDeckname();
 		});
 
-		deckAuswahlList = new JList<>(decksArray);
+		chooseDeckList = new JList<>(decksArray);
 
 	}
 }
