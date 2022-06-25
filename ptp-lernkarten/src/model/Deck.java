@@ -29,6 +29,10 @@ public class Deck {
 		return flashcardList.get(index);
 	}
 
+	public void deleteFlashcard(int index) {
+		flashcardList.remove(index);
+	}
+
 	private void saveDeckCSV() {
 
 		Path pathCSV = Paths.get(DeckManager.getPathtoString(), deckname + ".csv");

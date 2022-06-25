@@ -8,38 +8,41 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
 import view.Observer;
 
 public class DeckManager extends Observable {
 
-	private List<Deck> decks;
+	private HashMap<String, Deck> decks;
 	private static Path pathDirectory;
 	private int anzahlDecks;
 
 	public DeckManager() {
-		decks = new ArrayList<Deck>();
+		decks = new HashMap<String, Deck>();
 		anzahlDecks = 0;
 		createDirectories();
 	}
 
 	public void addDeck(Deck d) {
 		anzahlDecks++;
-		decks.add(d);
+		decks.put(d.getDeckname(), d);
 	}
 
-	public Deck getDeck(int index) {
-		return decks.get(index);
+	public Deck getDeck(String deckname) {
+		return decks.get(deckname);
 	}
 
-	public List<Deck> getDecks() {
+	public HashMap<String, Deck> getDecks() {
 		return decks;
 	}
 
-	public void setDecks(List<Deck> decks) {
+	public void setDecks(HashMap<String, Deck> decks) {
 		this.decks = decks;
+	}
+
+	public void removeDeck(String deckname) {
+		decks.remove(deckname);
 	}
 
 	public String[] findAllFilesInFolder(File folder) {

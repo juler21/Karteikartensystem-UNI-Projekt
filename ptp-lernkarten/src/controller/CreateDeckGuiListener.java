@@ -12,13 +12,12 @@ public class CreateDeckGuiListener implements ActionListener {
 	private CreateDeckGui gui;// view
 	private DeckManager deckmanager;// model
 	private String cmd;
-	private int lastDeckIndex;
+	private static String _deckname;
 
 	public CreateDeckGuiListener(CreateDeckGui gui, DeckManager model, String cmd) {
 		this.gui = gui;
 		this.deckmanager = model;
 		this.cmd = cmd;
-		this.lastDeckIndex = 0;
 	}
 
 	@Override
@@ -31,12 +30,12 @@ public class CreateDeckGuiListener implements ActionListener {
 			String question = gui.getQuestion().getText();
 			String answer = gui.getAnswer().getText();
 
-			int position = deckmanager.getDeck(lastDeckIndex).getAmountOfFlashcards();
-			deckmanager.getDeck(lastDeckIndex).addFlashcard(new Flashcard(position, question, answer));
+			int position = deckmanager.getDeck(_deckname).getAmountOfFlashcards();
+			deckmanager.getDeck(_deckname).addFlashcard(new Flashcard(position, question, answer));
 			((CreateDeckGui) gui).getQuestion().setText("");
 			((CreateDeckGui) gui).getAnswer().setText("");
 		} else if (cmd.equals("confirm")) {
-			for (Flashcard f : deckmanager.getDeck(lastDeckIndex).getDeckFlashcardlist()) {
+			for (Flashcard f : deckmanager.getDeck(_deckname).getDeckFlashcardlist()) {
 				System.out.println(f.getIndex());
 				System.out.println(f.getQuestion());
 				System.out.println(f.getAnswer());
@@ -44,9 +43,9 @@ public class CreateDeckGuiListener implements ActionListener {
 
 		} else if (cmd.equals("confirmDeckname")) {
 			String deckname = gui.getDeckName().getText();
+			_deckname = deckname;
 			Deck newDeck = new Deck(deckname);
 			deckmanager.addDeck(newDeck);
-			lastDeckIndex++;
 
 		}
 

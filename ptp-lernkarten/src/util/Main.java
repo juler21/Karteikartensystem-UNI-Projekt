@@ -29,12 +29,16 @@ public class Main {
 	}
 
 	public void deleteFlashcard(Deck deck, int position) {
-		deck.getDeckFlashcardlist().remove(position);
+		deck.deleteFlashcard(position);
 	}
 
 	public void createDeck(String deckname) {
 		Deck newDeck = new Deck(deckname);
 		deckmanager.addDeck(newDeck);
+	}
+
+	public void deleteDeck(String deckname) {
+
 	}
 
 	public void createDirectory1() {
