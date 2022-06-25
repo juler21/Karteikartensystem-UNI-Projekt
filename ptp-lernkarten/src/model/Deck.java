@@ -8,7 +8,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Deck {
+public class Deck extends Observable {
 
 	private List<Flashcard> flashcardList = new ArrayList<Flashcard>();
 
@@ -74,6 +74,12 @@ public class Deck {
 
 	public void setDeckname(String deckname) {
 		this.deckname = deckname;
+	}
+	
+	@Override
+	public void notifyObserver() {
+		// TODO Auto-generated method stub
+
 	}
 
 }

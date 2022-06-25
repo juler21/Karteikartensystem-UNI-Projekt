@@ -56,7 +56,7 @@ public class StartGui extends JFrame implements Observer {
 
 		// startContentPane mit Karten das auf dem frameContentPane liegt erstellen
 		generateContentPanel();
-
+		deckmanager.registerObserver(this);
 		mainFrame.setVisible(true);
 
 	}
@@ -176,20 +176,28 @@ public class StartGui extends JFrame implements Observer {
 
 	private void deckListeErstellen() {
 
-		Deck[] decksArray = new Deck[10];
+		chooseDeckList = new JComboBox<Deck>();
+		
 		deckmanager.getData(new File(deckmanager.getPathtoString()));
-		for (int i = 0; i < deckmanager.getDecks().size(); i++) {
-			
-			decksArray[i] = deckmanager.getDeck(i);
-		}
+		update();
+//		for (int i = 0; i < deckmanager.getDecks().size(); i++) {
+//			
+//			decksArray[i] = deckmanager.getDeck(i);
+//		}
 
-		chooseDeckList = new JComboBox<Deck>(decksArray);
 
 	}
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
-
+		
+		System.out.println("update");
+		//combobox update 
+		chooseDeckList.removeAllItems();
+		for (int i = 0; i < deckmanager.getDecks().size(); i++) {
+			
+			chooseDeckList.addItem(deckmanager.getDeck(i));
+		}
+		
 	}
 }

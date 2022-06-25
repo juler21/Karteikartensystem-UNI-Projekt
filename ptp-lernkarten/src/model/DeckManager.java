@@ -22,11 +22,17 @@ public class DeckManager extends Observable {
 		decks = new HashMap<String, Deck>();
 		anzahlDecks = 0;
 		createDirectories();
+
 	}
 
 	public void addDeck(Deck d) {
 		anzahlDecks++;
+<<<<<<< HEAD
 		decks.put(d.getDeckname(), d);
+=======
+		decks.add(d);
+		notifyObserver();
+>>>>>>> branch 'main' of https://git.informatik.uni-hamburg.de/0sterkel/ptp22-do08-lernkarten.git
 	}
 
 	public Deck getDeck(String deckname) {
@@ -39,6 +45,7 @@ public class DeckManager extends Observable {
 
 	public void setDecks(HashMap<String, Deck> decks) {
 		this.decks = decks;
+		notifyObserver();
 	}
 
 	public void removeDeck(String deckname) {
@@ -118,22 +125,5 @@ public class DeckManager extends Observable {
 		return pathDirectory.toString();
 	}
 
-	@Override
-	public void registerObserver(Observer o) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void deleteObserver(Observer o) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void notifyObserver() {
-		// TODO Auto-generated method stub
-
-	}
 
 }
