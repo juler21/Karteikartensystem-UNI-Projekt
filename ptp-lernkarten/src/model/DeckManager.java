@@ -23,11 +23,13 @@ public class DeckManager extends Observable {
 		decks = new ArrayList<Deck>();
 		anzahlDecks = 0;
 		createDirectories();
+
 	}
 
 	public void addDeck(Deck d) {
 		anzahlDecks++;
 		decks.add(d);
+		notifyObserver();
 	}
 
 	public Deck getDeck(int index) {
@@ -40,6 +42,7 @@ public class DeckManager extends Observable {
 
 	public void setDecks(List<Deck> decks) {
 		this.decks = decks;
+		notifyObserver();
 	}
 
 	public String[] findAllFilesInFolder(File folder) {
@@ -115,22 +118,5 @@ public class DeckManager extends Observable {
 		return pathDirectory.toString();
 	}
 
-	@Override
-	public void registerObserver(Observer o) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void deleteObserver(Observer o) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void notifyObserver() {
-		// TODO Auto-generated method stub
-
-	}
 
 }

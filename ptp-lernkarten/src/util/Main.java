@@ -14,6 +14,7 @@ public class Main {
 		deckmanager = new DeckManager();
 		String name = "Flaschcard System";
 		gui = new StartGui(deckmanager, name);
+		
 	}
 
 	public static void main(String[] args) {

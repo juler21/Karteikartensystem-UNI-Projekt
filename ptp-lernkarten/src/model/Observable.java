@@ -1,11 +1,26 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import view.Observer;
 
-public abstract class Observable {
-	public abstract void registerObserver(Observer o);
+public class Observable {
+	
+	private List<Observer> observerList = new ArrayList<>();
+	
+	public void registerObserver(Observer o) {
+		observerList.add(o);
+	}
 
-	public abstract void deleteObserver(Observer o);
+	public void deleteObserver(Observer o) {
+		observerList.remove(o);
+	}
 
-	public abstract void notifyObserver();
+	public void notifyObserver() {
+		System.out.println("notify!");
+		for (Observer o: observerList) {
+			o.update();
+		}		
+	}
 }
