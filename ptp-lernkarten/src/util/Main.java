@@ -1,20 +1,13 @@
 package util;
+
 import java.io.File;
 
 import model.Deck;
 import model.DeckManager;
-import view.DeckErstellenGui;
+import model.Flashcard;
 import view.StartGui;
 
-
 public class Main {
-
-	StartGui gui;
-	
-	public Main () {
-		
-		gui=new StartGui(this);
-	}
 
 	public static void main(String[] args) {
 
@@ -25,24 +18,34 @@ public class Main {
 		System.out.println(DeckManager.getDecks().get(1).getDeckname());
 		System.out.println(DeckManager.getDecks().get(2).getDeckname());
 		System.out.println(DeckManager.getDecks().get(2).getDeckname());
+	}
 
+	StartGui gui;
+
+	public Main() {
+
+		gui = new StartGui(this);
 	}
-	
-	//API
-	
-	public void lernkarteHinzufügen(Deck deck, String question, String answer){
-		
-		
+
+	// API
+
+	public void addFlashcard(Deck deck, String question, String answer) {
+		int position = deck.getDeck().size();
+		Flashcard newFlashcard = new Flashcard(position, question, answer);
+		deck.addFlashcard(newFlashcard);
 	}
-	
-	public void lernkartelöschen(Deck deck, int position){
-		
-		
+
+	public void deleteFlashcard(Deck deck, int position) {
+		deck.getDeck().remove(position);
 	}
-	
-	public void deckErstellen(String deckname){
+
+	public void createDeck(String deckname) {
 		Deck newDeck = new Deck(deckname);
 		DeckManager.addDeck(newDeck);
-		
 	}
+
+	public void createDirectory1() {
+		DeckManager.createDirectories();
+	}
+
 }
