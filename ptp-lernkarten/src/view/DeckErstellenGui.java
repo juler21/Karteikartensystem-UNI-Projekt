@@ -28,17 +28,14 @@ public class DeckErstellenGui extends JFrame {
 	private JTextField question;
 	private JTextField answer;
 
-<<<<<<< HEAD
+
 	public DeckErstellenGui(Main app) {
 		
 		this.app =app;
 		
-		//JFrame erstellen
-=======
-	public DeckErstellenGui() {
 
 		// JFrame erstellen
->>>>>>> branch 'main' of https://git.informatik.uni-hamburg.de/0sterkel/ptp22-do08-lernkarten.git
+
 		decksErstellenFrame = new JFrame();
 		decksErstellenFrame.setFont(new Font("Ubuntu", Font.PLAIN, 12));
 		decksErstellenFrame.setTitle("Deck Erstellen");
@@ -59,22 +56,12 @@ public class DeckErstellenGui extends JFrame {
 		deckName = new JTextField("");
 		JButton confirm = new JButton("Deckname Bestätigen");
 		confirm.addActionListener(new ActionListener() {
-<<<<<<< HEAD
-			
-		    public void actionPerformed(ActionEvent e)
-		    {
-		    	((CardLayout) framePane.getLayout()).show(framePane,"deckKartenCard");
-		    	new ButtonListener(app, decksErstellenFrame, "Deckname Bestätigen");
-		    }}
-		);
-=======
 
 			public void actionPerformed(ActionEvent e) {
 				((CardLayout) framePane.getLayout()).show(framePane, "deckKartenCard");
-				new ButtonListener(decksErstellenFrame, "Deckname Bestätigen");
+				new ButtonListener(app, decksErstellenFrame, "Deckname Bestätigen");
 			}
 		});
->>>>>>> branch 'main' of https://git.informatik.uni-hamburg.de/0sterkel/ptp22-do08-lernkarten.git
 
 		decknameCard.add(label1, BorderLayout.NORTH);
 		decknameCard.add(deckName, BorderLayout.CENTER);
@@ -108,15 +95,10 @@ public class DeckErstellenGui extends JFrame {
 		JPanel buttonPanel = new JPanel(new FlowLayout());
 		JButton okButton = new JButton("OK");
 		JButton confirmButton = new JButton("confirm");
-<<<<<<< HEAD
+
 		okButton.addActionListener(new ButtonListener(app, this, "ok"));
 		confirmButton.addActionListener(new ButtonListener(app, this, "confirm"));
-		
-=======
-		okButton.addActionListener(new ButtonListener(this, "ok"));
-		confirmButton.addActionListener(new ButtonListener(this, "confirm"));
 
->>>>>>> branch 'main' of https://git.informatik.uni-hamburg.de/0sterkel/ptp22-do08-lernkarten.git
 		buttonPanel.add(okButton);
 		buttonPanel.add(confirmButton);
 		deckKartenCard.add(p, BorderLayout.CENTER);
@@ -135,11 +117,7 @@ public class DeckErstellenGui extends JFrame {
 	public JTextField getAnswer() {
 		return answer;
 	}
-<<<<<<< HEAD
-	
-=======
 
->>>>>>> branch 'main' of https://git.informatik.uni-hamburg.de/0sterkel/ptp22-do08-lernkarten.git
 	public JTextField getDeckName() {
 		return deckName;
 	}

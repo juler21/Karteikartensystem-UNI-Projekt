@@ -18,7 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controller.ButtonListener;
-<<<<<<< HEAD
+
 import util.Main;
 
 import java.awt.SystemColor;
@@ -33,22 +33,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.CardLayout;
 import java.awt.GridLayout;
-=======
+
 import model.DeckManager;
->>>>>>> branch 'main' of https://git.informatik.uni-hamburg.de/0sterkel/ptp22-do08-lernkarten.git
+
 
 public class StartGui extends JFrame {
-<<<<<<< HEAD
-	
  	private Main app;
-=======
 
-	public static void main(String[] args) {
 
-		new StartGui();
-	}
-
->>>>>>> branch 'main' of https://git.informatik.uni-hamburg.de/0sterkel/ptp22-do08-lernkarten.git
 	private JFrame mainFrame;
 	private JPanel frameContentPane;
 	private JPanel startContentPane;
@@ -58,16 +50,14 @@ public class StartGui extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-<<<<<<< HEAD
+
 	public StartGui(Main app) {	
 		
 		this.app = app;
-		//JFrame erstellen
-=======
-	public StartGui() {
+
+
 
 		// JFrame erstellen
->>>>>>> branch 'main' of https://git.informatik.uni-hamburg.de/0sterkel/ptp22-do08-lernkarten.git
 		mainFrame = new JFrame();
 		mainFrame.setFont(new Font("Ubuntu", Font.PLAIN, 12));
 		mainFrame.setTitle("Lernkarten");
@@ -182,20 +172,15 @@ public class StartGui extends JFrame {
 		decksCard.add(deckErstellenButton);
 		deckErstellenButton.setFont(new Font("Ubuntu", Font.PLAIN, 13));
 		deckErstellenButton.setBackground(Color.GREEN);
-<<<<<<< HEAD
 		deckErstellenButton.setForeground(new Color (2, 48, 89));
 		deckErstellenButton.addActionListener(new ButtonListener(app, this, "deckErstellen"));
 		
-=======
-		deckErstellenButton.setForeground(new Color(2, 48, 89));
-		deckErstellenButton.addActionListener(new ButtonListener(this, "deckErstellen"));
 
->>>>>>> branch 'main' of https://git.informatik.uni-hamburg.de/0sterkel/ptp22-do08-lernkarten.git
 		JButton deckBearbeitenButton = new JButton("Deck Bearbeiten");
 		decksCard.add(deckBearbeitenButton);
 		deckBearbeitenButton.setFont(new Font("Ubuntu", Font.PLAIN, 13));
 		deckBearbeitenButton.setForeground(new Color(2, 48, 89));
-		deckBearbeitenButton.addActionListener(new ButtonListener(this, "deckBearbeiten"));
+		deckBearbeitenButton.addActionListener(new ButtonListener(app, this, "deckBearbeiten"));
 
 		// Statistik-Karte
 		JPanel statistikCard = new JPanel();
