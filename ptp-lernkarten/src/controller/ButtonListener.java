@@ -55,7 +55,14 @@ public class ButtonListener implements ActionListener {
 			String deckname = ((DeckErstellenGui) gui).getDeckName().getText();
 			app.deckErstellen(deckname);
 		} else if (cmd.equals("deckErstellen")) {
+<<<<<<< HEAD
 			 new DeckErstellenGui(app);	
+=======
+			new DeckErstellenGui();
+
+		} else if (cmd.equals("deckBearbeiten")) {
+			new DeckErstellenGui();
+>>>>>>> branch 'main' of https://git.informatik.uni-hamburg.de/0sterkel/ptp22-do08-lernkarten.git
 		}
 	}
 }
