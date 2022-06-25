@@ -16,7 +16,6 @@ public class Deck {
 	public Deck(String deck) {
 		deckname = deck;
 		saveDeckCSV();
-
 	}
 
 	public void addFlashcard(Flashcard flash) {

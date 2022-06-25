@@ -9,6 +9,13 @@ import view.StartGui;
 
 public class Main {
 
+	StartGui gui;
+
+	public Main() {
+
+		new StartGui(this);
+	}
+
 	public static void main(String[] args) {
 
 		new Main();
@@ -18,13 +25,6 @@ public class Main {
 		System.out.println(DeckManager.getDecks().get(1).getDeckname());
 		System.out.println(DeckManager.getDecks().get(2).getDeckname());
 		System.out.println(DeckManager.getDecks().get(2).getDeckname());
-	}
-
-	StartGui gui;
-
-	public Main() {
-
-		gui = new StartGui(this);
 	}
 
 	// API

@@ -9,8 +9,8 @@ import model.Deck;
 import model.DeckManager;
 import model.Flashcard;
 import util.Main;
-import view.DeckBearbeitenGui;
-import view.DeckErstellenGui;
+import view.EditDeckGui;
+import view.CreateDeckGui;
 
 public class ButtonListener implements ActionListener {
 
@@ -35,13 +35,13 @@ public class ButtonListener implements ActionListener {
 
 	private void doCommand(String cmd) {
 		if (cmd.equals("ok")) {
-			String question = ((DeckErstellenGui) gui).getQuestion().getText();
-			String answer = ((DeckErstellenGui) gui).getAnswer().getText();
+			String question = ((CreateDeckGui) gui).getQuestion().getText();
+			String answer = ((CreateDeckGui) gui).getAnswer().getText();
 
 			deck.addFlashcard(new Flashcard(index, question, answer));
 			index++;
-			((DeckErstellenGui) gui).getQuestion().setText("");
-			((DeckErstellenGui) gui).getAnswer().setText("");
+			((CreateDeckGui) gui).getQuestion().setText("");
+			((CreateDeckGui) gui).getAnswer().setText("");
 		} else if (cmd.equals("confirm")) {
 			System.out.println(DeckManager.getDecks().get(1).getDeckname());
 			for (Flashcard f : deck.getDeck()) {
@@ -51,14 +51,14 @@ public class ButtonListener implements ActionListener {
 			}
 
 		} else if (cmd.equals("Deckname Bestätigen")) {
-			String deckname = ((DeckErstellenGui) gui).getDeckName().getText();
+			String deckname = ((CreateDeckGui) gui).getDeckName().getText();
 			app.createDeck(deckname);
 		} else if (cmd.equals("deckErstellen")) {
 
-			new DeckErstellenGui(app);
+			new CreateDeckGui(app);
 
 		} else if (cmd.equals("deckBearbeiten")) {
-			new DeckBearbeitenGui(app);
+			new EditDeckGui(app);
 		}
 	}
 }
