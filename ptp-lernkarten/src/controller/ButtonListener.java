@@ -32,7 +32,30 @@ public class ButtonListener implements ActionListener {
 	}
 
 	private void doCommand(String cmd) {
+<<<<<<< HEAD
 		if (cmd.equals("deckErstellen")) {
+=======
+		if (cmd.equals("ok")) {
+			String question = ((CreateDeckGui) gui).getQuestion().getText();
+			String answer = ((CreateDeckGui) gui).getAnswer().getText();
+
+			deck.addFlashcard(new Flashcard(index, question, answer));
+			index++;
+			((CreateDeckGui) gui).getQuestion().setText("");
+			((CreateDeckGui) gui).getAnswer().setText("");
+		} else if (cmd.equals("confirm")) {
+			System.out.println(DeckManager.getDecks().get(1).getDeckname());
+			for (Flashcard f : deck.getDeckFlashcardlist()) {
+				System.out.println(f.getIndex());
+				System.out.println(f.getQuestion());
+				System.out.println(f.getAnswer());
+			}
+
+		} else if (cmd.equals("Deckname Bestätigen")) {
+			String deckname = ((CreateDeckGui) gui).getDeckName().getText();
+			app.createDeck(deckname);
+		} else if (cmd.equals("deckErstellen")) {
+>>>>>>> branch 'main' of https://git.informatik.uni-hamburg.de/0sterkel/ptp22-do08-lernkarten.git
 
 			new CreateDeckGui(app);
 
