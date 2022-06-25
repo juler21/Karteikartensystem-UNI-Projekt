@@ -8,32 +8,39 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DeckManager {
 
-	private static HashMap<Integer, Deck> decks = new HashMap<Integer, Deck>();
-	private static Path pathDirectory;
-	private static int anzahlDecks = 0;
+	private List<Deck> decks;
+	private Path pathDirectory;
+	private int anzahlDecks;
 
 	public DeckManager() {
-
+		decks = new ArrayList<Deck>();
+		anzahlDecks = 0;
+		createDirectories();
 	}
 
-	public static void addDeck(Deck d) {
+	public void addDeck(Deck d) {
 		anzahlDecks++;
-		decks.put(anzahlDecks, d);
+		decks.add(d);
 	}
 
-	public static HashMap<Integer, Deck> getDecks() {
+	public Deck getDeck(int index) {
+		return decks.get(index);
+	}
+
+	public List<Deck> getDecks() {
 		return decks;
 	}
 
-	public static void setDecks(HashMap<Integer, Deck> decks) {
-		DeckManager.decks = decks;
+	public void setDecks(List<Deck> decks) {
+		this.decks = decks;
 	}
 
-	public static String[] findAllFilesInFolder(File folder) {
+	public String[] findAllFilesInFolder(File folder) {
 		String[] paths = new String[folder.listFiles().length];
 		for (int i = 0; i < folder.listFiles().length; i++) {
 			paths[i] = folder.listFiles()[i].toString();
@@ -45,7 +52,7 @@ public class DeckManager {
 		return paths;
 	}
 
-	public static Path[] findAllFilesInFolderPath(File folder) {
+	public Path[] findAllFilesInFolderPath(File folder) {
 		Path[] paths = new Path[folder.listFiles().length];
 		for (int i = 0; i < folder.listFiles().length; i++) {
 			paths[i] = folder.listFiles()[i].toPath();
@@ -57,14 +64,14 @@ public class DeckManager {
 		return paths;
 	}
 
-	public static String pathToFileName(Path path) {
+	public String pathToFileName(Path path) {
 		int length = path.getFileName().toString().length() - 4;
 		String name = path.getFileName().toString().substring(0, length);
 		return name;
 	}
 
 //TODO nehme eine Methode
-	public static void getData(File folder) {
+	public void getData(File folder) {
 		String[] paths = findAllFilesInFolder(folder);
 		Path[] paths1 = findAllFilesInFolderPath(folder);
 		String line = "";
@@ -87,7 +94,7 @@ public class DeckManager {
 
 	}
 
-	public static void createDirectories() {
+	public void createDirectories() {
 
 		String path = System.getProperty("user.home");
 		pathDirectory = Paths.get(path, "decks");
@@ -100,7 +107,7 @@ public class DeckManager {
 
 	}
 
-	public static String getPathtoString() {
+	public String getPathtoString() {
 		String path = System.getProperty("user.home");
 		pathDirectory = Paths.get(path, "decks");
 		return pathDirectory.toString();

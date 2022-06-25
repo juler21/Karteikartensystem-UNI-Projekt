@@ -1,6 +1,8 @@
 package model;
 
-public class Flashcard {
+import view.Observer;
+
+public class Flashcard extends Observable {
 
 	private String question;
 	private String answer;
@@ -35,6 +37,24 @@ public class Flashcard {
 
 	public void setIndex(int index) {
 		this.index = index;
+	}
+
+	@Override
+	public void registerObserver(Observer o) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void deleteObserver(Observer o) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void notifyObserver() {
+		// TODO Auto-generated method stub
+
 	}
 
 }

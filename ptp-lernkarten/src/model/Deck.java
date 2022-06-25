@@ -8,7 +8,9 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Deck {
+import view.Observer;
+
+public class Deck extends Observable {
 	private List<Flashcard> deck = new ArrayList<Flashcard>();
 	private String deckname;
 	private int fragenIndex;
@@ -54,6 +56,10 @@ public class Deck {
 		}
 	}
 
+	public int getAmountOfFlashcards() {
+		return deck.size();
+	}
+
 	public List<Flashcard> getDeck() {
 		return deck;
 	}
@@ -64,6 +70,24 @@ public class Deck {
 
 	public void setDeckname(String deckname) {
 		this.deckname = deckname;
+	}
+
+	@Override
+	public void registerObserver(Observer o) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void deleteObserver(Observer o) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void notifyObserver() {
+		// TODO Auto-generated method stub
+
 	}
 
 }

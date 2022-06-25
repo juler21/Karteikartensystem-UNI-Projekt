@@ -15,6 +15,9 @@ import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
 import controller.ButtonListener;
+import controller.CreateDeckGuiListener;
+import model.Deck;
+import model.Flashcard;
 import util.Main;
 
 public class CreateDeckGui extends JFrame {
@@ -27,14 +30,19 @@ public class CreateDeckGui extends JFrame {
 	private JTextField deckName;
 	private JTextField question;
 	private JTextField answer;
+	private Deck deck; // model
+	private Flashcard flash; // model
+	private CreateDeckGuiListener controller; // controller
 
+	public CreateDeckGui(Deck deck, Flashcard flash, String windowname) {
+		this.deck = deck;
+		this.flash = flash;
+		this.app = app;
 
-	public CreateDeckGui(Main app) {
-		
-		this.app =app;
-		
+		controller = new CreateDeckGuiListener(this, deck, flash);
+
 		// JFrame erstellen
-		createDeckFrame = new JFrame();
+		createDeckFrame = new JFrame(windowname);
 		createDeckFrame.setFont(new Font("Ubuntu", Font.PLAIN, 12));
 		createDeckFrame.setTitle("Deck Erstellen");
 		createDeckFrame.setBounds(100, 100, 500, 300);
@@ -43,8 +51,8 @@ public class CreateDeckGui extends JFrame {
 		framePanel.setLayout(new CardLayout(0, 0));
 		createDeckFrame.setContentPane(framePanel);
 
-		//Karten auf dem framePanel erstellen
-		//setDeckname Karte
+		// Karten auf dem framePanel erstellen
+		// setDeckname Karte
 		setDecknameCard = new JPanel();
 		setDecknameCard.setLayout(new BorderLayout());
 		framePanel.add(setDecknameCard, "decknameCard");
@@ -55,16 +63,16 @@ public class CreateDeckGui extends JFrame {
 		confirm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				((CardLayout) framePanel.getLayout()).show(framePanel, "deckKartenCard");
-				new ButtonListener(app, createDeckFrame, "Deckname Bestätigen");
+
 			}
 		});
-		
+		confirm.addActionListener(controller);
+
 		setDecknameCard.add(label1, BorderLayout.NORTH);
 		setDecknameCard.add(deckName, BorderLayout.CENTER);
 		setDecknameCard.add(confirm, BorderLayout.PAGE_END);
-		
-		
-		//createFlashcard Karte
+
+		// createFlashcard Karte
 		createFlashcardsCard = new JPanel();
 		createFlashcardsCard.setLayout(new BorderLayout());
 		framePanel.add(createFlashcardsCard, "deckKartenCard");
@@ -92,7 +100,7 @@ public class CreateDeckGui extends JFrame {
 		JPanel buttonPanel = new JPanel(new FlowLayout());
 		JButton okButton = new JButton("OK");
 		okButton.addActionListener(new ButtonListener(app, this, "ok"));
-		
+
 		JButton confirmButton = new JButton("confirm");
 		confirmButton.addActionListener(new ButtonListener(app, this, "confirm"));
 
@@ -101,7 +109,7 @@ public class CreateDeckGui extends JFrame {
 		createFlashcardsCard.add(qaPanel, BorderLayout.CENTER);
 		createFlashcardsCard.add(buttonPanel, BorderLayout.PAGE_END);
 
-		//Start Karte des CardLayout setzten 
+		// Start Karte des CardLayout setzten
 		((CardLayout) framePanel.getLayout()).show(framePanel, "startCard");
 		pack();
 		createDeckFrame.setVisible(true);

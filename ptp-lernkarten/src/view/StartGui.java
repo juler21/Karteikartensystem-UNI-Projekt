@@ -9,8 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
@@ -18,47 +16,27 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controller.ButtonListener;
-
-import util.Main;
-
-import java.awt.SystemColor;
-
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import java.awt.Font;
-import javax.swing.SwingConstants;
-import java.awt.FlowLayout;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.CardLayout;
-import java.awt.GridLayout;
-
 import model.DeckManager;
 
+public class StartGui extends JFrame implements Observer {
 
-public class StartGui extends JFrame {
-	
- 	//Applikation
-	private Main app;
-	
-	//Fenster	
+	// Fenster
 	private JFrame mainFrame;
 	private JPanel framePanel;
-	
-	//TopButton Panel mit Navigationsknöpfen 
+
+	// TopButton Panel mit Navigationsknöpfen
 	private JPanel topButtonPanel;
-	//ContentPanel auf dem verschiedene CardLayout Karten liegen 
+	// ContentPanel auf dem verschiedene CardLayout Karten liegen
 	private JPanel contentPanel;
 	private JList<String> chooseDeckList;
 
+	private DeckManager manager;
 
-	public StartGui(Main app) {	
-		
-		this.app = app;
+	public StartGui(DeckManager manager, String name) {
+		this.manager = manager;
 
 		// JFrame erstellen
-		mainFrame = new JFrame();
+		mainFrame = new JFrame(name);
 		mainFrame.setFont(new Font("Ubuntu", Font.PLAIN, 12));
 		mainFrame.setTitle("Lernkarten");
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -76,7 +54,7 @@ public class StartGui extends JFrame {
 
 		// startContentPane mit Karten das auf dem frameContentPane liegt erstellen
 		generateContentPanel();
-		
+
 		mainFrame.setVisible(true);
 
 	}
@@ -88,8 +66,7 @@ public class StartGui extends JFrame {
 		framePanel.add(topButtonPanel, BorderLayout.NORTH);
 		topButtonPanel.setBackground(new Color(244, 244, 244));
 
-		
-		//START BUTTON
+		// START BUTTON
 		JButton startButton = new JButton("START");
 		startButton.setFont(new Font("Ubuntu", Font.PLAIN, 13));
 		startButton.setForeground(new Color(2, 48, 89));
@@ -102,7 +79,7 @@ public class StartGui extends JFrame {
 		});
 		topButtonPanel.add(startButton);
 
-		//DECKS BUTTON
+		// DECKS BUTTON
 		JButton decksButton = new JButton("DECKS");
 		decksButton.setFont(new Font("Ubuntu", Font.PLAIN, 13));
 		decksButton.setForeground(new Color(2, 48, 89));
@@ -114,7 +91,7 @@ public class StartGui extends JFrame {
 		});
 		topButtonPanel.add(decksButton);
 
-		//STATISTIK BUTTON
+		// STATISTIK BUTTON
 		JButton statistikButton = new JButton("STATISTIK");
 		statistikButton.setFont(new Font("Ubuntu", Font.PLAIN, 13));
 		statistikButton.setForeground(new Color(2, 48, 89));
@@ -127,7 +104,7 @@ public class StartGui extends JFrame {
 		});
 		topButtonPanel.add(statistikButton);
 
-		//EINSTELLUNGEN BUTTON
+		// EINSTELLUNGEN BUTTON
 		JButton einstellungenButton = new JButton("EINSTELLUNGEN");
 		einstellungenButton.setFont(new Font("Ubuntu", Font.PLAIN, 13));
 		einstellungenButton.setForeground(new Color(2, 48, 89));
@@ -142,6 +119,7 @@ public class StartGui extends JFrame {
 
 	}
 
+// 
 	private void generateContentPanel() {
 
 		contentPanel = new JPanel();
@@ -171,10 +149,9 @@ public class StartGui extends JFrame {
 		deckErstellenButton.setBounds(146, 93, 141, 29);
 		deckErstellenButton.setFont(new Font("Ubuntu", Font.PLAIN, 13));
 		deckErstellenButton.setBackground(Color.GREEN);
-		deckErstellenButton.setForeground(new Color (2, 48, 89));
+		deckErstellenButton.setForeground(new Color(2, 48, 89));
 		deckErstellenButton.addActionListener(new ButtonListener(app, this, "deckErstellen"));
 		decksCard.add(deckErstellenButton);
-		
 
 		JButton deckBearbeitenButton = new JButton("Deck Bearbeiten");
 		deckBearbeitenButton.setFont(new Font("Ubuntu", Font.PLAIN, 13));
@@ -198,12 +175,18 @@ public class StartGui extends JFrame {
 	private void deckListeErstellen() {
 
 		String[] decksArray = new String[10];
-		DeckManager.getData(new File(DeckManager.getPathtoString()));
-		DeckManager.getDecks().forEach((key, value) -> {
+		manager.getData(new File(manager.getPathtoString()));
+		manager.getDecks().forEach((key, value) -> {
 			decksArray[key] = value.getDeckname();
 		});
 
 		chooseDeckList = new JList<>(decksArray);
+
+	}
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
 
 	}
 }
