@@ -7,10 +7,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import view.Observer;
 
-public class Deck extends Observable {
-	
+public class Deck {
+
 	private List<Flashcard> flashcardList = new ArrayList<Flashcard>();
 
 	private String deckname;
@@ -30,7 +29,7 @@ public class Deck extends Observable {
 		return flashcardList.get(index);
 	}
 
-	public void saveDeckCSV() {
+	private void saveDeckCSV() {
 
 		Path pathCSV = Paths.get(DeckManager.getPathtoString(), deckname + ".csv");
 
@@ -71,24 +70,6 @@ public class Deck extends Observable {
 
 	public void setDeckname(String deckname) {
 		this.deckname = deckname;
-	}
-
-	@Override
-	public void registerObserver(Observer o) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void deleteObserver(Observer o) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void notifyObserver() {
-		// TODO Auto-generated method stub
-
 	}
 
 }

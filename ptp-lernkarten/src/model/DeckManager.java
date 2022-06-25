@@ -11,7 +11,9 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DeckManager {
+import view.Observer;
+
+public class DeckManager extends Observable {
 
 	private List<Deck> decks;
 	private static Path pathDirectory;
@@ -111,6 +113,24 @@ public class DeckManager {
 		String path = System.getProperty("user.home");
 		pathDirectory = Paths.get(path, "decks");
 		return pathDirectory.toString();
+	}
+
+	@Override
+	public void registerObserver(Observer o) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void deleteObserver(Observer o) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void notifyObserver() {
+		// TODO Auto-generated method stub
+
 	}
 
 }
