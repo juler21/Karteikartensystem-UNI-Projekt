@@ -15,9 +15,11 @@ import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
 import controller.ButtonListener;
+import util.Main;
 
 public class DeckErstellenGui extends JFrame {
 
+	private Main app;
 	private JFrame decksErstellenFrame;
 	private JPanel framePane;
 	private JPanel decknameCard;
@@ -26,7 +28,9 @@ public class DeckErstellenGui extends JFrame {
 	private JTextField question;
 	private JTextField answer;
 
-	public DeckErstellenGui() {
+	public DeckErstellenGui(Main app) {
+		
+		this.app =app;
 		
 		//JFrame erstellen
 		decksErstellenFrame = new JFrame();
@@ -55,7 +59,7 @@ public class DeckErstellenGui extends JFrame {
 		    public void actionPerformed(ActionEvent e)
 		    {
 		    	((CardLayout) framePane.getLayout()).show(framePane,"deckKartenCard");
-		    	new ButtonListener(decksErstellenFrame, "Deckname Bestätigen");
+		    	new ButtonListener(app, decksErstellenFrame, "Deckname Bestätigen");
 		    }}
 		);
 
@@ -95,8 +99,8 @@ public class DeckErstellenGui extends JFrame {
 		JPanel buttonPanel = new JPanel(new FlowLayout());
 		JButton okButton = new JButton("OK");
 		JButton confirmButton = new JButton("confirm");
-		okButton.addActionListener(new ButtonListener(this, "ok"));
-		confirmButton.addActionListener(new ButtonListener(this, "confirm"));
+		okButton.addActionListener(new ButtonListener(app, this, "ok"));
+		confirmButton.addActionListener(new ButtonListener(app, this, "confirm"));
 		
 		buttonPanel.add(okButton);
 		buttonPanel.add(confirmButton);
@@ -115,8 +119,7 @@ public class DeckErstellenGui extends JFrame {
 	public JTextField getAnswer() {
 		return answer;
 	}
-		
-
+	
 	public JTextField getDeckName() {
 		return deckName;
 	}

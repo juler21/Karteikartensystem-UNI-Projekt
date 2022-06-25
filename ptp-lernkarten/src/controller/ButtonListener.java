@@ -8,17 +8,19 @@ import javax.swing.JFrame;
 import model.Deck;
 import model.DeckManager;
 import model.Flashcard;
+import util.Main;
 import view.DeckErstellenGui;
-import view.QAGUI;
 
 public class ButtonListener implements ActionListener {
 
 	private JFrame gui;
+	private Main app;
 	private String cmd;
 	private int index;
 	private static Deck deck;
 
-	public ButtonListener(JFrame gui, String cmd) {
+	public ButtonListener(Main app, JFrame gui, String cmd) {
+		this.app = app;
 		this.gui = gui;
 		this.cmd = cmd;
 
@@ -47,14 +49,13 @@ public class ButtonListener implements ActionListener {
 				System.out.println(f.getAnswer());
 			}
 
-			deck.loadInCSV();
+			deck.speichernCSV();
 
 		} else if (cmd.equals("Deckname Bestätigen")) {
-			Deck newDeck = new Deck(((DeckErstellenGui) (gui)).getDeckName().getText());
-			deck = newDeck;
-			DeckManager.addDeck(index, newDeck);
+			String deckname = ((DeckErstellenGui) gui).getDeckName().getText();
+			app.deckErstellen(deckname);
 		} else if (cmd.equals("deckErstellen")) {
-			 new DeckErstellenGui();	
+			 new DeckErstellenGui(app);	
 		}
 	}
 }

@@ -14,13 +14,15 @@ public class DeckManager {
 
 	private static HashMap<Integer, Deck> decks = new HashMap<Integer, Deck>();
 	private static Path pathDirectory;
+	private static int anzahlDecks = 0;
 
 	public DeckManager() {
 
 	}
 
-	public static void addDeck(int index, Deck d) {
-		decks.put(index, d);
+	public static void addDeck(Deck d) {
+		anzahlDecks++;
+		decks.put(anzahlDecks, d);
 	}
 
 	public static HashMap<Integer, Deck> getDecks() {
@@ -61,7 +63,7 @@ public class DeckManager {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			addDeck(i, newdeck);
+			addDeck(newdeck);
 		}
 
 	}

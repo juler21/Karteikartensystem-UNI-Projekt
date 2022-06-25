@@ -15,6 +15,8 @@ public class Deck {
 
 	public Deck(String deck) {
 		deckname = deck;
+		speichernCSV();
+		
 
 	}
 
@@ -26,7 +28,7 @@ public class Deck {
 		return deck.get(index);
 	}
 
-	public void loadInCSV() {
+	public void speichernCSV() {
 		DeckManager.createDirectories();
 
 		Path pathCSV = Paths.get(DeckManager.getPathtoString(), deckname + ".csv");

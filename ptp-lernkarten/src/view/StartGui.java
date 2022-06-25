@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controller.ButtonListener;
+import util.Main;
 
 import java.awt.SystemColor;
 
@@ -25,11 +26,7 @@ import java.awt.GridLayout;
 
 public class StartGui extends JFrame {
 	
- public static void main (String[] args) {
-		 
-		 new StartGui();
-	 }
-
+ 	private Main app;
 	private JFrame mainFrame;
 	private JPanel frameContentPane;
 	private JPanel startContentPane;
@@ -39,8 +36,9 @@ public class StartGui extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public StartGui() {	
+	public StartGui(Main app) {	
 		
+		this.app = app;
 		//JFrame erstellen
 		mainFrame = new JFrame();
 		mainFrame.setFont(new Font("Ubuntu", Font.PLAIN, 12));
@@ -161,7 +159,7 @@ public class StartGui extends JFrame {
 		deckErstellenButton.setFont(new Font("Ubuntu", Font.PLAIN, 13));
 		deckErstellenButton.setBackground(Color.GREEN);
 		deckErstellenButton.setForeground(new Color (2, 48, 89));
-		deckErstellenButton.addActionListener(new ButtonListener(this, "deckErstellen"));
+		deckErstellenButton.addActionListener(new ButtonListener(app, this, "deckErstellen"));
 		
 		JButton deckBearbeitenButton = new JButton("Deck Bearbeiten");
 		decksCard.add(deckBearbeitenButton);
