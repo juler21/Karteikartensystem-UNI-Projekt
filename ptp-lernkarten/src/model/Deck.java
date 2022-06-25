@@ -15,29 +15,38 @@ public class Deck {
 
 	public Deck(String deck) {
 		deckname = deck;
-		speichernCSV();
-		
+		saveDeckCSV();
 	}
 
 	public void addFlashcard(Flashcard flash) {
 		deck.add(flash);
+		saveFlashcardCSV(flash);
 	}
 
 	public Flashcard getFlashcard(int index) {
 		return deck.get(index);
 	}
 
-	public void speichernCSV() {
-		DeckManager.createDirectories();
+	public void saveDeckCSV() {
+
+		Path pathCSV = Paths.get(DeckManager.getPathtoString(), deckname + ".csv");
+
+		try {
+			BufferedWriter writeBuffer = Files.newBufferedWriter(pathCSV);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	private void saveFlashcardCSV(Flashcard f) {
 
 		Path pathCSV = Paths.get(DeckManager.getPathtoString(), deckname + ".csv");
 
 		try (BufferedWriter writeBuffer = Files.newBufferedWriter(pathCSV);) {
-			for (Flashcard f : deck) {
-				System.out.println(f.getIndex());
-				String row = String.format("%d;%s;%s%n", f.getIndex(), f.getQuestion(), f.getAnswer());
-				writeBuffer.write(row);
-			}
+
+			String row = String.format("%d;%s;%s%n", f.getIndex(), f.getQuestion(), f.getAnswer());
+			writeBuffer.write(row);
 
 		} catch (IOException e) {
 			e.printStackTrace();

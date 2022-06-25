@@ -50,11 +50,9 @@ public class ButtonListener implements ActionListener {
 				System.out.println(f.getAnswer());
 			}
 
-			deck.speichernCSV();
-
 		} else if (cmd.equals("Deckname Bestätigen")) {
 			String deckname = ((CreateDeckGui) gui).getDeckName().getText();
-			app.deckErstellen(deckname);
+			app.createDeck(deckname);
 		} else if (cmd.equals("deckErstellen")) {
 
 			new CreateDeckGui(app);
