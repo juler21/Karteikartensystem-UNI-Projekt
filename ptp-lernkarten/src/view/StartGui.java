@@ -160,6 +160,7 @@ public class StartGui extends JFrame {
 		decksCard.add(deckBearbeitenButton);
 		deckBearbeitenButton.setFont(new Font("Ubuntu", Font.PLAIN, 13));
 		deckBearbeitenButton.setForeground(new Color(2, 48, 89));
+		deckBearbeitenButton.addActionListener(new ButtonListener(this, "deckBearbeiten"));
 
 		// Statistik-Karte
 		JPanel statistikCard = new JPanel();

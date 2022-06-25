@@ -9,7 +9,6 @@ import model.Deck;
 import model.DeckManager;
 import model.Flashcard;
 import view.DeckErstellenGui;
-import view.QAGUI;
 
 public class ButtonListener implements ActionListener {
 
@@ -54,7 +53,10 @@ public class ButtonListener implements ActionListener {
 			deck = newDeck;
 			DeckManager.addDeck(index, newDeck);
 		} else if (cmd.equals("deckErstellen")) {
-			 new DeckErstellenGui();	
+			new DeckErstellenGui();
+
+		} else if (cmd.equals("deckBearbeiten")) {
+			new DeckErstellenGui();
 		}
 	}
 }
