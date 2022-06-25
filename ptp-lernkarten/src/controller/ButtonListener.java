@@ -9,6 +9,7 @@ import model.Deck;
 import model.DeckManager;
 import model.Flashcard;
 import util.Main;
+import view.DeckBearbeitenGui;
 import view.DeckErstellenGui;
 
 public class ButtonListener implements ActionListener {
@@ -56,10 +57,10 @@ public class ButtonListener implements ActionListener {
 			app.deckErstellen(deckname);
 		} else if (cmd.equals("deckErstellen")) {
 
-			 new DeckErstellenGui(app);	
+			new DeckErstellenGui(app);
 
 		} else if (cmd.equals("deckBearbeiten")) {
-			new DeckErstellenGui(app);
+			new DeckBearbeitenGui(app);
 		}
 	}
 }

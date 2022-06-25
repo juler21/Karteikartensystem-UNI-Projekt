@@ -14,12 +14,16 @@ import javax.swing.JPanel;
 
 import controller.ButtonListener;
 import model.DeckManager;
+import util.Main;
 
 public class DeckBearbeitenGui extends JFrame {
 
 	private JList<String> deckAuswahlList;
+	private Main app;
 
-	public DeckBearbeitenGui() {
+	public DeckBearbeitenGui(Main app) {
+		this.app = app;
+
 		JPanel decksCard = new JPanel();
 		add(decksCard, "decksCard");
 		decksCard.setLayout(new GridLayout(1, 2, 0, 0));
@@ -44,6 +48,7 @@ public class DeckBearbeitenGui extends JFrame {
 		decksCard.add(deckBearbeitenButton);
 		deckBearbeitenButton.setFont(new Font("Ubuntu", Font.PLAIN, 13));
 		deckBearbeitenButton.setForeground(new Color(2, 48, 89));
+		setVisible(true);
 	}
 
 	private void deckListeErstellen() {
