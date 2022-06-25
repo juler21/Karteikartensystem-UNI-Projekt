@@ -7,16 +7,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-
-<<<<<<< HEAD
 import view.Observer;
 
 public class Deck extends Observable {
-	private List<Flashcard> deck = new ArrayList<Flashcard>();
-=======
-public class Deck {
+	
 	private List<Flashcard> flashcardList = new ArrayList<Flashcard>();
->>>>>>> branch 'main' of https://git.informatik.uni-hamburg.de/0sterkel/ptp22-do08-lernkarten.git
+
 	private String deckname;
 	private int fragenIndex;
 
@@ -61,17 +57,12 @@ public class Deck {
 		}
 	}
 
-<<<<<<< HEAD
 	public int getAmountOfFlashcards() {
-		return deck.size();
+		return flashcardList.size();
 	}
 
-	public List<Flashcard> getDeck() {
-		return deck;
-=======
 	public List<Flashcard> getDeckFlashcardlist() {
 		return flashcardList;
->>>>>>> branch 'main' of https://git.informatik.uni-hamburg.de/0sterkel/ptp22-do08-lernkarten.git
 	}
 
 	public String getDeckname() {

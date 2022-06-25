@@ -16,7 +16,8 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import controller.ButtonListener;
+import controller.StartGuiListener;
+import model.Deck;
 import model.DeckManager;
 
 public class StartGui extends JFrame implements Observer {
@@ -29,12 +30,12 @@ public class StartGui extends JFrame implements Observer {
 	private JPanel topButtonPanel;
 	// ContentPanel auf dem verschiedene CardLayout Karten liegen
 	private JPanel contentPanel;
-	private JComboBox<String> chooseDeckList;
+	private JComboBox<Deck> chooseDeckList;
 
-	private DeckManager manager;
+	private DeckManager deckmanager;
 
 	public StartGui(DeckManager manager, String name) {
-		this.manager = manager;
+		this.deckmanager = manager;
 
 		// JFrame erstellen
 		mainFrame = new JFrame(name);
@@ -151,13 +152,13 @@ public class StartGui extends JFrame implements Observer {
 		deckErstellenButton.setFont(new Font("Ubuntu", Font.PLAIN, 13));
 		deckErstellenButton.setBackground(Color.GREEN);
 		deckErstellenButton.setForeground(new Color(2, 48, 89));
-		deckErstellenButton.addActionListener(new ButtonListener(app, this, "deckErstellen"));
+		deckErstellenButton.addActionListener(new StartGuiListener(this, deckmanager, "deckErstellen"));
 		decksCard.add(deckErstellenButton);
 
 		JButton deckBearbeitenButton = new JButton("Deck Bearbeiten");
 		deckBearbeitenButton.setFont(new Font("Ubuntu", Font.PLAIN, 13));
 		deckBearbeitenButton.setForeground(new Color(2, 48, 89));
-		deckBearbeitenButton.addActionListener(new ButtonListener(app, this, "deckBearbeiten"));
+		deckBearbeitenButton.addActionListener(new StartGuiListener(this, deckmanager, "deckBearbeiten"));
 		decksCard.add(deckBearbeitenButton);
 
 		// Statistik-Karte
@@ -175,13 +176,14 @@ public class StartGui extends JFrame implements Observer {
 
 	private void deckListeErstellen() {
 
-		String[] decksArray = new String[10];
-		manager.getData(new File(manager.getPathtoString()));
-		manager.getDecks().forEach((key, value) -> {
-			decksArray[key] = value.getDeckname();
-		});
+		Deck[] decksArray = new Deck[10];
+		deckmanager.getData(new File(deckmanager.getPathtoString()));
+		for (int i = 0; i < deckmanager.getDecks().size(); i++) {
+			
+			decksArray[i] = deckmanager.getDeck(i);
+		}
 
-		chooseDeckList = new JComboBox<String>(decksArray);
+		chooseDeckList = new JComboBox<Deck>(decksArray);
 
 	}
 

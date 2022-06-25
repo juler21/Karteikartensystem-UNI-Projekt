@@ -14,7 +14,7 @@ import java.util.List;
 public class DeckManager {
 
 	private List<Deck> decks;
-	private Path pathDirectory;
+	private static Path pathDirectory;
 	private int anzahlDecks;
 
 	public DeckManager() {
@@ -107,7 +107,7 @@ public class DeckManager {
 
 	}
 
-	public String getPathtoString() {
+	public static String getPathtoString() {
 		String path = System.getProperty("user.home");
 		pathDirectory = Paths.get(path, "decks");
 		return pathDirectory.toString();

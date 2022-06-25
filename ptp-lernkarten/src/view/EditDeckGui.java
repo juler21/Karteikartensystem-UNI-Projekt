@@ -19,13 +19,15 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 
-import controller.ButtonListener;
+import controller.StartGuiListener;
 import model.DeckManager;
 import util.Main;
 
 public class EditDeckGui extends JFrame {
 
-	private Main app;
+	//Model
+	private DeckManager deckmanager;
+	
 	private JFrame editDeckFrame;
 	private JPanel editDeckPanel;
 	private JPanel lowerButtonPanel;
@@ -39,13 +41,13 @@ public class EditDeckGui extends JFrame {
 	private JButton deleteFlashcardButton;
 	private JButton saveFlashcardButton;
 
-	public EditDeckGui(Main app) {
+	public EditDeckGui(DeckManager deckmanager, String windowname) {
 		
-		this.app = app;
+		this.deckmanager = deckmanager;
 		
 		
 		// JFrame erstellen
-		editDeckFrame = new JFrame();
+		editDeckFrame = new JFrame(windowname);
 		editDeckFrame.setFont(new Font("Ubuntu", Font.PLAIN, 12));
 		editDeckFrame.setTitle("Lernkarten");
 		editDeckFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
