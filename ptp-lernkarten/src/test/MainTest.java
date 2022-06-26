@@ -1,6 +1,7 @@
 package test;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.File;
 
@@ -49,5 +50,6 @@ public class MainTest {
 			}
 		}
 		assertTrue(result);
+		assertEquals(app.getDeckmanager().getDecks().get("test123").getDeckname(), "test123");
 	}
 }
