@@ -1,6 +1,7 @@
 package model;
 
 import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -16,12 +17,15 @@ public class Deck extends Observable {
 
 	public Deck(String deck) {
 		deckname = deck;
-		saveDeckCSV();
 	}
 
 	public void addFlashcard(Flashcard flash) {
 		flashcardList.add(flash);
 		saveFlashcardCSV(flash);
+	}
+
+	public void loadFlashcard(Flashcard flash) {
+		flashcardList.add(flash);
 	}
 
 	public Flashcard getFlashcard(int index) {
@@ -32,7 +36,7 @@ public class Deck extends Observable {
 		flashcardList.remove(index);
 	}
 
-	private void saveDeckCSV() {
+	public void saveDeckCSV() {
 
 		Path pathCSV = Paths.get(DeckManager.getPathtoString(), deckname + ".csv");
 
@@ -47,13 +51,13 @@ public class Deck extends Observable {
 	private void saveFlashcardCSV(Flashcard f) {
 
 		Path pathCSV = Paths.get(DeckManager.getPathtoString(), deckname + ".csv");
+		String pathCSVString = pathCSV.toString();
 
-		try (BufferedWriter writeBuffer = Files.newBufferedWriter(pathCSV);) {
+		try (BufferedWriter writeBuffer = new BufferedWriter(new FileWriter(pathCSVString, true))) {
 
-//			String row = String.format("%d;%s;%s%n", f.getIndex(), f.getQuestion(), f.getAnswer());
-			String row = f.getIndex() + ";" + f.getQuestion() + ";" + f.getAnswer();
-			writeBuffer.newLine();
-			writeBuffer.write(row);
+			String row = String.format("%d;%s;%s%n", f.getIndex(), f.getQuestion(), f.getAnswer());
+
+			writeBuffer.append(row);
 			writeBuffer.close();
 
 		} catch (IOException e) {

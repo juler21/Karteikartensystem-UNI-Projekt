@@ -26,7 +26,14 @@ public class DeckManager extends Observable {
 	public void addDeck(Deck d) {
 		anzahlDecks++;
 		decks.put(d.getDeckname(), d);
+		d.saveDeckCSV();
 
+		notifyObserver();
+	}
+
+	public void loadDeck(Deck d) {
+		anzahlDecks++;
+		decks.put(d.getDeckname(), d);
 		notifyObserver();
 	}
 
@@ -49,25 +56,31 @@ public class DeckManager extends Observable {
 
 	public String[] findAllFilesInFolder(File folder) {
 		String[] paths = new String[folder.listFiles().length];
-		for (int i = 0; i < folder.listFiles().length; i++) {
-			paths[i] = folder.listFiles()[i].toString();
+		if (folder.listFiles() != null) {
+			System.out.println(folder.listFiles().length);
+			for (int i = 0; i < folder.listFiles().length; i++) {
+				paths[i] = folder.listFiles()[i].toString();
+			}
+			for (String s : paths) {
+				System.out.println(s);
+			}
+			System.out.println("--------------------------------------------------");
 		}
-		for (String s : paths) {
-			System.out.println(s);
-		}
-		System.out.println("--------------------------------------------------");
 		return paths;
 	}
 
 	public Path[] findAllFilesInFolderPath(File folder) {
 		Path[] paths = new Path[folder.listFiles().length];
-		for (int i = 0; i < folder.listFiles().length; i++) {
-			paths[i] = folder.listFiles()[i].toPath();
+		if (folder.listFiles() != null) {
+			for (int i = 0; i < folder.listFiles().length; i++) {
+				paths[i] = folder.listFiles()[i].toPath();
+			}
+			for (Path s : paths) {
+				System.out.println(s);
+			}
+			System.out.println("--------------------------------------------------");
 		}
-		for (Path s : paths) {
-			System.out.println(s);
-		}
-		System.out.println("--------------------------------------------------");
+
 		return paths;
 	}
 
@@ -88,7 +101,7 @@ public class DeckManager extends Observable {
 				BufferedReader br = new BufferedReader(new FileReader(paths[i]));
 				while ((line = br.readLine()) != null) {
 					String[] values = line.split(";");
-					newdeck.addFlashcard(new Flashcard(Integer.parseInt(values[0]), values[1], values[2]));
+					newdeck.loadFlashcard(new Flashcard(Integer.parseInt(values[0]), values[1], values[2]));
 				}
 
 			} catch (FileNotFoundException e) {
@@ -96,7 +109,7 @@ public class DeckManager extends Observable {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			addDeck(newdeck);
+			loadDeck(newdeck);
 		}
 
 	}
