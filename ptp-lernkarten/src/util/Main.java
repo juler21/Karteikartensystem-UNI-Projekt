@@ -14,7 +14,7 @@ public class Main {
 		deckmanager = new DeckManager();
 		String name = "Flaschcard System";
 		gui = new StartGui(deckmanager, name);
-		
+
 	}
 
 	public static void main(String[] args) {
@@ -33,17 +33,37 @@ public class Main {
 		deck.deleteFlashcard(position);
 	}
 
+	public Flashcard getFlashcard(Deck deck, int position) {
+		return deck.getFlashcard(position);
+	}
+
 	public void createDeck(String deckname) {
 		Deck newDeck = new Deck(deckname);
 		deckmanager.addDeck(newDeck);
 	}
 
-	public void deleteDeck(String deckname) {
-
+	public Deck getDeck(String deckname) {
+		return deckmanager.getDeck(deckname);
 	}
 
-	public void createDirectory1() {
+	public void deleteDeck(String deckname) {
+		deckmanager.removeDeck(deckname);
+	}
+
+	public void createDirectory() {
 		deckmanager.createDirectories();
+	}
+
+	public String getPathDirectory() {
+		return DeckManager.getPathtoString();
+	}
+
+	public StartGui getGui() {
+		return gui;
+	}
+
+	public DeckManager getDeckmanager() {
+		return deckmanager;
 	}
 
 }

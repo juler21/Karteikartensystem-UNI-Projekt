@@ -177,7 +177,7 @@ public class StartGui extends JFrame implements Observer {
 
 		chooseDeckList = new JComboBox<Deck>();
 
-		deckmanager.getData(new File(deckmanager.getPathtoString()));
+		deckmanager.getData(new File(DeckManager.getPathtoString()));
 		update();
 
 //

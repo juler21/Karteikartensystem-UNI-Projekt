@@ -13,7 +13,6 @@ public class Deck extends Observable {
 	private List<Flashcard> flashcardList = new ArrayList<Flashcard>();
 
 	private String deckname;
-	private int fragenIndex;
 
 	public Deck(String deck) {
 		deckname = deck;
@@ -51,8 +50,11 @@ public class Deck extends Observable {
 
 		try (BufferedWriter writeBuffer = Files.newBufferedWriter(pathCSV);) {
 
-			String row = String.format("%d;%s;%s%n", f.getIndex(), f.getQuestion(), f.getAnswer());
+//			String row = String.format("%d;%s;%s%n", f.getIndex(), f.getQuestion(), f.getAnswer());
+			String row = f.getIndex() + ";" + f.getQuestion() + ";" + f.getAnswer();
+			writeBuffer.newLine();
 			writeBuffer.write(row);
+			writeBuffer.close();
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -75,7 +77,7 @@ public class Deck extends Observable {
 	public void setDeckname(String deckname) {
 		this.deckname = deckname;
 	}
-	
+
 	@Override
 	public void notifyObserver() {
 		// TODO Auto-generated method stub
