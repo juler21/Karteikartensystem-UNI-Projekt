@@ -51,7 +51,9 @@ public class DeckManager extends Observable {
 	}
 
 	public void removeDeck(String deckname) {
+		getDeck(deckname).deleteDeckCSV();
 		decks.remove(deckname);
+
 	}
 
 	public String[] findAllFilesInFolder(File folder) {

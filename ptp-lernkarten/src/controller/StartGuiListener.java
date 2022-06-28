@@ -38,6 +38,8 @@ public class StartGuiListener implements ActionListener {
 		} else if (cmd.equals("deckBearbeiten")) {
 			String s = startgui.getSelectedDeck().getDeckname();
 			new EditDeckGui(deckmanager, startgui, s + "BEARBEITEN");
+		} else if (cmd.equals("deckLöschen")) {
+			deckmanager.removeDeck(startgui.getSelectedDeck().getDeckname());
 		}
 	}
 }
