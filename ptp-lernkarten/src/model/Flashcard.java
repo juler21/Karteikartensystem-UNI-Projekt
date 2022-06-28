@@ -38,6 +38,10 @@ public class Flashcard extends Observable {
 //	public void setIndex(int index) {
 //		this.index = index;
 //	}
+	@Override
+	public String toString() {
+		return question;
+	}
 
 	@Override
 	public void registerObserver(Observer o) {

@@ -111,5 +111,9 @@ public class Deck extends Observable {
 		// TODO Auto-generated method stub
 
 	}
+	@Override
+	public String toString() {
+		return deckname;
+	}
 
 }
