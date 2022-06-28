@@ -14,14 +14,16 @@ public class StartGuiListener implements ActionListener {
 	private DeckManager deckmanager;
 	// Startgui
 	private StartGui startgui;
-
 	private String cmd;
+	private int flashcardLearnIndex;
+	
 
 	public StartGuiListener(StartGui startgui, DeckManager deckmanager, String cmd) {
 
 		this.deckmanager = deckmanager;
 		this.startgui = startgui;
 		this.cmd = cmd;
+		flashcardLearnIndex = 0;
 
 	}
 
@@ -40,6 +42,14 @@ public class StartGuiListener implements ActionListener {
 			new EditDeckGui(deckmanager, startgui, s + "BEARBEITEN");
 		} else if (cmd.equals("deckLöschen")) {
 			deckmanager.removeDeck(startgui.getSelectedDeck().getDeckname());
+		} else if (cmd.equals("nextQuestionButton")) {
+			System.out.println(flashcardLearnIndex);
+			if(flashcardLearnIndex<startgui.getSelectedDeck().getAmountOfFlashcards()-1) {
+			flashcardLearnIndex++;
+			startgui.setOnlyQuestionTextLabel(startgui.getSelectedDeck().getFlashcard(flashcardLearnIndex).getQuestion());
+			startgui.setQuestionTextLabel(startgui.getSelectedDeck().getFlashcard(flashcardLearnIndex).getQuestion());
+			startgui.setAnswerTextLabel(startgui.getSelectedDeck().getFlashcard(flashcardLearnIndex).getAnswer());
+			}
 		}
 	}
 }
