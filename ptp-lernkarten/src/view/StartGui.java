@@ -14,7 +14,9 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.FontUIResource;
 
 import controller.StartGuiListener;
 import model.Deck;
@@ -28,8 +30,19 @@ public class StartGui extends JFrame implements Observer {
 
 	// TopButton Panel mit Navigationsknöpfen
 	private JPanel topButtonPanel;
+	private JButton startButton;
+	private JButton decksButton;
+	private JButton statistikButton;
+	private JButton einstellungenButton;
+	
+	
 	// ContentPanel auf dem verschiedene CardLayout Karten liegen
 	private JPanel contentPanel;
+	private JPanel startCard;
+	private JPanel decksCard;
+	private JPanel statistikCard;
+	private JPanel einstellungenCard;
+	
 	private JComboBox<Deck> chooseDeckList;
 
 	private DeckManager deckmanager;
@@ -39,15 +52,13 @@ public class StartGui extends JFrame implements Observer {
 
 		// JFrame erstellen
 		mainFrame = new JFrame(name);
-		mainFrame.setFont(new Font("Ubuntu", Font.PLAIN, 12));
+		setUIFont(new javax.swing.plaf.FontUIResource("Ubuntu",Font.PLAIN,13));
 		mainFrame.setTitle("Lernkarten");
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setBounds(100, 100, 500, 300);
 
 		// frameContentPane erstellen, dass direkt auf dem JFrame liegt
 		framePanel = new JPanel();
-		framePanel.setBackground(new Color(244, 244, 244));
-		framePanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		framePanel.setLayout(new BorderLayout(0, 0));
 		mainFrame.setContentPane(framePanel);
 
@@ -56,6 +67,9 @@ public class StartGui extends JFrame implements Observer {
 
 		// startContentPane mit Karten das auf dem frameContentPane liegt erstellen
 		generateContentPanel();
+		
+		// LearnPanel erstellen, dass auf der StartCard liegt und die Kartenlern "frames" anzeigt
+		generateLearnPanel();
 		deckmanager.registerObserver(this);
 		mainFrame.setVisible(true);
 
@@ -68,35 +82,33 @@ public class StartGui extends JFrame implements Observer {
 		framePanel.add(topButtonPanel, BorderLayout.NORTH);
 		topButtonPanel.setBackground(new Color(244, 244, 244));
 
-		// START BUTTON
-		JButton startButton = new JButton("START");
-		startButton.setFont(new Font("Ubuntu", Font.PLAIN, 13));
-		startButton.setForeground(new Color(2, 48, 89));
-		startButton.setBackground(Color.GREEN);
+		// BUTTONS
+		startButton = new JButton("START");
+		decksButton = new JButton("DECKS");
+		statistikButton = new JButton("STATISTIK");
+		einstellungenButton = new JButton("EINSTELLUNGEN");
+		
+		topButtonPanel.add(startButton);
+		topButtonPanel.add(decksButton);
+		topButtonPanel.add(statistikButton);
+		topButtonPanel.add(einstellungenButton);
+		
+		
+		// ACTIONLISTENER
 		startButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
 				((CardLayout) contentPanel.getLayout()).show(contentPanel, "startCard");
+				((CardLayout) startCard.getLayout()).show(startCard, "learnHomeCard");
 			}
 		});
-		topButtonPanel.add(startButton);
 
-		// DECKS BUTTON
-		JButton decksButton = new JButton("DECKS");
-		decksButton.setFont(new Font("Ubuntu", Font.PLAIN, 13));
-		decksButton.setForeground(new Color(2, 48, 89));
 		decksButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
 				((CardLayout) contentPanel.getLayout()).show(contentPanel, "decksCard");
 			}
 		});
-		topButtonPanel.add(decksButton);
-
-		// STATISTIK BUTTON
-		JButton statistikButton = new JButton("STATISTIK");
-		statistikButton.setFont(new Font("Ubuntu", Font.PLAIN, 13));
-		statistikButton.setForeground(new Color(2, 48, 89));
 
 		statistikButton.addActionListener(new ActionListener() {
 
@@ -104,12 +116,6 @@ public class StartGui extends JFrame implements Observer {
 				((CardLayout) contentPanel.getLayout()).show(contentPanel, "statistikCard");
 			}
 		});
-		topButtonPanel.add(statistikButton);
-
-		// EINSTELLUNGEN BUTTON
-		JButton einstellungenButton = new JButton("EINSTELLUNGEN");
-		einstellungenButton.setFont(new Font("Ubuntu", Font.PLAIN, 13));
-		einstellungenButton.setForeground(new Color(2, 48, 89));
 
 		einstellungenButton.addActionListener(new ActionListener() {
 
@@ -117,21 +123,55 @@ public class StartGui extends JFrame implements Observer {
 				((CardLayout) contentPanel.getLayout()).show(contentPanel, "einstellungenCard");
 			}
 		});
-		topButtonPanel.add(einstellungenButton);
 
 	}
 
-// 
 	private void generateContentPanel() {
 
+		// ContentPanel erstellen
 		contentPanel = new JPanel();
 		contentPanel.setLayout(new CardLayout(0, 0));
 		framePanel.add(contentPanel, BorderLayout.CENTER);
 
 		// Start-Karte
-		JPanel startCard = new JPanel();
+		startCard = new JPanel();
 		contentPanel.add(startCard, "startCard");
 		startCard.setLayout(new CardLayout(0, 0));
+		
+		// Decks-Karte
+		decksCard = new JPanel();
+		decksCard.setLayout(new GridLayout(4, 1, 0, 0));
+		contentPanel.add(decksCard, "decksCard");
+
+			deckListeErstellen();
+			decksCard.add(chooseDeckList);
+	
+			JButton deckErstellenButton = new JButton("Deck Erstellen");
+			deckErstellenButton.addActionListener(new StartGuiListener(this, deckmanager, "deckErstellen"));
+			decksCard.add(deckErstellenButton);
+	
+			JButton deckBearbeitenButton = new JButton("Deck Bearbeiten");
+			deckBearbeitenButton.addActionListener(new StartGuiListener(this, deckmanager, "deckBearbeiten"));
+			decksCard.add(deckBearbeitenButton);
+			
+			JButton deckLöschenButton = new JButton("Deck Löschen");
+			deckLöschenButton.addActionListener(new StartGuiListener(this, deckmanager, "deckLöschen"));
+			decksCard.add(deckLöschenButton);
+
+		// Statistik-Karte
+		statistikCard = new JPanel();
+		contentPanel.add(statistikCard, "statistikCard");
+
+		// Einstellungen-Karte
+		einstellungenCard = new JPanel();
+		contentPanel.add(einstellungenCard, "einstellungenCard");
+
+		// Anfangsbildschirm setzten auf "Start"
+		((CardLayout) contentPanel.getLayout()).show(contentPanel, "startCard");
+
+	}
+
+	private void generateLearnPanel() {
 		
 		//Karten die auf der StartKarte liegen 
 		
@@ -190,41 +230,8 @@ public class StartGui extends JFrame implements Observer {
 		
 		startCard.add(learnAnswerCard, "learnAnswerCard");
 
-		// Decks-Karte
-		JPanel decksCard = new JPanel();
-		decksCard.setLayout(new GridLayout(3, 1, 0, 0));
-		contentPanel.add(decksCard, "decksCard");
-
-		deckListeErstellen();
-		decksCard.add(chooseDeckList);
-
-		JButton deckErstellenButton = new JButton("Deck Erstellen");
-		deckErstellenButton.setBounds(146, 93, 141, 29);
-		deckErstellenButton.setFont(new Font("Ubuntu", Font.PLAIN, 13));
-		deckErstellenButton.setBackground(Color.GREEN);
-		deckErstellenButton.setForeground(new Color(2, 48, 89));
-		deckErstellenButton.addActionListener(new StartGuiListener(this, deckmanager, "deckErstellen"));
-		decksCard.add(deckErstellenButton);
-
-		JButton deckBearbeitenButton = new JButton("Deck Bearbeiten");
-		deckBearbeitenButton.setFont(new Font("Ubuntu", Font.PLAIN, 13));
-		deckBearbeitenButton.setForeground(new Color(2, 48, 89));
-		deckBearbeitenButton.addActionListener(new StartGuiListener(this, deckmanager, "deckBearbeiten"));
-		decksCard.add(deckBearbeitenButton);
-
-		// Statistik-Karte
-		JPanel statistikCard = new JPanel();
-		contentPanel.add(statistikCard, "statistikCard");
-
-		// Einstellungen-Karte
-		JPanel einstellungenCard = new JPanel();
-		contentPanel.add(einstellungenCard, "einstellungenCard");
-
-		// Anfangsbildschirm setzten auf "Start"
-		((CardLayout) contentPanel.getLayout()).show(contentPanel, "startCard");
-
+		
 	}
-
 	private void deckListeErstellen() {
 
 		chooseDeckList = new JComboBox<Deck>();
@@ -240,6 +247,16 @@ public class StartGui extends JFrame implements Observer {
 	public Deck getSelectedDeck() {
 		return (Deck) (chooseDeckList.getSelectedItem());
 	}
+	
+	private void setUIFont (javax.swing.plaf.FontUIResource f){
+	    java.util.Enumeration keys = UIManager.getDefaults().keys();
+	    while (keys.hasMoreElements()) {
+	      Object key = keys.nextElement();
+	      Object value = UIManager.get (key);
+	      if (value instanceof javax.swing.plaf.FontUIResource)
+	        UIManager.put (key, f);
+	      }
+	    } 
 
 	@Override
 	public void update() {
