@@ -12,6 +12,7 @@ import java.io.File;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -130,13 +131,64 @@ public class StartGui extends JFrame implements Observer {
 		// Start-Karte
 		JPanel startCard = new JPanel();
 		contentPanel.add(startCard, "startCard");
-		startCard.setLayout(null);
+		startCard.setLayout(new CardLayout(0, 0));
+		
+		//Karten die auf der StartKarte liegen 
+		
+		//homeKarte
+		JPanel learnHomeCard = new JPanel();
+		learnHomeCard.setLayout(new BorderLayout());
+		
 		JButton lernenBeginnenButton = new JButton("Lernen Beginnen");
-		lernenBeginnenButton.setBounds(146, 93, 141, 29);
-		startCard.add(lernenBeginnenButton);
-		lernenBeginnenButton.setFont(new Font("Ubuntu", Font.PLAIN, 13));
+		learnHomeCard.add(lernenBeginnenButton,BorderLayout.CENTER);
+		lernenBeginnenButton.setFont(new Font("Ubuntu", Font.PLAIN, 30));
 		lernenBeginnenButton.setBackground(Color.GREEN);
 		lernenBeginnenButton.setForeground(new Color(2, 48, 89));
+		startCard.add(learnHomeCard, "learnHomeCard");
+		
+		
+		lernenBeginnenButton.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				((CardLayout) startCard.getLayout()).show(startCard, "learnQuestionCard");
+			}
+		});
+		
+		//questionKarte
+		JPanel learnQuestionCard = new JPanel();
+		learnQuestionCard.setLayout(new GridLayout(4, 1));
+		JLabel onlyQuestionLabel = new JLabel("FRAGE:");
+		JLabel onlyQuestionTextLabel = new JLabel("Hier steht die Frage...");
+		JButton showAnswerButton = new JButton("Antwort zeigen");
+		
+		showAnswerButton.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				((CardLayout) startCard.getLayout()).show(startCard, "learnAnswerCard");
+			}
+		});
+		
+		
+		learnQuestionCard.add(onlyQuestionLabel);
+		learnQuestionCard.add(onlyQuestionTextLabel);
+		learnQuestionCard.add(showAnswerButton);
+		startCard.add(learnQuestionCard, "learnQuestionCard");
+		//answerKarte
+		JPanel learnAnswerCard = new JPanel();
+		learnAnswerCard.setLayout(new GridLayout(5, 1));
+		JLabel questionLabel = new JLabel("FRAGE:");
+		JLabel questionTextLabel = new JLabel("Hier steht die Frage...");
+		JLabel answerLabel = new JLabel("ANTWORT:");
+		JLabel answerTextLabel = new JLabel("Hier steht die Antwort...");
+		JButton nextQuestionButton = new JButton("Nächste Frage");
+		
+		learnAnswerCard.add(questionLabel);
+		learnAnswerCard.add(questionTextLabel);
+		learnAnswerCard.add(answerLabel);
+		learnAnswerCard.add(answerTextLabel);
+		learnAnswerCard.add(nextQuestionButton);
+		
+		startCard.add(learnAnswerCard, "learnAnswerCard");
 
 		// Decks-Karte
 		JPanel decksCard = new JPanel();
