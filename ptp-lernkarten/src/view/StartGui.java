@@ -289,6 +289,10 @@ public class StartGui extends JFrame implements Observer {
 		return (Deck) (chooseDeckList.getSelectedItem());
 	}
 	
+	/*
+	 * Setzt alle Default UI Fonts auf die übergebene Font
+	 *
+	 */
 	private void setUIFont (javax.swing.plaf.FontUIResource f){
 	    java.util.Enumeration keys = UIManager.getDefaults().keys();
 	    while (keys.hasMoreElements()) {
