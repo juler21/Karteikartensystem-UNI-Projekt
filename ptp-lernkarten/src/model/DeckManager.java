@@ -111,7 +111,8 @@ public class DeckManager extends Observable {
 				BufferedReader br = new BufferedReader(new FileReader(paths[i]));
 				while ((line = br.readLine()) != null) {
 					String[] values = line.split(";");
-					newdeck.loadFlashcard(new Flashcard(Integer.parseInt(values[0]), values[1], values[2]));
+					newdeck.loadFlashcard(new Flashcard(values[1], values[2]));
+//					newdeck.loadFlashcard(new Flashcard(Integer.parseInt(values[0]), values[1], values[2]));
 				}
 
 			} catch (FileNotFoundException e) {

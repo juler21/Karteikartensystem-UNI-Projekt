@@ -21,7 +21,8 @@ public class Deck extends Observable {
 
 	public void addFlashcard(Flashcard flash) {
 		flashcardList.add(flash);
-		saveFlashcardCSV(flash);
+		deleteDeckCSV();
+		saveDeckCSV();
 	}
 
 	public void loadFlashcard(Flashcard flash) {
@@ -34,19 +35,50 @@ public class Deck extends Observable {
 
 	public void deleteFlashcard(int index) {
 		flashcardList.remove(index);
+		deleteDeckCSV();
+		saveDeckCSV();
 	}
 
 	public void saveDeckCSV() {
 
 		Path pathCSV = Paths.get(DeckManager.getPathtoString(), deckname + ".csv");
+		String pathCSVString = pathCSV.toString();
 
 		try {
-			BufferedWriter writeBuffer = Files.newBufferedWriter(pathCSV);
+			BufferedWriter writeBuffer = new BufferedWriter(new FileWriter(pathCSVString, true));
+			if (getAmountOfFlashcards() > 0) {
+				for (Flashcard f : flashcardList) {
+					String row = String.format("%d;%s;%s%n", flashcardList.indexOf(f), f.getQuestion(), f.getAnswer());
+
+					writeBuffer.append(row);
+				}
+			}
+			writeBuffer.close();
+
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
+//	public void saveDeckCSV() {
+//
+//		Path pathCSV = Paths.get(DeckManager.getPathtoString(), deckname + ".csv");
+//		String pathCSVString = pathCSV.toString();
+//
+//		try {
+//			BufferedWriter writeBuffer = new BufferedWriter(new FileWriter(pathCSVString, true));
+//			if (getAmountOfFlashcards() > 0) {
+//				for (Flashcard f : flashcardList) {
+//					String row = String.format("%d;%s;%s%n", f.getIndex(), f.getQuestion(), f.getAnswer());
+//
+//					writeBuffer.append(row);
+//				}
+//			}
+//			writeBuffer.close();
+//
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//	}
 
 	public void deleteDeckCSV() {
 		Path pathCSV = Paths.get(DeckManager.getPathtoString(), deckname + ".csv");
@@ -55,24 +87,6 @@ public class Deck extends Observable {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-	}
-
-	private void saveFlashcardCSV(Flashcard f) {
-
-		Path pathCSV = Paths.get(DeckManager.getPathtoString(), deckname + ".csv");
-		String pathCSVString = pathCSV.toString();
-
-		try (BufferedWriter writeBuffer = new BufferedWriter(new FileWriter(pathCSVString, true))) {
-
-			String row = String.format("%d;%s;%s%n", f.getIndex(), f.getQuestion(), f.getAnswer());
-
-			writeBuffer.append(row);
-			writeBuffer.close();
-
-		} catch (IOException e) {
-			e.printStackTrace();
-
 		}
 	}
 

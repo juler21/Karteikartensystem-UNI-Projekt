@@ -31,12 +31,11 @@ public class CreateDeckGuiListener implements ActionListener {
 			String answer = gui.getAnswer().getText();
 
 			int position = deckmanager.getDeck(_deckname).getAmountOfFlashcards();
-			deckmanager.getDeck(_deckname).addFlashcard(new Flashcard(position, question, answer));
+			deckmanager.getDeck(_deckname).addFlashcard(new Flashcard(question, answer));
 			((CreateDeckGui) gui).getQuestion().setText("");
 			((CreateDeckGui) gui).getAnswer().setText("");
 		} else if (cmd.equals("confirm")) {
 			for (Flashcard f : deckmanager.getDeck(_deckname).getDeckFlashcardlist()) {
-				System.out.println(f.getIndex());
 				System.out.println(f.getQuestion());
 				System.out.println(f.getAnswer());
 			}

@@ -6,10 +6,10 @@ public class Flashcard extends Observable {
 
 	private String question;
 	private String answer;
-	private int index;
+//	private int index;
 
-	public Flashcard(int index, String q, String a) {
-		this.index = index;
+	public Flashcard(String q, String a) {
+//		this.index = index;
 		this.question = q;
 		this.answer = a;
 
@@ -31,13 +31,13 @@ public class Flashcard extends Observable {
 		this.answer = answer;
 	}
 
-	public int getIndex() {
-		return index;
-	}
-
-	public void setIndex(int index) {
-		this.index = index;
-	}
+//	public int getIndex() {
+//		return index;
+//	}
+//
+//	public void setIndex(int index) {
+//		this.index = index;
+//	}
 
 	@Override
 	public void registerObserver(Observer o) {

@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import controller.EditDeckGuiListener;
 import model.DeckManager;
 import model.Flashcard;
 
@@ -42,6 +43,8 @@ public class EditDeckGui extends JFrame {
 		this.deckmanager = deckmanager;
 		this.startgui = startgui;
 
+		System.out.println("Hier" + startgui.getSelectedDeck());
+
 		// JFrame erstellen
 		editDeckFrame = new JFrame(windowname);
 		editDeckFrame.setFont(new Font("Ubuntu", Font.PLAIN, 12));
@@ -56,9 +59,12 @@ public class EditDeckGui extends JFrame {
 		editDeckFrame.setContentPane(editDeckPanel);
 
 		Flashcard[] flashcardArray = new Flashcard[startgui.getSelectedDeck().getDeckFlashcardlist().size()];
-		for (Flashcard f : startgui.getSelectedDeck().getDeckFlashcardlist()) {
-			flashcardArray[f.getIndex()] = f;
+		for (int i = 0; i < startgui.getSelectedDeck().getAmountOfFlashcards(); i++) {
+			flashcardArray[i] = startgui.getSelectedDeck().getFlashcard(i);
 		}
+//		for (Flashcard f : startgui.getSelectedDeck().getDeckFlashcardlist()) {
+//			flashcardArray[f.getIndex()] = f;
+//		}
 		flashcardList = new JComboBox<Flashcard>(flashcardArray);
 		editDeckPanel.add(flashcardList, BorderLayout.PAGE_START);
 		flashcardList.addActionListener(new ActionListener() {
@@ -97,6 +103,8 @@ public class EditDeckGui extends JFrame {
 
 		lowerButtonPanel = new JPanel();
 		deleteFlashcardButton = new JButton("LERNKARTE LÖSCHEN");
+		deleteFlashcardButton
+				.addActionListener(new EditDeckGuiListener(this, startgui, deckmanager, "deleteFlashcard"));
 		saveFlashcardButton = new JButton("LERNKARTE SPEICHERN");
 		lowerButtonPanel.add(deleteFlashcardButton);
 		lowerButtonPanel.add(saveFlashcardButton);
