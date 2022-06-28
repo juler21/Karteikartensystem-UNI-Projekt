@@ -106,4 +106,12 @@ public class EditDeckGui extends JFrame {
 
 	}
 
+	public JComboBox<Flashcard> getFlashcardList() {
+		return flashcardList;
+	}
+
+	public Flashcard getSelectedFlashcard() {
+		return (Flashcard) flashcardList.getSelectedItem();
+	}
+
 }

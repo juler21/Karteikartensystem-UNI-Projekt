@@ -48,6 +48,16 @@ public class Deck extends Observable {
 		}
 	}
 
+	public void deleteDeckCSV() {
+		Path pathCSV = Paths.get(DeckManager.getPathtoString(), deckname + ".csv");
+		try {
+			Files.deleteIfExists(pathCSV);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 	private void saveFlashcardCSV(Flashcard f) {
 
 		Path pathCSV = Paths.get(DeckManager.getPathtoString(), deckname + ".csv");

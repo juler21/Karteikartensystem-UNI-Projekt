@@ -55,6 +55,14 @@ public class DeckManager extends Observable {
 	}
 
 	public String[] findAllFilesInFolder(File folder) {
+
+		// Änderung noch nicht komplett NICHT LÖSCHEN
+//		List<String> paths1 = new ArrayList<String>();
+//		for(File p : folder.listFiles()) {
+//			if(p.getPath().endsWith(".csv")) {
+//				paths1.add(p.toString());
+//			}
+//		}
 		String[] paths = new String[folder.listFiles().length];
 		if (folder.listFiles() != null) {
 			System.out.println(folder.listFiles().length);
