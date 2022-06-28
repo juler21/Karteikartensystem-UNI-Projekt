@@ -311,7 +311,6 @@ public class StartGui extends JFrame implements Observer {
 		// setzt default Item in Combobox
 		chooseDeckList.setSelectedIndex(0);
 		
-		//updated flashcardIndex
 		
 	}
 }

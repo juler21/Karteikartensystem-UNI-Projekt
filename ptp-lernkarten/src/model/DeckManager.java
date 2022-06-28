@@ -15,13 +15,11 @@ public class DeckManager extends Observable {
 	private HashMap<String, Deck> decks;
 	private static Path pathDirectory;
 	private int anzahlDecks;
-	private int flashcardIndex;
 
 	public DeckManager() {
 		decks = new HashMap<String, Deck>();
 		anzahlDecks = 0;
 		createDirectories();
-		flashcardIndex=0;
 
 	}
 
@@ -139,18 +137,6 @@ public class DeckManager extends Observable {
 
 	}
 	
-	public int getFlashcardIndex() {
-		
-		return flashcardIndex;
-		
-	}
-	
-	public void plusoneFlashcardIndex() {
-		
-		flashcardIndex++;
-		notifyObserver();
-		
-	}
 
 	public static String getPathtoString() {
 		String path = System.getProperty("user.home");

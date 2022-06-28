@@ -44,7 +44,6 @@ public class StartGuiListener implements ActionListener {
 			deckmanager.removeDeck(startgui.getSelectedDeck().getDeckname());
 		} else if (cmd.equals("nextQuestionButton")) {
 			System.out.println(flashcardLearnIndex);
-			deckmanager.plusoneFlashcardIndex();
 			if(flashcardLearnIndex<startgui.getSelectedDeck().getAmountOfFlashcards()-1) {
 			flashcardLearnIndex++;
 			startgui.setOnlyQuestionTextLabel(startgui.getSelectedDeck().getFlashcard(flashcardLearnIndex).getQuestion());
