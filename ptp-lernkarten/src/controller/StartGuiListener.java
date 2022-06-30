@@ -20,7 +20,6 @@ public class StartGuiListener implements ActionListener {
 	private StartGui startgui;
 	private String cmd;
 	private int flashcardLearnIndex;
-	
 
 	public StartGuiListener(StartGui startgui, DeckManager deckmanager, String cmd) {
 
@@ -57,14 +56,25 @@ public class StartGuiListener implements ActionListener {
 		} else if (cmd.equals("nextQuestionButton")) {
 
 			System.out.println(flashcardLearnIndex);
+<<<<<<< HEAD
 			if(flashcardLearnIndex<startgui.getSelectedDeck().getAmountOfFlashcards()-1) {
 			flashcardLearnIndex++;
 			startgui.setOnlyQuestionTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getQuestion());
 			startgui.setQuestionTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getQuestion());
 			startgui.setAnswerTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getAnswer());
+=======
+			if (flashcardLearnIndex < startgui.getSelectedDeck().getAmountOfFlashcards() - 1) {
+				flashcardLearnIndex++;
+				startgui.setOnlyQuestionTextLabel(
+						startgui.getSelectedDeck().getFlashcard(flashcardLearnIndex).getQuestion());
+				startgui.setQuestionTextLabel(
+						startgui.getSelectedDeck().getFlashcard(flashcardLearnIndex).getQuestion());
+				startgui.setAnswerTextLabel(startgui.getSelectedDeck().getFlashcard(flashcardLearnIndex).getAnswer());
+>>>>>>> branch 'main' of https://git.informatik.uni-hamburg.de/0sterkel/ptp22-do08-lernkarten.git
 			}
 	
 		} else if (cmd.equals("chooseDeckComboBox")) {
+<<<<<<< HEAD
 
 				if(startgui.getSelectedDeck().getAmountOfFlashcards() != 0) {
 				flashcardLearnIndex= 0;
@@ -79,5 +89,14 @@ public class StartGuiListener implements ActionListener {
 		
 		new JOptionPane(e.getError());
 	}
+=======
+			flashcardLearnIndex = 0;
+			System.out.println(flashcardLearnIndex);
+			startgui.setOnlyQuestionTextLabel(
+					startgui.getSelectedDeck().getFlashcard(flashcardLearnIndex).getQuestion());
+			startgui.setQuestionTextLabel(startgui.getSelectedDeck().getFlashcard(flashcardLearnIndex).getQuestion());
+			startgui.setAnswerTextLabel(startgui.getSelectedDeck().getFlashcard(flashcardLearnIndex).getAnswer());
+		}
+>>>>>>> branch 'main' of https://git.informatik.uni-hamburg.de/0sterkel/ptp22-do08-lernkarten.git
 	}
 }

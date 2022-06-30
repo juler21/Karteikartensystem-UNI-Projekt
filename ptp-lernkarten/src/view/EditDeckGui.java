@@ -48,7 +48,6 @@ public class EditDeckGui extends JFrame implements Observer {
 		// JFrame erstellen
 		editDeckFrame = new JFrame(windowname);
 		editDeckFrame.setFont(new Font("Ubuntu", Font.PLAIN, 12));
-		editDeckFrame.setTitle("Lernkarten");
 		editDeckFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		editDeckFrame.setBounds(100, 100, 500, 300);
 
@@ -68,9 +67,7 @@ public class EditDeckGui extends JFrame implements Observer {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-//		for (Flashcard f : startgui.getSelectedDeck().getDeckFlashcardlist()) {
-//			flashcardArray[f.getIndex()] = f;
-//		}
+//		
 		flashcardList = new JComboBox<Flashcard>(flashcardArray);
 		editDeckPanel.add(flashcardList, BorderLayout.PAGE_START);
 		flashcardList.addActionListener(new ActionListener() {
@@ -112,6 +109,7 @@ public class EditDeckGui extends JFrame implements Observer {
 		deleteFlashcardButton
 				.addActionListener(new EditDeckGuiListener(this, startgui, deckmanager, "deleteFlashcard"));
 		saveFlashcardButton = new JButton("LERNKARTE SPEICHERN");
+		saveFlashcardButton.addActionListener((new EditDeckGuiListener(this, startgui, deckmanager, "editFlashcard")));
 		lowerButtonPanel.add(deleteFlashcardButton);
 		lowerButtonPanel.add(saveFlashcardButton);
 		editDeckPanel.add(lowerButtonPanel, BorderLayout.PAGE_END);
@@ -149,6 +147,23 @@ public class EditDeckGui extends JFrame implements Observer {
 			}
 			flashcardList.setSelectedIndex(0);
 		}
+	}
+
+	public String getQuestionText() {
+		return questionText.getText();
+	}
+
+	public void setQuestionText(String questionText) {
+		this.questionText.setText(questionText);
+		;
+	}
+
+	public String getAnswerText() {
+		return answerText.getText();
+	}
+
+	public void setAnswerText(String answerText) {
+		this.answerText.setText(answerText);
 	}
 
 }

@@ -37,7 +37,6 @@ public class CreateDeckGui extends JFrame {
 		createDeckFrame = new JFrame(windowname);
 		createDeckFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		createDeckFrame.setFont(new Font("Ubuntu", Font.PLAIN, 12));
-		createDeckFrame.setTitle("Deck Erstellen");
 		createDeckFrame.setBounds(100, 100, 500, 300);
 
 		framePanel = new JPanel();
