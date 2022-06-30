@@ -14,18 +14,14 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
-import controller.StartGuiListener;
 import controller.CreateDeckGuiListener;
-import model.Deck;
 import model.DeckManager;
-import model.Flashcard;
-import util.Main;
 
 public class CreateDeckGui extends JFrame {
-	//Model
+	// Model
 	private DeckManager deckmanager;
 //	private CreateDeckGuiListener controller; // controller
-	
+
 	private JFrame createDeckFrame;
 	private JPanel framePanel;
 	private JPanel setDecknameCard;
@@ -63,7 +59,7 @@ public class CreateDeckGui extends JFrame {
 			}
 		});
 		confirmDeckname.addActionListener(new CreateDeckGuiListener(this, deckmanager, "confirmDeckname"));
-		
+
 		setDecknameCard.add(label1, BorderLayout.NORTH);
 		setDecknameCard.add(deckName, BorderLayout.CENTER);
 		setDecknameCard.add(confirmDeckname, BorderLayout.PAGE_END);
@@ -108,6 +104,7 @@ public class CreateDeckGui extends JFrame {
 		// Start Karte des CardLayout setzten
 		((CardLayout) framePanel.getLayout()).show(framePanel, "startCard");
 		pack();
+
 		createDeckFrame.setVisible(true);
 
 	}

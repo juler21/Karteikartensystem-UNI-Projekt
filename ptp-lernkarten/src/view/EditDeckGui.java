@@ -18,7 +18,7 @@ import controller.EditDeckGuiListener;
 import model.DeckManager;
 import model.Flashcard;
 
-public class EditDeckGui extends JFrame {
+public class EditDeckGui extends JFrame implements Observer {
 
 	// Model
 	private DeckManager deckmanager;
@@ -110,6 +110,7 @@ public class EditDeckGui extends JFrame {
 		lowerButtonPanel.add(saveFlashcardButton);
 		editDeckPanel.add(lowerButtonPanel, BorderLayout.PAGE_END);
 
+		startgui.getSelectedDeck().registerObserver(this);
 		editDeckFrame.setVisible(true);
 
 	}
@@ -120,6 +121,17 @@ public class EditDeckGui extends JFrame {
 
 	public Flashcard getSelectedFlashcard() {
 		return (Flashcard) flashcardList.getSelectedItem();
+	}
+
+	@Override
+	public void update() {
+		System.out.println("update");
+		flashcardList.removeAllItems();
+		for (Flashcard f : startgui.getSelectedDeck().getDeckFlashcardlist()) {
+			flashcardList.addItem(f);
+		}
+		flashcardList.setSelectedIndex(0);
+
 	}
 
 }

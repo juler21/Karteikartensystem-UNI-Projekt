@@ -8,7 +8,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class DeckManager extends Observable {
 
@@ -56,42 +58,60 @@ public class DeckManager extends Observable {
 
 	}
 
-	public String[] findAllFilesInFolder(File folder) {
+	public List<String> findAllFilesInFolder(File folder) {
 
-		// Änderung noch nicht komplett NICHT LÖSCHEN
-//		List<String> paths1 = new ArrayList<String>();
-//		for(File p : folder.listFiles()) {
-//			if(p.getPath().endsWith(".csv")) {
-//				paths1.add(p.toString());
-//			}
-//		}
-		String[] paths = new String[folder.listFiles().length];
+		// Änderung noch nicht komplett NICHT LÖSCHEN geheime DS_STORE Dateien bei MAC
+		List<String> paths = new ArrayList<String>();
+
+		for (File p : folder.listFiles()) {
+			System.out.println(p.getPath());
+		}
 		if (folder.listFiles() != null) {
-			System.out.println(folder.listFiles().length);
-			for (int i = 0; i < folder.listFiles().length; i++) {
-				paths[i] = folder.listFiles()[i].toString();
+			for (File p : folder.listFiles()) {
+				if (p.getPath().endsWith(".csv")) {
+					paths.add(p.toString());
+				}
 			}
-			for (String s : paths) {
-				System.out.println(s);
-			}
-			System.out.println("--------------------------------------------------");
 		}
 		return paths;
+
+//		String[] paths = new String[folder.listFiles().length];
+//		if (folder.listFiles() != null) {
+//			System.out.println(folder.listFiles().length);
+//			for (int i = 0; i < folder.listFiles().length; i++) {
+//				paths[i] = folder.listFiles()[i].toString();
+//			}
+//			for (String s : paths) {
+//				System.out.println(s);
+//			}
+//			System.out.println("--------------------------------------------------");
+//		}
+//		return paths;
 	}
 
-	public Path[] findAllFilesInFolderPath(File folder) {
-		Path[] paths = new Path[folder.listFiles().length];
+	public List<Path> findAllFilesInFolderPath(File folder) {
+		List<Path> paths = new ArrayList<Path>();
 		if (folder.listFiles() != null) {
-			for (int i = 0; i < folder.listFiles().length; i++) {
-				paths[i] = folder.listFiles()[i].toPath();
+			for (File p : folder.listFiles()) {
+				if (p.getPath().endsWith(".csv")) {
+					paths.add(p.toPath());
+				}
 			}
-			for (Path s : paths) {
-				System.out.println(s);
-			}
-			System.out.println("--------------------------------------------------");
 		}
-
 		return paths;
+
+//		Path[] paths = new Path[folder.listFiles().length];
+//		if (folder.listFiles() != null) {
+//			for (int i = 0; i < folder.listFiles().length; i++) {
+//				paths[i] = folder.listFiles()[i].toPath();
+//			}
+//			for (Path s : paths) {
+//				System.out.println(s);
+//			}
+//			System.out.println("--------------------------------------------------");
+//		}
+//
+//		return paths;
 	}
 
 	public String pathToFileName(Path path) {
@@ -102,13 +122,13 @@ public class DeckManager extends Observable {
 
 //TODO nehme eine Methode
 	public void getData(File folder) {
-		String[] paths = findAllFilesInFolder(folder);
-		Path[] paths1 = findAllFilesInFolderPath(folder);
+		List<String> paths = findAllFilesInFolder(folder);
+		List<Path> paths1 = findAllFilesInFolderPath(folder);
 		String line = "";
-		for (int i = 0; i < paths.length; i++) {
-			Deck newdeck = new Deck(pathToFileName(paths1[i]));
+		for (int i = 0; i < paths.size(); i++) {
+			Deck newdeck = new Deck(pathToFileName(paths1.get(i)));
 			try {
-				BufferedReader br = new BufferedReader(new FileReader(paths[i]));
+				BufferedReader br = new BufferedReader(new FileReader(paths.get(i)));
 				while ((line = br.readLine()) != null) {
 					String[] values = line.split(";");
 					newdeck.loadFlashcard(new Flashcard(values[1], values[2]));
@@ -137,7 +157,6 @@ public class DeckManager extends Observable {
 		}
 
 	}
-	
 
 	public static String getPathtoString() {
 		String path = System.getProperty("user.home");

@@ -1,8 +1,6 @@
 package model;
 
-import view.Observer;
-
-public class Flashcard extends Observable {
+public class Flashcard {
 
 	private String question;
 	private String answer;
@@ -41,24 +39,6 @@ public class Flashcard extends Observable {
 	@Override
 	public String toString() {
 		return question;
-	}
-
-	@Override
-	public void registerObserver(Observer o) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void deleteObserver(Observer o) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void notifyObserver() {
-		// TODO Auto-generated method stub
-
 	}
 
 }

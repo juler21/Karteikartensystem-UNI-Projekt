@@ -37,6 +37,7 @@ public class Deck extends Observable {
 		flashcardList.remove(index);
 		deleteDeckCSV();
 		saveDeckCSV();
+		notifyObserver();
 	}
 
 	public void saveDeckCSV() {
@@ -106,11 +107,6 @@ public class Deck extends Observable {
 		this.deckname = deckname;
 	}
 
-	@Override
-	public void notifyObserver() {
-		// TODO Auto-generated method stub
-
-	}
 	@Override
 	public String toString() {
 		return deckname;
