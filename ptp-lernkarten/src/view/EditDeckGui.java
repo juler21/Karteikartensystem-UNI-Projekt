@@ -48,7 +48,6 @@ public class EditDeckGui extends JFrame implements Observer {
 		// JFrame erstellen
 		editDeckFrame = new JFrame(windowname);
 		editDeckFrame.setFont(new Font("Ubuntu", Font.PLAIN, 12));
-		editDeckFrame.setTitle("Lernkarten");
 		editDeckFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		editDeckFrame.setBounds(100, 100, 500, 300);
 

@@ -16,7 +16,6 @@ public class StartGuiListener implements ActionListener {
 	private StartGui startgui;
 	private String cmd;
 	private int flashcardLearnIndex;
-	
 
 	public StartGuiListener(StartGui startgui, DeckManager deckmanager, String cmd) {
 
@@ -44,18 +43,21 @@ public class StartGuiListener implements ActionListener {
 			deckmanager.removeDeck(startgui.getSelectedDeck().getDeckname());
 		} else if (cmd.equals("nextQuestionButton")) {
 			System.out.println(flashcardLearnIndex);
-			if(flashcardLearnIndex<startgui.getSelectedDeck().getAmountOfFlashcards()-1) {
-			flashcardLearnIndex++;
-			startgui.setOnlyQuestionTextLabel(startgui.getSelectedDeck().getFlashcard(flashcardLearnIndex).getQuestion());
-			startgui.setQuestionTextLabel(startgui.getSelectedDeck().getFlashcard(flashcardLearnIndex).getQuestion());
-			startgui.setAnswerTextLabel(startgui.getSelectedDeck().getFlashcard(flashcardLearnIndex).getAnswer());
+			if (flashcardLearnIndex < startgui.getSelectedDeck().getAmountOfFlashcards() - 1) {
+				flashcardLearnIndex++;
+				startgui.setOnlyQuestionTextLabel(
+						startgui.getSelectedDeck().getFlashcard(flashcardLearnIndex).getQuestion());
+				startgui.setQuestionTextLabel(
+						startgui.getSelectedDeck().getFlashcard(flashcardLearnIndex).getQuestion());
+				startgui.setAnswerTextLabel(startgui.getSelectedDeck().getFlashcard(flashcardLearnIndex).getAnswer());
 			}
 		} else if (cmd.equals("chooseDeckComboBox")) {
-			flashcardLearnIndex= 0;
+			flashcardLearnIndex = 0;
 			System.out.println(flashcardLearnIndex);
-			startgui.setOnlyQuestionTextLabel(startgui.getSelectedDeck().getFlashcard(flashcardLearnIndex).getQuestion());
+			startgui.setOnlyQuestionTextLabel(
+					startgui.getSelectedDeck().getFlashcard(flashcardLearnIndex).getQuestion());
 			startgui.setQuestionTextLabel(startgui.getSelectedDeck().getFlashcard(flashcardLearnIndex).getQuestion());
 			startgui.setAnswerTextLabel(startgui.getSelectedDeck().getFlashcard(flashcardLearnIndex).getAnswer());
-			}
+		}
 	}
 }
