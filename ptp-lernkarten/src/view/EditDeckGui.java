@@ -17,6 +17,7 @@ import javax.swing.JTextArea;
 import controller.EditDeckGuiListener;
 import model.DeckManager;
 import model.Flashcard;
+import util.NoDeckSelectedExeption;
 
 public class EditDeckGui extends JFrame implements Observer {
 
@@ -43,7 +44,6 @@ public class EditDeckGui extends JFrame implements Observer {
 		this.deckmanager = deckmanager;
 		this.startgui = startgui;
 
-		System.out.println("Hier" + startgui.getSelectedDeck());
 
 		// JFrame erstellen
 		editDeckFrame = new JFrame(windowname);
@@ -58,9 +58,15 @@ public class EditDeckGui extends JFrame implements Observer {
 		editDeckPanel.setLayout(new BorderLayout(0, 0));
 		editDeckFrame.setContentPane(editDeckPanel);
 
-		Flashcard[] flashcardArray = new Flashcard[startgui.getSelectedDeck().getDeckFlashcardlist().size()];
-		for (int i = 0; i < startgui.getSelectedDeck().getAmountOfFlashcards(); i++) {
-			flashcardArray[i] = startgui.getSelectedDeck().getFlashcard(i);
+		Flashcard[] flashcardArray = new Flashcard[0];
+		try {
+			flashcardArray = new Flashcard[startgui.getSelectedDeck().getDeckFlashcardlist().size()];
+			for (int i = 0; i < startgui.getSelectedDeck().getAmountOfFlashcards(); i++) {
+				flashcardArray[i] = startgui.getSelectedDeck().getFlashcard(i);
+			}
+		} catch (NoDeckSelectedExeption e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
 //		for (Flashcard f : startgui.getSelectedDeck().getDeckFlashcardlist()) {
 //			flashcardArray[f.getIndex()] = f;
@@ -110,7 +116,12 @@ public class EditDeckGui extends JFrame implements Observer {
 		lowerButtonPanel.add(saveFlashcardButton);
 		editDeckPanel.add(lowerButtonPanel, BorderLayout.PAGE_END);
 
-		startgui.getSelectedDeck().registerObserver(this);
+		try {
+			startgui.getSelectedDeck().registerObserver(this);
+		} catch (NoDeckSelectedExeption e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		editDeckFrame.setVisible(true);
 
 	}
@@ -124,14 +135,20 @@ public class EditDeckGui extends JFrame implements Observer {
 	}
 
 	@Override
-	public void update() {
-		System.out.println("update");
-		flashcardList.removeAllItems();
-		for (Flashcard f : startgui.getSelectedDeck().getDeckFlashcardlist()) {
-			flashcardList.addItem(f);
+	public void update(String changeType) {
+		if(changeType.equals("deckChange")) {
+			System.out.println("update");
+			flashcardList.removeAllItems();
+			try {
+				for (Flashcard f : startgui.getSelectedDeck().getDeckFlashcardlist()) {
+					flashcardList.addItem(f);
+				}
+			} catch (NoDeckSelectedExeption e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			flashcardList.setSelectedIndex(0);
 		}
-		flashcardList.setSelectedIndex(0);
-
 	}
 
 }

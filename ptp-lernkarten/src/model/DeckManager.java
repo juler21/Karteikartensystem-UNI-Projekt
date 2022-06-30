@@ -30,13 +30,13 @@ public class DeckManager extends Observable {
 		decks.put(d.getDeckname(), d);
 		d.saveDeckCSV();
 
-		notifyObserver();
+		notifyObserver("deckChange");
 	}
 
 	public void loadDeck(Deck d) {
 		anzahlDecks++;
 		decks.put(d.getDeckname(), d);
-		notifyObserver();
+		notifyObserver("deckChange");
 	}
 
 	public Deck getDeck(String deckname) {
@@ -49,12 +49,13 @@ public class DeckManager extends Observable {
 
 	public void setDecks(HashMap<String, Deck> decks) {
 		this.decks = decks;
-		notifyObserver();
+		notifyObserver("deckChange");
 	}
 
 	public void removeDeck(String deckname) {
 		getDeck(deckname).deleteDeckCSV();
 		decks.remove(deckname);
+		notifyObserver("deckChange");
 
 	}
 

@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import model.DeckManager;
+import util.NoDeckSelectedExeption;
 import view.EditDeckGui;
 import view.StartGui;
 
@@ -27,8 +28,15 @@ public class EditDeckGuiListener implements ActionListener {
 
 	private void doCommand(String cmd) {
 		if (cmd.equals("deleteFlashcard")) {
-			int index = startGui.getSelectedDeck().getDeckFlashcardlist().indexOf(gui.getSelectedFlashcard());
-			startGui.getSelectedDeck().deleteFlashcard(index);
+			
+			int index;
+			try {
+				index = startGui.getSelectedDeck().getDeckFlashcardlist().indexOf(gui.getSelectedFlashcard());
+				startGui.getSelectedDeck().deleteFlashcard(index);
+			} catch (NoDeckSelectedExeption e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 }

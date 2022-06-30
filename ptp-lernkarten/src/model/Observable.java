@@ -17,10 +17,10 @@ public class Observable {
 		observerList.remove(o);
 	}
 
-	public void notifyObserver() {
+	public void notifyObserver(String changeType) {
 		System.out.println("notify!");
 		for (Observer o: observerList) {
-			o.update();
+			o.update(changeType);
 		}		
 	}
 }

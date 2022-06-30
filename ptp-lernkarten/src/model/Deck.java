@@ -23,6 +23,7 @@ public class Deck extends Observable {
 		flashcardList.add(flash);
 		deleteDeckCSV();
 		saveDeckCSV();
+		notifyObserver("flashcardChange");
 	}
 
 	public void loadFlashcard(Flashcard flash) {
@@ -37,7 +38,7 @@ public class Deck extends Observable {
 		flashcardList.remove(index);
 		deleteDeckCSV();
 		saveDeckCSV();
-		notifyObserver();
+		notifyObserver("flashcardChange");
 	}
 
 	public void saveDeckCSV() {

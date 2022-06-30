@@ -3,7 +3,11 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JOptionPane;
+
+import model.Deck;
 import model.DeckManager;
+import util.NoDeckSelectedExeption;
 import view.CreateDeckGui;
 import view.EditDeckGui;
 import view.StartGui;
@@ -23,6 +27,7 @@ public class StartGuiListener implements ActionListener {
 		this.deckmanager = deckmanager;
 		this.startgui = startgui;
 		this.cmd = cmd;
+		
 		flashcardLearnIndex = 0;
 
 	}
@@ -33,29 +38,46 @@ public class StartGuiListener implements ActionListener {
 	}
 
 	private void doCommand(String cmd) {
+		try {
+
+			Deck selectedDeck = startgui.getSelectedDeck();
+		
 		if (cmd.equals("deckErstellen")) {
 
 			new CreateDeckGui(deckmanager, "DECK ERSTELLEN");
 
 		} else if (cmd.equals("deckBearbeiten")) {
-			String s = startgui.getSelectedDeck().getDeckname();
-			new EditDeckGui(deckmanager, startgui, s + "BEARBEITEN");
+			
+				new EditDeckGui(deckmanager, startgui, selectedDeck.getDeckname() + "BEARBEITEN");
+			
 		} else if (cmd.equals("deckLöschen")) {
-			deckmanager.removeDeck(startgui.getSelectedDeck().getDeckname());
+			
+				deckmanager.removeDeck(selectedDeck.getDeckname());
+		
 		} else if (cmd.equals("nextQuestionButton")) {
+
 			System.out.println(flashcardLearnIndex);
 			if(flashcardLearnIndex<startgui.getSelectedDeck().getAmountOfFlashcards()-1) {
 			flashcardLearnIndex++;
-			startgui.setOnlyQuestionTextLabel(startgui.getSelectedDeck().getFlashcard(flashcardLearnIndex).getQuestion());
-			startgui.setQuestionTextLabel(startgui.getSelectedDeck().getFlashcard(flashcardLearnIndex).getQuestion());
-			startgui.setAnswerTextLabel(startgui.getSelectedDeck().getFlashcard(flashcardLearnIndex).getAnswer());
+			startgui.setOnlyQuestionTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getQuestion());
+			startgui.setQuestionTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getQuestion());
+			startgui.setAnswerTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getAnswer());
 			}
+	
 		} else if (cmd.equals("chooseDeckComboBox")) {
-			flashcardLearnIndex= 0;
-			System.out.println(flashcardLearnIndex);
-			startgui.setOnlyQuestionTextLabel(startgui.getSelectedDeck().getFlashcard(flashcardLearnIndex).getQuestion());
-			startgui.setQuestionTextLabel(startgui.getSelectedDeck().getFlashcard(flashcardLearnIndex).getQuestion());
-			startgui.setAnswerTextLabel(startgui.getSelectedDeck().getFlashcard(flashcardLearnIndex).getAnswer());
-			}
+
+				if(startgui.getSelectedDeck().getAmountOfFlashcards() != 0) {
+				flashcardLearnIndex= 0;
+				System.out.println(flashcardLearnIndex);
+				startgui.setOnlyQuestionTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getQuestion());
+				startgui.setQuestionTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getQuestion());
+				startgui.setAnswerTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getAnswer());
+				}
+			
+		}
+		}catch (NoDeckSelectedExeption e) {
+		
+		new JOptionPane(e.getError());
+	}
 	}
 }
