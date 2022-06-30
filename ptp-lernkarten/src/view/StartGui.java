@@ -53,7 +53,7 @@ public class StartGui extends JFrame implements Observer {
 	
 	private String fontStyle;
 	
-	private JComboBox<Deck> chooseDeckList;
+	private JComboBox<Deck> chooseDeckComboBox;
 
 	private DeckManager deckmanager;
 	
@@ -156,7 +156,7 @@ public class StartGui extends JFrame implements Observer {
 		contentPanel.add(decksCard, "decksCard");
 
 			deckListeErstellen();
-			decksCard.add(chooseDeckList);
+			decksCard.add(chooseDeckComboBox);
 	
 			JButton deckErstellenButton = new JButton("Deck Erstellen");
 			deckErstellenButton.addActionListener(new StartGuiListener(this, deckmanager, "deckErstellen"));
@@ -205,7 +205,7 @@ public class StartGui extends JFrame implements Observer {
 		learnQuestionCard = new JPanel();
 		learnQuestionCard.setLayout(new GridLayout(2, 1));
 		startCard.add(learnQuestionCard, "learnQuestionCard");
-			onlyQuestionTextLabel = new JLabel(getSelectedDeck().getFlashcard(0).getQuestion());
+			onlyQuestionTextLabel = new JLabel(getSelectedDeck().getFlashcard(0).getQuestion()); //default Deck einladen
 			onlyQuestionTextLabel.setFont(new Font(fontStyle, Font.PLAIN, 20));
 			
 			JButton showAnswerButton = new JButton("Antwort zeigen");
@@ -247,6 +247,10 @@ public class StartGui extends JFrame implements Observer {
 			learnAnswerCard.add(answerTextLabel);
 			learnAnswerCard.add(nextQuestionButton);
 			
+			
+			//muss hier erstellt werden da sonst qustionLabel... noch nicht erstellt 
+			chooseDeckComboBox.addActionListener(new StartGuiListener(this, deckmanager, "chooseDeckComboBox"));
+			
 		
 	}
 	public JLabel getOnlyQuestionTextLabel() {
@@ -275,18 +279,18 @@ public class StartGui extends JFrame implements Observer {
 
 	private void deckListeErstellen() {
 
-		chooseDeckList = new JComboBox<Deck>();
+		chooseDeckComboBox = new JComboBox<Deck>();
 
 		deckmanager.getData(new File(DeckManager.getPathtoString()));
 		update();
 	}
 
 	public JComboBox<Deck> getJCombobox() {
-		return chooseDeckList;
+		return chooseDeckComboBox;
 	}
 
 	public Deck getSelectedDeck() {
-		return (Deck) (chooseDeckList.getSelectedItem());
+		return (Deck) (chooseDeckComboBox.getSelectedItem());
 	}
 	
 	/*
@@ -308,13 +312,12 @@ public class StartGui extends JFrame implements Observer {
 
 		System.out.println("update");
 		// combobox update
-		chooseDeckList.removeAllItems();
+		chooseDeckComboBox.removeAllItems();
 		deckmanager.getDecks().forEach((key, value) -> {
-			chooseDeckList.addItem(deckmanager.getDeck(key));
+			chooseDeckComboBox.addItem(deckmanager.getDeck(key));
 		});
 		// setzt default Item in Combobox
-		chooseDeckList.setSelectedIndex(0);
-		
+		chooseDeckComboBox.setSelectedIndex(0);
 		
 	}
 }
