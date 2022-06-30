@@ -151,20 +151,20 @@ public class StartGui extends JFrame implements Observer {
 		decksCard.setLayout(new GridLayout(4, 1, 0, 0));
 		contentPanel.add(decksCard, "decksCard");
 
-		deckListeErstellen();
-		decksCard.add(chooseDeckList);
-
-		JButton deckErstellenButton = new JButton("Deck Erstellen");
-		deckErstellenButton.addActionListener(new StartGuiListener(this, deckmanager, "deckErstellen"));
-		decksCard.add(deckErstellenButton);
-
-		JButton deckBearbeitenButton = new JButton("Deck Bearbeiten");
-		deckBearbeitenButton.addActionListener(new StartGuiListener(this, deckmanager, "deckBearbeiten"));
-		decksCard.add(deckBearbeitenButton);
-
-		JButton deckLöschenButton = new JButton("Deck Löschen");
-		deckLöschenButton.addActionListener(new StartGuiListener(this, deckmanager, "deckLöschen"));
-		decksCard.add(deckLöschenButton);
+			deckListeErstellen();
+			decksCard.add(chooseDeckComboBox);
+	
+			JButton deckErstellenButton = new JButton("Deck Erstellen");
+			deckErstellenButton.addActionListener(new StartGuiListener(this, deckmanager, "deckErstellen"));
+			decksCard.add(deckErstellenButton);
+	
+			JButton deckBearbeitenButton = new JButton("Deck Bearbeiten");
+			deckBearbeitenButton.addActionListener(new StartGuiListener(this, deckmanager, "deckBearbeiten"));
+			decksCard.add(deckBearbeitenButton);
+			
+			JButton deckLöschenButton = new JButton("Deck Löschen");
+			deckLöschenButton.addActionListener(new StartGuiListener(this, deckmanager, "deckLöschen"));
+			decksCard.add(deckLöschenButton);
 
 		// Statistik-Karte
 		statistikCard = new JPanel();
@@ -201,7 +201,7 @@ public class StartGui extends JFrame implements Observer {
 		learnQuestionCard = new JPanel();
 		learnQuestionCard.setLayout(new GridLayout(2, 1));
 		startCard.add(learnQuestionCard, "learnQuestionCard");
-		onlyQuestionTextLabel = new JLabel(getSelectedDeck().getFlashcard(0).getQuestion());
+		onlyQuestionTextLabel = new JLabel(getSelectedDeck().getFlashcard(0).getQuestion()); //default Deck einladen
 		onlyQuestionTextLabel.setFont(new Font(fontStyle, Font.PLAIN, 20));
 
 		JButton showAnswerButton = new JButton("Antwort zeigen");
@@ -243,6 +243,8 @@ public class StartGui extends JFrame implements Observer {
 		learnAnswerCard.add(answerTextLabel);
 		learnAnswerCard.add(nextQuestionButton);
 
+		//muss hier erstellt werden da sonst qustionLabel... noch nicht erstellt 
+		chooseDeckComboBox.addActionListener(new StartGuiListener(this, deckmanager, "chooseDeckComboBox"));
 	}
 
 	public JLabel getOnlyQuestionTextLabel() {
@@ -271,18 +273,18 @@ public class StartGui extends JFrame implements Observer {
 
 	private void deckListeErstellen() {
 
-		chooseDeckList = new JComboBox<Deck>();
+		chooseDeckComboBox = new JComboBox<Deck>();
 
 		deckmanager.getData(new File(DeckManager.getPathtoString()));
 		update();
 	}
 
 	public JComboBox<Deck> getJCombobox() {
-		return chooseDeckList;
+		return chooseDeckComboBox;
 	}
 
 	public Deck getSelectedDeck() {
-		return (Deck) (chooseDeckList.getSelectedItem());
+		return (Deck) (chooseDeckComboBox.getSelectedItem());
 	}
 
 	/*
