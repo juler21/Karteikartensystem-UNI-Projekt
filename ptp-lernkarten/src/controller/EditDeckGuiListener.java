@@ -28,7 +28,7 @@ public class EditDeckGuiListener implements ActionListener {
 
 	private void doCommand(String cmd) {
 		if (cmd.equals("deleteFlashcard")) {
-			
+
 			int index;
 			try {
 				index = startGui.getSelectedDeck().getDeckFlashcardlist().indexOf(gui.getSelectedFlashcard());
@@ -40,8 +40,13 @@ public class EditDeckGuiListener implements ActionListener {
 		} else if (cmd.equals("editFlashcard")) {
 			gui.getSelectedFlashcard().setQuestion(gui.getQuestionText());
 			gui.getSelectedFlashcard().setAnswer(gui.getAnswerText());
-			startGui.getSelectedDeck().deleteDeckCSV();
-			startGui.getSelectedDeck().saveDeckCSV();
+			try {
+				startGui.getSelectedDeck().deleteDeckCSV();
+				startGui.getSelectedDeck().saveDeckCSV();
+			} catch (NoDeckSelectedExeption e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 			System.out.println(gui.getSelectedFlashcard().getAnswer());
 			System.out.println(gui.getSelectedFlashcard().getQuestion());

@@ -26,7 +26,7 @@ public class StartGuiListener implements ActionListener {
 		this.deckmanager = deckmanager;
 		this.startgui = startgui;
 		this.cmd = cmd;
-		
+
 		flashcardLearnIndex = 0;
 
 	}
@@ -40,63 +40,46 @@ public class StartGuiListener implements ActionListener {
 		try {
 
 			Deck selectedDeck = startgui.getSelectedDeck();
-		
-		if (cmd.equals("deckErstellen")) {
 
-			new CreateDeckGui(deckmanager, "DECK ERSTELLEN");
+			if (cmd.equals("deckErstellen")) {
 
-		} else if (cmd.equals("deckBearbeiten")) {
-			
+				new CreateDeckGui(deckmanager, "DECK ERSTELLEN");
+
+			} else if (cmd.equals("deckBearbeiten")) {
+
 				new EditDeckGui(deckmanager, startgui, selectedDeck.getDeckname() + "BEARBEITEN");
-			
-		} else if (cmd.equals("deckLöschen")) {
-			
+
+			} else if (cmd.equals("deckLöschen")) {
+
 				deckmanager.removeDeck(selectedDeck.getDeckname());
-		
-		} else if (cmd.equals("nextQuestionButton")) {
 
-			System.out.println(flashcardLearnIndex);
-<<<<<<< HEAD
-			if(flashcardLearnIndex<startgui.getSelectedDeck().getAmountOfFlashcards()-1) {
-			flashcardLearnIndex++;
-			startgui.setOnlyQuestionTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getQuestion());
-			startgui.setQuestionTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getQuestion());
-			startgui.setAnswerTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getAnswer());
-=======
-			if (flashcardLearnIndex < startgui.getSelectedDeck().getAmountOfFlashcards() - 1) {
-				flashcardLearnIndex++;
-				startgui.setOnlyQuestionTextLabel(
-						startgui.getSelectedDeck().getFlashcard(flashcardLearnIndex).getQuestion());
-				startgui.setQuestionTextLabel(
-						startgui.getSelectedDeck().getFlashcard(flashcardLearnIndex).getQuestion());
-				startgui.setAnswerTextLabel(startgui.getSelectedDeck().getFlashcard(flashcardLearnIndex).getAnswer());
->>>>>>> branch 'main' of https://git.informatik.uni-hamburg.de/0sterkel/ptp22-do08-lernkarten.git
-			}
-	
-		} else if (cmd.equals("chooseDeckComboBox")) {
-<<<<<<< HEAD
+			} else if (cmd.equals("nextQuestionButton")) {
 
-				if(startgui.getSelectedDeck().getAmountOfFlashcards() != 0) {
-				flashcardLearnIndex= 0;
 				System.out.println(flashcardLearnIndex);
-				startgui.setOnlyQuestionTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getQuestion());
-				startgui.setQuestionTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getQuestion());
-				startgui.setAnswerTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getAnswer());
+				if (flashcardLearnIndex < startgui.getSelectedDeck().getAmountOfFlashcards() - 1) {
+					flashcardLearnIndex++;
+					startgui.setOnlyQuestionTextLabel(
+							startgui.getSelectedDeck().getFlashcard(flashcardLearnIndex).getQuestion());
+					startgui.setQuestionTextLabel(
+							startgui.getSelectedDeck().getFlashcard(flashcardLearnIndex).getQuestion());
+					startgui.setAnswerTextLabel(
+							startgui.getSelectedDeck().getFlashcard(flashcardLearnIndex).getAnswer());
 				}
-			
+
+			} else if (cmd.equals("chooseDeckComboBox")) {
+
+				if (startgui.getSelectedDeck().getAmountOfFlashcards() != 0) {
+					flashcardLearnIndex = 0;
+					System.out.println(flashcardLearnIndex);
+					startgui.setOnlyQuestionTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getQuestion());
+					startgui.setQuestionTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getQuestion());
+					startgui.setAnswerTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getAnswer());
+				}
+
+			}
+		} catch (NoDeckSelectedExeption e) {
+
+			JOptionPane.showMessageDialog(null, e.getError());
 		}
-		}catch (NoDeckSelectedExeption e) {
-		
-		new JOptionPane(e.getError());
-	}
-=======
-			flashcardLearnIndex = 0;
-			System.out.println(flashcardLearnIndex);
-			startgui.setOnlyQuestionTextLabel(
-					startgui.getSelectedDeck().getFlashcard(flashcardLearnIndex).getQuestion());
-			startgui.setQuestionTextLabel(startgui.getSelectedDeck().getFlashcard(flashcardLearnIndex).getQuestion());
-			startgui.setAnswerTextLabel(startgui.getSelectedDeck().getFlashcard(flashcardLearnIndex).getAnswer());
-		}
->>>>>>> branch 'main' of https://git.informatik.uni-hamburg.de/0sterkel/ptp22-do08-lernkarten.git
 	}
 }
