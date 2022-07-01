@@ -191,6 +191,7 @@ public class StartGui extends JFrame implements Observer {
 
 		JButton lernenBeginnenButton = new JButton("Lernen Beginnen");
 		learnHomeCard.add(lernenBeginnenButton, BorderLayout.CENTER);
+		lernenBeginnenButton.addActionListener(new StartGuiListener(this, deckmanager, "lernenBeginnenButton"));
 		lernenBeginnenButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
@@ -202,7 +203,7 @@ public class StartGui extends JFrame implements Observer {
 		learnQuestionCard = new JPanel();
 		learnQuestionCard.setLayout(new GridLayout(2, 1));
 		startCard.add(learnQuestionCard, "learnQuestionCard");
-		onlyQuestionTextLabel = new JLabel("defaultFrage"); // default Deck einladen
+		onlyQuestionTextLabel = new JLabel("-"); // default Deck einladen
 		onlyQuestionTextLabel.setFont(new Font(fontStyle, Font.PLAIN, 20));
 
 		JButton showAnswerButton = new JButton("Antwort zeigen");
@@ -223,10 +224,10 @@ public class StartGui extends JFrame implements Observer {
 		startCard.add(learnAnswerCard, "learnAnswerCard");
 
 		JLabel questionLabel = new JLabel("Frage:");
-		questionTextLabel = new JLabel("defaultFrage");
+		questionTextLabel = new JLabel("-");
 		questionTextLabel.setFont(new Font(fontStyle, Font.PLAIN, 20));
 		JLabel answerLabel = new JLabel("Antwort:");
-		answerTextLabel = new JLabel("defaultAntwort");
+		answerTextLabel = new JLabel("-");
 		answerTextLabel.setFont(new Font(fontStyle, Font.PLAIN, 20));
 
 		JButton nextQuestionButton = new JButton("Nächste Frage");
