@@ -40,7 +40,7 @@ public class CreateDeckGuiListener implements ActionListener {
 				System.out.println(f.getAnswer());
 			}
 
-		} else if (cmd.equals("confirmDeckname")) {
+		} else if (cmd.equals("Deckname")) {
 			String deckname = gui.getDeckName().getText();
 			_deckname = deckname;
 			Deck newDeck = new Deck(deckname);

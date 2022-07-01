@@ -57,7 +57,7 @@ public class CreateDeckGui extends JFrame {
 				((CardLayout) framePanel.getLayout()).show(framePanel, "deckKartenCard");
 			}
 		});
-		confirmDeckname.addActionListener(new CreateDeckGuiListener(this, deckmanager, "confirmDeckname"));
+		confirmDeckname.addActionListener(new CreateDeckGuiListener(this, deckmanager, "Deckname"));
 
 		setDecknameCard.add(label1, BorderLayout.NORTH);
 		setDecknameCard.add(deckName, BorderLayout.CENTER);

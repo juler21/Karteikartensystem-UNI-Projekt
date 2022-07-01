@@ -3,22 +3,23 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import model.Deck;
 import model.DeckManager;
-import util.NoDeckSelectedExeption;
+import util.NoFlashcardSelectedExeption;
 import view.EditDeckGui;
-import view.StartGui;
+import view.ErrorScreen;
 
 public class EditDeckGuiListener implements ActionListener {
 	private EditDeckGui gui;// view
 	private DeckManager deckmanager;// model
 	private String cmd;
-	private StartGui startGui;
+	private Deck selectedDeck;
 
-	public EditDeckGuiListener(EditDeckGui gui, StartGui startGui, DeckManager model, String cmd) {
+	public EditDeckGuiListener(EditDeckGui gui, Deck deck, DeckManager model, String cmd) {
 		this.gui = gui;
 		this.deckmanager = model;
 		this.cmd = cmd;
-		this.startGui = startGui;
+		this.selectedDeck = deck;
 	}
 
 	@Override
@@ -27,29 +28,24 @@ public class EditDeckGuiListener implements ActionListener {
 	}
 
 	private void doCommand(String cmd) {
-		if (cmd.equals("deleteFlashcard")) {
 
-			int index;
-			try {
-				index = startGui.getSelectedDeck().getDeckFlashcardlist().indexOf(gui.getSelectedFlashcard());
-				startGui.getSelectedDeck().deleteFlashcard(index);
-			} catch (NoDeckSelectedExeption e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		} else if (cmd.equals("editFlashcard")) {
-			gui.getSelectedFlashcard().setQuestion(gui.getQuestionText());
-			gui.getSelectedFlashcard().setAnswer(gui.getAnswerText());
-			try {
-				startGui.getSelectedDeck().deleteDeckCSV();
-				startGui.getSelectedDeck().saveDeckCSV();
-			} catch (NoDeckSelectedExeption e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		try {
+			if (cmd.equals("deleteFlashcard")) {
+				int index = selectedDeck.getDeckFlashcardlist().indexOf(gui.getSelectedFlashcard());
+				selectedDeck.deleteFlashcard(index);
+			} else if (cmd.equals("editFlashcard")) {
+				gui.getSelectedFlashcard().setQuestion(gui.getQuestionText());
+				gui.getSelectedFlashcard().setAnswer(gui.getAnswerText());
 
-			System.out.println(gui.getSelectedFlashcard().getAnswer());
-			System.out.println(gui.getSelectedFlashcard().getQuestion());
+				selectedDeck.deleteDeckCSV();
+				selectedDeck.saveDeckCSV();
+
+				System.out.println(gui.getSelectedFlashcard().getAnswer());
+				System.out.println(gui.getSelectedFlashcard().getQuestion());
+			}
+		} catch (NoFlashcardSelectedExeption e) {
+			new ErrorScreen(e.getError());
 		}
+
 	}
 }
