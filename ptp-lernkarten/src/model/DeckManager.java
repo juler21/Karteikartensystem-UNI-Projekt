@@ -75,19 +75,6 @@ public class DeckManager extends Observable {
 			}
 		}
 		return paths;
-
-//		String[] paths = new String[folder.listFiles().length];
-//		if (folder.listFiles() != null) {
-//			System.out.println(folder.listFiles().length);
-//			for (int i = 0; i < folder.listFiles().length; i++) {
-//				paths[i] = folder.listFiles()[i].toString();
-//			}
-//			for (String s : paths) {
-//				System.out.println(s);
-//			}
-//			System.out.println("--------------------------------------------------");
-//		}
-//		return paths;
 	}
 
 	public List<Path> findAllFilesInFolderPath(File folder) {
@@ -100,19 +87,6 @@ public class DeckManager extends Observable {
 			}
 		}
 		return paths;
-
-//		Path[] paths = new Path[folder.listFiles().length];
-//		if (folder.listFiles() != null) {
-//			for (int i = 0; i < folder.listFiles().length; i++) {
-//				paths[i] = folder.listFiles()[i].toPath();
-//			}
-//			for (Path s : paths) {
-//				System.out.println(s);
-//			}
-//			System.out.println("--------------------------------------------------");
-//		}
-//
-//		return paths;
 	}
 
 	public String pathToFileName(Path path) {
@@ -130,10 +104,11 @@ public class DeckManager extends Observable {
 			Deck newdeck = new Deck(pathToFileName(paths1.get(i)));
 			try {
 				BufferedReader br = new BufferedReader(new FileReader(paths.get(i)));
-				while ((line = br.readLine()) != null) {
-					String[] values = line.split(";");
-					newdeck.loadFlashcard(new Flashcard(values[1], values[2]));
-//					newdeck.loadFlashcard(new Flashcard(Integer.parseInt(values[0]), values[1], values[2]));
+				if (br.readLine() != "") {
+					while ((line = br.readLine()) != null) {
+						String[] values = line.split(";");
+						newdeck.loadFlashcard(new Flashcard(values[1], values[2]));
+					}
 				}
 
 			} catch (FileNotFoundException e) {

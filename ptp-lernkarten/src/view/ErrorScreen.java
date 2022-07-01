@@ -1,14 +1,14 @@
 package view;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-public class ErrorScreen extends JOptionPane {
+public class ErrorScreen {
 
-	private String errorMessage;
+	private JFrame errorFrame;
 
 	public ErrorScreen(String errorMessage) {
-		super(errorMessage, WARNING_MESSAGE);
-		this.errorMessage = errorMessage;
-		this.showMessageDialog(null, errorMessage);
+		errorFrame = new JFrame();
+		JOptionPane.showMessageDialog(errorFrame, errorMessage, "Warning", JOptionPane.WARNING_MESSAGE);
 	}
 }
