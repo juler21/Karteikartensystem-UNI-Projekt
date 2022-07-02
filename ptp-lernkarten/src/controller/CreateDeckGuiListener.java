@@ -29,7 +29,6 @@ public class CreateDeckGuiListener implements ActionListener {
 		if (cmd.equals("ok")) {
 			String question = gui.getQuestion().getText();
 			String answer = gui.getAnswer().getText();
-
 			int position = deckmanager.getDeck(_deckname).getAmountOfFlashcards();
 			deckmanager.getDeck(_deckname).addFlashcard(new Flashcard(question, answer));
 			((CreateDeckGui) gui).getQuestion().setText("");

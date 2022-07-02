@@ -7,6 +7,8 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.File;
 
 import javax.swing.JButton;
@@ -43,6 +45,7 @@ public class StartGui extends JFrame implements Observer {
 
 	// startCard auf der verschiedene LearnPanel liegen
 	private JPanel learnHomeCard;
+	private JLabel currentDeckLabel;
 	private JPanel learnQuestionCard;
 	private JLabel onlyQuestionTextLabel;
 	private JPanel learnAnswerCard;
@@ -80,6 +83,7 @@ public class StartGui extends JFrame implements Observer {
 		// LearnPanel erstellen, dass auf der StartCard liegt und die Kartenlern
 		// "frames" anzeigt
 		generateLearnPanel();
+
 		deckmanager.registerObserver(this);
 		mainFrame.setVisible(true);
 
@@ -104,11 +108,17 @@ public class StartGui extends JFrame implements Observer {
 		topButtonPanel.add(einstellungenButton);
 
 		// ACTIONLISTENER
+//		startButton.addActionListener(new StartGuiListener(this, deckmanager, "startButtonPressed"));
 		startButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
 				((CardLayout) contentPanel.getLayout()).show(contentPanel, "startCard");
 				((CardLayout) startCard.getLayout()).show(startCard, "learnHomeCard");
+				try {
+					getCurrentDeckLabel().setText(getSelectedDeck().getDeckname());
+				} catch (NoDeckSelectedExeption e1) {
+					getCurrentDeckLabel().setText("kein Deck gewählt");
+				}
 			}
 		});
 
@@ -186,10 +196,15 @@ public class StartGui extends JFrame implements Observer {
 
 		// Home-Karte
 		learnHomeCard = new JPanel();
-		learnHomeCard.setLayout(new BorderLayout());
+		learnHomeCard.setLayout(new GridLayout(3, 1));
 		startCard.add(learnHomeCard, "learnHomeCard");
 
+		
 		JButton lernenBeginnenButton = new JButton("Lernen Beginnen");
+		JLabel currentDeckInfoLabel = new JLabel("Aktuelles Deck::");
+		currentDeckLabel = new JLabel("noch kein Deck gewählt");
+		learnHomeCard.add(currentDeckInfoLabel);
+		learnHomeCard.add(currentDeckLabel, BorderLayout.PAGE_START);
 		learnHomeCard.add(lernenBeginnenButton, BorderLayout.CENTER);
 		lernenBeginnenButton.addActionListener(new StartGuiListener(this, deckmanager, "lernenBeginnenButton"));
 		lernenBeginnenButton.addActionListener(new ActionListener() {
@@ -250,6 +265,9 @@ public class StartGui extends JFrame implements Observer {
 //		chooseDeckComboBox.addActionListener(new StartGuiListener(this, deckmanager, "chooseDeckComboBox"));
 	}
 
+	public JLabel getCurrentDeckLabel() {
+		return currentDeckLabel;
+	}
 	public JLabel getOnlyQuestionTextLabel() {
 		return onlyQuestionTextLabel;
 	}
