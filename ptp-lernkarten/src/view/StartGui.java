@@ -265,37 +265,10 @@ public class StartGui extends JFrame implements Observer {
 //		chooseDeckComboBox.addActionListener(new StartGuiListener(this, deckmanager, "chooseDeckComboBox"));
 	}
 
-	public JLabel getCurrentDeckLabel() {
-		return currentDeckLabel;
-	}
-	public JLabel getOnlyQuestionTextLabel() {
-		return onlyQuestionTextLabel;
-	}
-
-	public void setOnlyQuestionTextLabel(String text) {
-		this.onlyQuestionTextLabel.setText(text);
-	}
-
-	public JLabel getQuestionTextLabel() {
-		return questionTextLabel;
-	}
-
-	public void setQuestionTextLabel(String text) {
-		this.questionTextLabel.setText(text);
-	}
-
-	public JLabel getAnswerTextLabel() {
-		return answerTextLabel;
-	}
-
-	public void setAnswerTextLabel(String text) {
-		this.answerTextLabel.setText(text);
-	}
-
 	private void deckListeErstellen() {
-
+	
 		chooseDeckComboBox = new JComboBox<Deck>();
-
+	
 		deckmanager.getData(new File(DeckManager.getPathtoString()));
 		update("deckChange");
 	}
@@ -328,9 +301,9 @@ public class StartGui extends JFrame implements Observer {
 
 	@Override
 	public void update(String changeType) {
-
+	
 		System.out.println("update");
-
+	
 		if (changeType.equals("deckChange")) {
 			// combobox update
 			if (!deckmanager.getDecks().isEmpty()) {
@@ -341,8 +314,107 @@ public class StartGui extends JFrame implements Observer {
 				// setzt default Item in Combobox
 				chooseDeckComboBox.setSelectedIndex(0);
 			}
-
+	
 		}
+	
+	}
 
+	public JLabel getCurrentDeckLabel() {
+		return currentDeckLabel;
+	}
+	public JLabel getOnlyQuestionTextLabel() {
+		return onlyQuestionTextLabel;
+	}
+
+	public void setOnlyQuestionTextLabel(String text) {
+		this.onlyQuestionTextLabel.setText(text);
+	}
+
+	public JLabel getQuestionTextLabel() {
+		return questionTextLabel;
+	}
+
+	public void setQuestionTextLabel(String text) {
+		this.questionTextLabel.setText(text);
+	}
+
+	public JLabel getAnswerTextLabel() {
+		return answerTextLabel;
+	}
+
+	public void setAnswerTextLabel(String text) {
+		this.answerTextLabel.setText(text);
+	}
+
+	public JFrame getMainFrame() {
+		return mainFrame;
+	}
+
+	public JPanel getFramePanel() {
+		return framePanel;
+	}
+
+	public JPanel getTopButtonPanel() {
+		return topButtonPanel;
+	}
+
+	public JButton getStartButton() {
+		return startButton;
+	}
+
+	public JButton getDecksButton() {
+		return decksButton;
+	}
+
+	public JButton getStatistikButton() {
+		return statistikButton;
+	}
+
+	public JButton getEinstellungenButton() {
+		return einstellungenButton;
+	}
+
+	public JPanel getContentPanel() {
+		return contentPanel;
+	}
+
+	public JPanel getStartCard() {
+		return startCard;
+	}
+
+	public JPanel getDecksCard() {
+		return decksCard;
+	}
+
+	public JPanel getStatistikCard() {
+		return statistikCard;
+	}
+
+	public JPanel getEinstellungenCard() {
+		return einstellungenCard;
+	}
+
+	public JPanel getLearnHomeCard() {
+		return learnHomeCard;
+	}
+
+	public JPanel getLearnQuestionCard() {
+		return learnQuestionCard;
+	}
+
+	public JPanel getLearnAnswerCard() {
+		return learnAnswerCard;
+	}
+
+	public String getFontStyle() {
+		return fontStyle;
+	}
+
+	public JComboBox<Deck> getChooseDeckComboBox() {
+		return chooseDeckComboBox;
+	}
+
+	public DeckManager getDeckmanager() {
+		return deckmanager;
 	}
 }

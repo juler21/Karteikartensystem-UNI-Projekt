@@ -1,7 +1,10 @@
 package controller;
 
+import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.JPanel;
 
 import model.Deck;
 import model.DeckManager;
@@ -43,7 +46,16 @@ public class StartGuiListener implements ActionListener {
 
 		}
 //		if (cmd.equals("startButtonPressed")) {
-//
+//			JPanel contentPanel = ((StartGui) startgui).getContentPanel();
+//			
+//			startgui.getContentPanel().getLayout().show(getContentPanel(, "startCard");
+//			((CardLayout) startCard.getLayout()).show(startCard, "learnHomeCard");
+//			try {
+//				getCurrentDeckLabel().setText(getSelectedDeck().getDeckname());
+//			} catch (NoDeckSelectedExeption e1) {
+//				getCurrentDeckLabel().setText("kein Deck gewählt");
+//			}
+//		}
 //
 //		}
 		try {
