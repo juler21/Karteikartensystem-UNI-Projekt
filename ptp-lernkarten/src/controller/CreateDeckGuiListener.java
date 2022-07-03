@@ -29,17 +29,11 @@ public class CreateDeckGuiListener implements ActionListener {
 		if (cmd.equals("ok")) {
 			String question = gui.getQuestion().getText();
 			String answer = gui.getAnswer().getText();
-
-			int position = deckmanager.getDeck(_deckname).getAmountOfFlashcards();
 			deckmanager.getDeck(_deckname).addFlashcard(new Flashcard(question, answer));
-			((CreateDeckGui) gui).getQuestion().setText("");
-			((CreateDeckGui) gui).getAnswer().setText("");
+			gui.getQuestion().setText("");
+			gui.getAnswer().setText("");
 		} else if (cmd.equals("confirm")) {
-			for (Flashcard f : deckmanager.getDeck(_deckname).getDeckFlashcardlist()) {
-				System.out.println(f.getQuestion());
-				System.out.println(f.getAnswer());
-			}
-
+			gui.dispose();
 		} else if (cmd.equals("Deckname")) {
 			String deckname = gui.getDeckName().getText();
 			_deckname = deckname;

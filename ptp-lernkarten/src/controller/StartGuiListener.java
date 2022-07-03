@@ -71,16 +71,6 @@ public class StartGuiListener implements ActionListener {
 					startgui.setQuestionTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getQuestion());
 					startgui.setAnswerTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getAnswer());
 				}
-//			} else if (cmd.equals("chooseDeckComboBox")) {
-//
-//				if (selectedDeck.getAmountOfFlashcards() != 0) {
-//					flashcardLearnIndex = 0;
-//					System.out.println(flashcardLearnIndex);
-//					startgui.setOnlyQuestionTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getQuestion());
-//					startgui.setQuestionTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getQuestion());
-//					startgui.setAnswerTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getAnswer());
-//				}
-
 			}
 		} catch (NoDeckSelectedExeption e) {
 			new ErrorScreen(e.getError());

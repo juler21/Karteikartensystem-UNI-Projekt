@@ -245,9 +245,6 @@ public class StartGui extends JFrame implements Observer {
 		learnAnswerCard.add(answerTextLabel);
 		learnAnswerCard.add(nextQuestionButton);
 
-		// muss hier erstellt werden da sonst qustionLabel... noch nicht erstellt
-//		chooseDeckComboBox.setSelectedIndex(0);
-//		chooseDeckComboBox.addActionListener(new StartGuiListener(this, deckmanager, "chooseDeckComboBox"));
 	}
 
 	public JLabel getOnlyQuestionTextLabel() {
