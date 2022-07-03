@@ -62,7 +62,8 @@ public class StartGuiListener implements ActionListener {
 
 			if (cmd.equals("deckBearbeiten")) {
 
-				new EditDeckGui(deckmanager, startgui, selectedDeck, selectedDeck.getDeckname() + "BEARBEITEN");
+				new EditDeckGui(deckmanager, startgui, selectedDeck,
+						"DECK: \"" + selectedDeck.getDeckname() + "\" BEARBEITEN");
 
 			} else if (cmd.equals("deckLöschen")) {
 

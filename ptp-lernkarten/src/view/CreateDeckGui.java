@@ -20,12 +20,17 @@ import controller.CreateDeckGuiListener;
 import model.Deck;
 import model.DeckManager;
 
-public class CreateDeckGui extends JFrame {
+public class CreateDeckGui {
 	// Model
 	private DeckManager deckmanager;
 //	private CreateDeckGuiListener controller; // controller
 
 	private JFrame createDeckFrame;
+
+	public JFrame getCreateDeckFrame() {
+		return createDeckFrame;
+	}
+
 	private JPanel framePanel;
 	private JPanel setDecknameCard;
 	private JPanel createFlashcardsCard;
@@ -39,7 +44,7 @@ public class CreateDeckGui extends JFrame {
 
 		// JFrame erstellen
 		createDeckFrame = new JFrame(windowname);
-		createDeckFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		createDeckFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		createDeckFrame.setFont(new Font("Ubuntu", Font.PLAIN, 12));
 		createDeckFrame.setBounds(100, 100, 500, 300);
 
@@ -55,6 +60,7 @@ public class CreateDeckGui extends JFrame {
 
 		JLabel label1 = new JLabel("Geben Sie den Name des Decks ein:");
 		deckName = new JTextField("");
+		JPanel buttonPanel1 = new JPanel(new FlowLayout());
 
 		confirmDeckname = new JButton("Deckname Bestätigen");
 		confirmDeckname.addActionListener(new ActionListener() {
@@ -63,6 +69,11 @@ public class CreateDeckGui extends JFrame {
 			}
 		});
 		confirmDeckname.addActionListener(new CreateDeckGuiListener(this, deckmanager, "Deckname"));
+		JButton closeButton = new JButton("ABBRECHEN");
+		closeButton.addActionListener(new CreateDeckGuiListener(this, deckmanager, "close"));
+
+		buttonPanel1.add(confirmDeckname);
+		buttonPanel1.add(closeButton);
 
 		deckName.addKeyListener(new KeyListener() {
 
@@ -85,7 +96,7 @@ public class CreateDeckGui extends JFrame {
 		deckName.setFocusable(true);
 		setDecknameCard.add(label1, BorderLayout.NORTH);
 		setDecknameCard.add(deckName, BorderLayout.CENTER);
-		setDecknameCard.add(confirmDeckname, BorderLayout.PAGE_END);
+		setDecknameCard.add(buttonPanel1, BorderLayout.PAGE_END);
 
 		// createFlashcard Karte
 		createFlashcardsCard = new JPanel();
@@ -135,8 +146,8 @@ public class CreateDeckGui extends JFrame {
 		});
 		answer.setFocusable(true);
 
-		JButton confirmButton = new JButton("confirm");
-		confirmButton.addActionListener(new CreateDeckGuiListener(this, deckmanager, "confirm"));
+		JButton confirmButton = new JButton("SCHLIEßEN");
+		confirmButton.addActionListener(new CreateDeckGuiListener(this, deckmanager, "close"));
 
 		buttonPanel.add(okButton);
 		buttonPanel.add(confirmButton);
@@ -145,7 +156,6 @@ public class CreateDeckGui extends JFrame {
 
 		// Start Karte des CardLayout setzten
 		((CardLayout) framePanel.getLayout()).show(framePanel, "startCard");
-		pack();
 
 		createDeckFrame.setVisible(true);
 

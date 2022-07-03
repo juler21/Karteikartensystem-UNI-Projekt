@@ -31,6 +31,9 @@ public class EditDeckGuiListener implements ActionListener {
 
 	private void doCommand(String cmd) {
 
+		if (cmd.equals("close")) {
+			gui.getEditDeckFrame().dispose();
+		}
 		try {
 			if (cmd.equals("deleteFlashcard")) {
 				int index = selectedDeck.getDeckFlashcardlist().indexOf(gui.getSelectedFlashcard());

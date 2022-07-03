@@ -8,6 +8,7 @@ import model.DeckManager;
 import model.Flashcard;
 import model.UnValidDecknameException;
 import view.CreateDeckGui;
+import view.ErrorScreen;
 
 public class CreateDeckGuiListener implements ActionListener {
 	private CreateDeckGui gui;// view
@@ -43,8 +44,8 @@ public class CreateDeckGuiListener implements ActionListener {
 			deckmanager.getDeck(_deckname).addFlashcard(new Flashcard(question, answer));
 			gui.getQuestion().setText("");
 			gui.getAnswer().setText("");
-		} else if (cmd.equals("confirm")) {
-
+		} else if (cmd.equals("close")) {
+			gui.getCreateDeckFrame().dispose();
 		} else if (cmd.equals("Deckname")) {
 			String deckname = gui.getDeckName().getText();
 			_deckname = deckname;
@@ -53,9 +54,9 @@ public class CreateDeckGuiListener implements ActionListener {
 				newDeck = new Deck(deckname);
 				deckmanager.addDeck(newDeck);
 			} catch (UnValidDecknameException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				new ErrorScreen(e.toString());
 			}
+			gui.getCreateDeckFrame().setTitle("Lernkarte zu: \"" + deckname + "\" hinzufügen");
 
 		}
 

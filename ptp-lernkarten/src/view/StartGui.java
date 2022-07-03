@@ -307,7 +307,7 @@ public class StartGui extends JFrame implements Observer {
 					chooseDeckComboBox.addItem(deckmanager.getDeck(key));
 				});
 				// setzt default Item in Combobox
-//				chooseDeckComboBox.setSelectedIndex(0);
+				chooseDeckComboBox.setSelectedIndex(0);
 			}
 
 		}

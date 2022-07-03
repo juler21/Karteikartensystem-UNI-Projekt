@@ -28,6 +28,7 @@ public class EditDeckGui extends JFrame implements Observer {
 
 	private StartGui startgui;
 	private Deck selectedDeck;
+
 	private JFrame editDeckFrame;
 	private JPanel editDeckPanel;
 	private JPanel lowerButtonPanel;
@@ -114,14 +115,8 @@ public class EditDeckGui extends JFrame implements Observer {
 		saveFlashcardButton = new JButton("SPEICHERN");
 		saveFlashcardButton
 				.addActionListener((new EditDeckGuiListener(this, selectedDeck, deckmanager, "editFlashcard")));
-		quitButton = new JButton("ABBRECHEN");
-		quitButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				setDefaultCloseOperation(EXIT_ON_CLOSE);
-			}
-		});
+		quitButton = new JButton("SCHLIEßEN");
+		quitButton.addActionListener((new EditDeckGuiListener(this, selectedDeck, deckmanager, "close")));
 		newFlashcardButton = new JButton("HINZUFÜGEN");
 		newFlashcardButton.addActionListener(new EditDeckGuiListener(this, selectedDeck, deckmanager, "newFlashcard"));
 		lowerButtonPanel.add(deleteFlashcardButton);
@@ -155,7 +150,7 @@ public class EditDeckGui extends JFrame implements Observer {
 
 	@Override
 	public void update(String changeType) {
-		if (changeType.equals("deckChange")) {
+		if (changeType.equals("flashcardChange")) {
 			System.out.println("update");
 			flashcardList.removeAllItems();
 			for (Flashcard f : selectedDeck.getDeckFlashcardlist()) {
@@ -164,6 +159,10 @@ public class EditDeckGui extends JFrame implements Observer {
 
 			flashcardList.setSelectedIndex(0);
 		}
+	}
+
+	public JFrame getEditDeckFrame() {
+		return editDeckFrame;
 	}
 
 	public String getQuestionText() {
