@@ -1,10 +1,7 @@
 package controller;
 
-import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.JPanel;
 
 import model.Deck;
 import model.DeckManager;
@@ -88,13 +85,6 @@ public class StartGuiListener implements ActionListener {
 					startgui.setAnswerTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getAnswer());
 				}
 			}
-<<<<<<< HEAD
-=======
-//			} else if (cmd.equals("chooseDeckComboBox")) {
-//
-//	
-//			}
->>>>>>> branch 'main' of https://git.informatik.uni-hamburg.de/0sterkel/ptp22-do08-lernkarten.git
 		} catch (NoDeckSelectedExeption e) {
 			new ErrorScreen(e.getError());
 		}
