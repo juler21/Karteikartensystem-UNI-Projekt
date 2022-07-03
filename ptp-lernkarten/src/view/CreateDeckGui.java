@@ -6,7 +6,6 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -14,14 +13,11 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JRootPane;
 import javax.swing.JTextField;
-import javax.swing.KeyStroke;
 import javax.swing.SpringLayout;
-import javax.swing.SwingUtilities;
-import javax.swing.text.Keymap;
 
 import controller.CreateDeckGuiListener;
+import model.Deck;
 import model.DeckManager;
 
 public class CreateDeckGui extends JFrame {
@@ -38,7 +34,7 @@ public class CreateDeckGui extends JFrame {
 	private JTextField answer;
 	private JButton confirmDeckname;
 
-	public CreateDeckGui(DeckManager deckmanager, String windowname) {
+	public CreateDeckGui(DeckManager deckmanager, String windowname, Deck d) {
 		this.deckmanager = deckmanager;
 
 		// JFrame erstellen
@@ -59,8 +55,7 @@ public class CreateDeckGui extends JFrame {
 
 		JLabel label1 = new JLabel("Geben Sie den Name des Decks ein:");
 		deckName = new JTextField("");
-		
-		
+
 		confirmDeckname = new JButton("Deckname Bestätigen");
 		confirmDeckname.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -70,18 +65,22 @@ public class CreateDeckGui extends JFrame {
 		confirmDeckname.addActionListener(new CreateDeckGuiListener(this, deckmanager, "Deckname"));
 
 		deckName.addKeyListener(new KeyListener() {
-			
+
 			@Override
-			public void keyTyped(KeyEvent e) {}
+			public void keyTyped(KeyEvent e) {
+			}
+
 			@Override
 			public void keyPressed(KeyEvent e) {
-				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 					confirmDeckname.doClick();
 					System.out.println("confrimDeckname");
-				}	
+				}
 			}
+
 			@Override
-			public void keyReleased(KeyEvent e) {}
+			public void keyReleased(KeyEvent e) {
+			}
 		});
 		deckName.setFocusable(true);
 		setDecknameCard.add(label1, BorderLayout.NORTH);
@@ -115,20 +114,24 @@ public class CreateDeckGui extends JFrame {
 
 		JPanel buttonPanel = new JPanel(new FlowLayout());
 		JButton okButton = new JButton("OK");
-		okButton.addActionListener(new CreateDeckGuiListener(this, deckmanager, "ok"));
+		okButton.addActionListener(new CreateDeckGuiListener(this, deckmanager, "ok", d));
 		answer.addKeyListener(new KeyListener() {
-			
+
 			@Override
-			public void keyTyped(KeyEvent e) {}
+			public void keyTyped(KeyEvent e) {
+			}
+
 			@Override
 			public void keyPressed(KeyEvent e) {
-				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 					okButton.doClick();
 					System.out.println("ok");
-				}	
+				}
 			}
+
 			@Override
-			public void keyReleased(KeyEvent e) {}
+			public void keyReleased(KeyEvent e) {
+			}
 		});
 		answer.setFocusable(true);
 
@@ -158,6 +161,14 @@ public class CreateDeckGui extends JFrame {
 
 	public JTextField getDeckName() {
 		return deckName;
+	}
+
+	public JPanel getFramePanel() {
+		return framePanel;
+	}
+
+	public void setFramePanel(JPanel framePanel) {
+		this.framePanel = framePanel;
 	}
 
 }

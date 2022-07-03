@@ -3,6 +3,7 @@ package util;
 import model.Deck;
 import model.DeckManager;
 import model.Flashcard;
+import model.UnValidDecknameException;
 import view.StartGui;
 
 public class Main {
@@ -38,8 +39,9 @@ public class Main {
 		return deck.getFlashcard(position);
 	}
 
-	public void createDeck(String deckname) {
-		Deck newDeck = new Deck(deckname);
+	public void createDeck(String deckname) throws UnValidDecknameException {
+		Deck newDeck;
+		newDeck = new Deck(deckname);
 		deckmanager.addDeck(newDeck);
 	}
 

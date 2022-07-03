@@ -7,8 +7,6 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.io.File;
 
 import javax.swing.JButton;
@@ -199,7 +197,6 @@ public class StartGui extends JFrame implements Observer {
 		learnHomeCard.setLayout(new GridLayout(3, 1));
 		startCard.add(learnHomeCard, "learnHomeCard");
 
-		
 		JButton lernenBeginnenButton = new JButton("Lernen Beginnen");
 		JLabel currentDeckInfoLabel = new JLabel("Aktuelles Deck::");
 		currentDeckLabel = new JLabel("noch kein Deck gewählt");
@@ -263,9 +260,10 @@ public class StartGui extends JFrame implements Observer {
 	}
 
 	private void deckListeErstellen() {
-	
+
 		chooseDeckComboBox = new JComboBox<Deck>();
-	
+
+		// Was wird da gemacht (Julian)
 		deckmanager.getData(new File(DeckManager.getPathtoString()));
 		update("deckChange");
 	}
@@ -298,9 +296,9 @@ public class StartGui extends JFrame implements Observer {
 
 	@Override
 	public void update(String changeType) {
-	
+
 		System.out.println("update");
-	
+
 		if (changeType.equals("deckChange")) {
 			// combobox update
 			if (!deckmanager.getDecks().isEmpty()) {
@@ -309,16 +307,17 @@ public class StartGui extends JFrame implements Observer {
 					chooseDeckComboBox.addItem(deckmanager.getDeck(key));
 				});
 				// setzt default Item in Combobox
-				chooseDeckComboBox.setSelectedIndex(0);
+//				chooseDeckComboBox.setSelectedIndex(0);
 			}
-	
+
 		}
-	
+
 	}
 
 	public JLabel getCurrentDeckLabel() {
 		return currentDeckLabel;
 	}
+
 	public JLabel getOnlyQuestionTextLabel() {
 		return onlyQuestionTextLabel;
 	}

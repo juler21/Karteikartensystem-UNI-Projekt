@@ -8,6 +8,7 @@ import java.io.File;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import model.UnValidDecknameException;
 import util.Main;
 
 public class MainTest {
@@ -38,7 +39,12 @@ public class MainTest {
 
 	@Test
 	public void testaddDeck() {
-		app.createDeck("test123");
+		try {
+			app.createDeck("test123");
+		} catch (UnValidDecknameException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		File folder = new File(app.getPathDirectory());
 		boolean result = false;
 		for (String f : folder.list()) {

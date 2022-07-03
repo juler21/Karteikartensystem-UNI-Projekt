@@ -101,8 +101,9 @@ public class DeckManager extends Observable {
 		List<Path> paths1 = findAllFilesInFolderPath(folder);
 		String line = "";
 		for (int i = 0; i < paths.size(); i++) {
-			Deck newdeck = new Deck(pathToFileName(paths1.get(i)));
+
 			try {
+				Deck newdeck = new Deck(pathToFileName(paths1.get(i)));
 				BufferedReader br = new BufferedReader(new FileReader(paths.get(i)));
 				if (br.readLine() != "") {
 					while ((line = br.readLine()) != null) {
@@ -110,13 +111,15 @@ public class DeckManager extends Observable {
 						newdeck.loadFlashcard(new Flashcard(values[1], values[2]));
 					}
 				}
-
+				loadDeck(newdeck);
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
 				e.printStackTrace();
+			} catch (UnValidDecknameException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			loadDeck(newdeck);
 		}
 
 	}

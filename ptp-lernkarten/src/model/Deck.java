@@ -15,8 +15,18 @@ public class Deck extends Observable {
 
 	private String deckname;
 
-	public Deck(String deck) {
-		deckname = deck;
+	public Deck(String deck) throws UnValidDecknameException {
+		if (decknameisValid()) {
+			deckname = deck;
+		} else {
+			throw new UnValidDecknameException();
+		}
+
+	}
+
+	private static boolean decknameisValid() {
+		// TODO muss noch implementiert werden
+		return true;
 	}
 
 	public void addFlashcard(Flashcard flash) {

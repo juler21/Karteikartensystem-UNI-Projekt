@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import model.Deck;
 import model.DeckManager;
 import model.Flashcard;
+import model.UnValidDecknameException;
 import view.CreateDeckGui;
 
 public class CreateDeckGuiListener implements ActionListener {
@@ -18,6 +19,16 @@ public class CreateDeckGuiListener implements ActionListener {
 		this.gui = gui;
 		this.deckmanager = model;
 		this.cmd = cmd;
+	}
+
+	public CreateDeckGuiListener(CreateDeckGui gui, DeckManager model, String cmd, Deck d) {
+		this.gui = gui;
+		this.deckmanager = model;
+		this.cmd = cmd;
+		if (d != null) {
+			_deckname = d.getDeckname();
+		}
+
 	}
 
 	@Override
@@ -33,12 +44,18 @@ public class CreateDeckGuiListener implements ActionListener {
 			gui.getQuestion().setText("");
 			gui.getAnswer().setText("");
 		} else if (cmd.equals("confirm")) {
-			gui.dispose();
+
 		} else if (cmd.equals("Deckname")) {
 			String deckname = gui.getDeckName().getText();
 			_deckname = deckname;
-			Deck newDeck = new Deck(deckname);
-			deckmanager.addDeck(newDeck);
+			Deck newDeck;
+			try {
+				newDeck = new Deck(deckname);
+				deckmanager.addDeck(newDeck);
+			} catch (UnValidDecknameException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 		}
 

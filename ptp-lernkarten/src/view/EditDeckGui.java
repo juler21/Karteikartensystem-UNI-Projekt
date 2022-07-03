@@ -40,6 +40,8 @@ public class EditDeckGui extends JFrame implements Observer {
 	private JTextArea answerText;
 	private JButton deleteFlashcardButton;
 	private JButton saveFlashcardButton;
+	private JButton quitButton;
+	private JButton newFlashcardButton;
 
 	public EditDeckGui(DeckManager deckmanager, StartGui startgui, Deck selectedDeck, String windowname) {
 
@@ -106,14 +108,26 @@ public class EditDeckGui extends JFrame implements Observer {
 		editDeckPanel.add(qaPanel, BorderLayout.CENTER);
 
 		lowerButtonPanel = new JPanel();
-		deleteFlashcardButton = new JButton("LERNKARTE LÖSCHEN");
+		deleteFlashcardButton = new JButton("LÖSCHEN");
 		deleteFlashcardButton
 				.addActionListener(new EditDeckGuiListener(this, selectedDeck, deckmanager, "deleteFlashcard"));
-		saveFlashcardButton = new JButton("LERNKARTE SPEICHERN");
+		saveFlashcardButton = new JButton("SPEICHERN");
 		saveFlashcardButton
 				.addActionListener((new EditDeckGuiListener(this, selectedDeck, deckmanager, "editFlashcard")));
+		quitButton = new JButton("ABBRECHEN");
+		quitButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setDefaultCloseOperation(EXIT_ON_CLOSE);
+			}
+		});
+		newFlashcardButton = new JButton("HINZUFÜGEN");
+		newFlashcardButton.addActionListener(new EditDeckGuiListener(this, selectedDeck, deckmanager, "newFlashcard"));
 		lowerButtonPanel.add(deleteFlashcardButton);
 		lowerButtonPanel.add(saveFlashcardButton);
+		lowerButtonPanel.add(newFlashcardButton);
+		lowerButtonPanel.add(quitButton);
 		editDeckPanel.add(lowerButtonPanel, BorderLayout.PAGE_END);
 
 		try {

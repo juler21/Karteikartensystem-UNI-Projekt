@@ -1,11 +1,13 @@
 package controller;
 
+import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import model.Deck;
 import model.DeckManager;
 import util.NoFlashcardSelectedExeption;
+import view.CreateDeckGui;
 import view.EditDeckGui;
 import view.ErrorScreen;
 
@@ -42,6 +44,10 @@ public class EditDeckGuiListener implements ActionListener {
 
 				System.out.println(gui.getSelectedFlashcard().getAnswer());
 				System.out.println(gui.getSelectedFlashcard().getQuestion());
+			} else if (cmd.equals("newFlashcard")) {
+				CreateDeckGui DeckGUI = new CreateDeckGui(deckmanager, selectedDeck.toString(), selectedDeck);
+				((CardLayout) DeckGUI.getFramePanel().getLayout()).show(DeckGUI.getFramePanel(), "deckKartenCard");
+
 			}
 		} catch (NoFlashcardSelectedExeption e) {
 			new ErrorScreen(e.getError());

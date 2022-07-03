@@ -38,7 +38,7 @@ public class StartGuiListener implements ActionListener {
 	private void doCommand(String cmd) {
 		if (cmd.equals("deckErstellen")) {
 
-			new CreateDeckGui(deckmanager, "DECK ERSTELLEN");
+			new CreateDeckGui(deckmanager, "DECK ERSTELLEN", null);
 			return;
 
 		}
@@ -58,6 +58,7 @@ public class StartGuiListener implements ActionListener {
 		try {
 
 			Deck selectedDeck = startgui.getSelectedDeck();
+			System.out.println(selectedDeck);
 
 			if (cmd.equals("deckBearbeiten")) {
 
