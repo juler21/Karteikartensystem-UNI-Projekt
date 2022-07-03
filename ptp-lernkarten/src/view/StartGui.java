@@ -7,6 +7,8 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.File;
 
 import javax.swing.JButton;
@@ -43,6 +45,7 @@ public class StartGui extends JFrame implements Observer {
 
 	// startCard auf der verschiedene LearnPanel liegen
 	private JPanel learnHomeCard;
+	private JLabel currentDeckLabel;
 	private JPanel learnQuestionCard;
 	private JLabel onlyQuestionTextLabel;
 	private JPanel learnAnswerCard;
@@ -80,6 +83,7 @@ public class StartGui extends JFrame implements Observer {
 		// LearnPanel erstellen, dass auf der StartCard liegt und die Kartenlern
 		// "frames" anzeigt
 		generateLearnPanel();
+
 		deckmanager.registerObserver(this);
 		mainFrame.setVisible(true);
 
@@ -104,11 +108,17 @@ public class StartGui extends JFrame implements Observer {
 		topButtonPanel.add(einstellungenButton);
 
 		// ACTIONLISTENER
+//		startButton.addActionListener(new StartGuiListener(this, deckmanager, "startButtonPressed"));
 		startButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
 				((CardLayout) contentPanel.getLayout()).show(contentPanel, "startCard");
 				((CardLayout) startCard.getLayout()).show(startCard, "learnHomeCard");
+				try {
+					getCurrentDeckLabel().setText(getSelectedDeck().getDeckname());
+				} catch (NoDeckSelectedExeption e1) {
+					getCurrentDeckLabel().setText("kein Deck gewählt");
+				}
 			}
 		});
 
@@ -186,10 +196,15 @@ public class StartGui extends JFrame implements Observer {
 
 		// Home-Karte
 		learnHomeCard = new JPanel();
-		learnHomeCard.setLayout(new BorderLayout());
+		learnHomeCard.setLayout(new GridLayout(3, 1));
 		startCard.add(learnHomeCard, "learnHomeCard");
 
+		
 		JButton lernenBeginnenButton = new JButton("Lernen Beginnen");
+		JLabel currentDeckInfoLabel = new JLabel("Aktuelles Deck::");
+		currentDeckLabel = new JLabel("noch kein Deck gewählt");
+		learnHomeCard.add(currentDeckInfoLabel);
+		learnHomeCard.add(currentDeckLabel, BorderLayout.PAGE_START);
 		learnHomeCard.add(lernenBeginnenButton, BorderLayout.CENTER);
 		lernenBeginnenButton.addActionListener(new StartGuiListener(this, deckmanager, "lernenBeginnenButton"));
 		lernenBeginnenButton.addActionListener(new ActionListener() {
@@ -247,34 +262,10 @@ public class StartGui extends JFrame implements Observer {
 
 	}
 
-	public JLabel getOnlyQuestionTextLabel() {
-		return onlyQuestionTextLabel;
-	}
-
-	public void setOnlyQuestionTextLabel(String text) {
-		this.onlyQuestionTextLabel.setText(text);
-	}
-
-	public JLabel getQuestionTextLabel() {
-		return questionTextLabel;
-	}
-
-	public void setQuestionTextLabel(String text) {
-		this.questionTextLabel.setText(text);
-	}
-
-	public JLabel getAnswerTextLabel() {
-		return answerTextLabel;
-	}
-
-	public void setAnswerTextLabel(String text) {
-		this.answerTextLabel.setText(text);
-	}
-
 	private void deckListeErstellen() {
-
+	
 		chooseDeckComboBox = new JComboBox<Deck>();
-
+	
 		deckmanager.getData(new File(DeckManager.getPathtoString()));
 		update("deckChange");
 	}
@@ -307,9 +298,9 @@ public class StartGui extends JFrame implements Observer {
 
 	@Override
 	public void update(String changeType) {
-
+	
 		System.out.println("update");
-
+	
 		if (changeType.equals("deckChange")) {
 			// combobox update
 			if (!deckmanager.getDecks().isEmpty()) {
@@ -320,8 +311,107 @@ public class StartGui extends JFrame implements Observer {
 				// setzt default Item in Combobox
 				chooseDeckComboBox.setSelectedIndex(0);
 			}
-
+	
 		}
+	
+	}
 
+	public JLabel getCurrentDeckLabel() {
+		return currentDeckLabel;
+	}
+	public JLabel getOnlyQuestionTextLabel() {
+		return onlyQuestionTextLabel;
+	}
+
+	public void setOnlyQuestionTextLabel(String text) {
+		this.onlyQuestionTextLabel.setText(text);
+	}
+
+	public JLabel getQuestionTextLabel() {
+		return questionTextLabel;
+	}
+
+	public void setQuestionTextLabel(String text) {
+		this.questionTextLabel.setText(text);
+	}
+
+	public JLabel getAnswerTextLabel() {
+		return answerTextLabel;
+	}
+
+	public void setAnswerTextLabel(String text) {
+		this.answerTextLabel.setText(text);
+	}
+
+	public JFrame getMainFrame() {
+		return mainFrame;
+	}
+
+	public JPanel getFramePanel() {
+		return framePanel;
+	}
+
+	public JPanel getTopButtonPanel() {
+		return topButtonPanel;
+	}
+
+	public JButton getStartButton() {
+		return startButton;
+	}
+
+	public JButton getDecksButton() {
+		return decksButton;
+	}
+
+	public JButton getStatistikButton() {
+		return statistikButton;
+	}
+
+	public JButton getEinstellungenButton() {
+		return einstellungenButton;
+	}
+
+	public JPanel getContentPanel() {
+		return contentPanel;
+	}
+
+	public JPanel getStartCard() {
+		return startCard;
+	}
+
+	public JPanel getDecksCard() {
+		return decksCard;
+	}
+
+	public JPanel getStatistikCard() {
+		return statistikCard;
+	}
+
+	public JPanel getEinstellungenCard() {
+		return einstellungenCard;
+	}
+
+	public JPanel getLearnHomeCard() {
+		return learnHomeCard;
+	}
+
+	public JPanel getLearnQuestionCard() {
+		return learnQuestionCard;
+	}
+
+	public JPanel getLearnAnswerCard() {
+		return learnAnswerCard;
+	}
+
+	public String getFontStyle() {
+		return fontStyle;
+	}
+
+	public JComboBox<Deck> getChooseDeckComboBox() {
+		return chooseDeckComboBox;
+	}
+
+	public DeckManager getDeckmanager() {
+		return deckmanager;
 	}
 }

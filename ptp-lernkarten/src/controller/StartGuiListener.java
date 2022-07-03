@@ -1,7 +1,10 @@
 package controller;
 
+import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.JPanel;
 
 import model.Deck;
 import model.DeckManager;
@@ -42,6 +45,19 @@ public class StartGuiListener implements ActionListener {
 			return;
 
 		}
+//		if (cmd.equals("startButtonPressed")) {
+//			JPanel contentPanel = ((StartGui) startgui).getContentPanel();
+//			
+//			startgui.getContentPanel().getLayout().show(getContentPanel(, "startCard");
+//			((CardLayout) startCard.getLayout()).show(startCard, "learnHomeCard");
+//			try {
+//				getCurrentDeckLabel().setText(getSelectedDeck().getDeckname());
+//			} catch (NoDeckSelectedExeption e1) {
+//				getCurrentDeckLabel().setText("kein Deck gewählt");
+//			}
+//		}
+//
+//		}
 		try {
 
 			Deck selectedDeck = startgui.getSelectedDeck();
@@ -72,6 +88,13 @@ public class StartGuiListener implements ActionListener {
 					startgui.setAnswerTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getAnswer());
 				}
 			}
+<<<<<<< HEAD
+=======
+//			} else if (cmd.equals("chooseDeckComboBox")) {
+//
+//	
+//			}
+>>>>>>> branch 'main' of https://git.informatik.uni-hamburg.de/0sterkel/ptp22-do08-lernkarten.git
 		} catch (NoDeckSelectedExeption e) {
 			new ErrorScreen(e.getError());
 		}

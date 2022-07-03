@@ -29,6 +29,10 @@ public class CreateDeckGuiListener implements ActionListener {
 		if (cmd.equals("ok")) {
 			String question = gui.getQuestion().getText();
 			String answer = gui.getAnswer().getText();
+<<<<<<< HEAD
+=======
+			int position = deckmanager.getDeck(_deckname).getAmountOfFlashcards();
+>>>>>>> branch 'main' of https://git.informatik.uni-hamburg.de/0sterkel/ptp22-do08-lernkarten.git
 			deckmanager.getDeck(_deckname).addFlashcard(new Flashcard(question, answer));
 			gui.getQuestion().setText("");
 			gui.getAnswer().setText("");
