@@ -16,13 +16,13 @@ public class Deck extends Observable {
 	private String deckname;
 
 	public Deck(String deck) throws UnValidDecknameException {
-		if (decknameisValid(deck)) {
+		if (decknameisValidRegex(deck)) {
 			deckname = deck;
 		}
 
 	}
 
-	private static boolean decknameisValid(String deckname) throws UnValidDecknameException {
+	private static boolean decknameisValidRegex(String deckname) throws UnValidDecknameException {
 
 		String pattern = "^[^*&%\s]+$";
 		if (deckname.matches(pattern)) {

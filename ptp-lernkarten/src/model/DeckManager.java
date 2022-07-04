@@ -25,6 +25,7 @@ public class DeckManager extends Observable {
 
 	}
 
+//TODO Hier muss die instanz von einem Deckerstellt werden. 
 	public void addDeck(Deck d) {
 		anzahlDecks++;
 		decks.put(d.getDeckname(), d);
@@ -37,6 +38,10 @@ public class DeckManager extends Observable {
 		anzahlDecks++;
 		decks.put(d.getDeckname(), d);
 		notifyObserver("deckChange");
+	}
+
+	public boolean isExisting(String deckname) {
+		return decks.containsKey(deckname);
 	}
 
 	public Deck getDeck(String deckname) {
