@@ -15,21 +15,8 @@ public class Deck extends Observable {
 
 	private String deckname;
 
-	public Deck(String deck) throws UnValidDecknameException {
-		if (decknameisValidRegex(deck)) {
-			deckname = deck;
-		}
-
-	}
-
-	private static boolean decknameisValidRegex(String deckname) throws UnValidDecknameException {
-
-		String pattern = "^[^*&%\s]+$";
-		if (deckname.matches(pattern)) {
-			return true;
-		} else {
-			throw new UnValidDecknameException();
-		}
+	public Deck(String deck) {
+		deckname = deck;
 	}
 
 	public void addFlashcard(Flashcard flash) {

@@ -49,10 +49,8 @@ public class CreateDeckGuiListener implements ActionListener {
 		} else if (cmd.equals("Deckname")) {
 			String deckname = gui.getDeckName().getText();
 			_deckname = deckname;
-			Deck newDeck;
 			try {
-				newDeck = new Deck(deckname);
-				deckmanager.addDeck(newDeck);
+				deckmanager.addDeck(deckname);
 			} catch (UnValidDecknameException e) {
 				new ErrorScreen(e.toString());
 			}

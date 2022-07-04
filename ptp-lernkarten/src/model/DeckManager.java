@@ -25,13 +25,27 @@ public class DeckManager extends Observable {
 
 	}
 
-//TODO Hier muss die instanz von einem Deckerstellt werden. 
-	public void addDeck(Deck d) {
-		anzahlDecks++;
-		decks.put(d.getDeckname(), d);
-		d.saveDeckCSV();
+	private static boolean decknameisValidRegex(String deckname) throws UnValidDecknameException {
 
-		notifyObserver("deckChange");
+		String pattern = "^[^*&%\s]+$";
+		if (deckname.matches(pattern)) {
+			return true;
+		} else {
+			throw new UnValidDecknameException();
+		}
+	}
+
+//TODO Hier muss die instanz von einem Deckerstellt werden. 
+	public void addDeck(String deckname) throws UnValidDecknameException {
+
+		if (decknameisValidRegex(deckname)) {
+			Deck newDeck = new Deck(deckname);
+			anzahlDecks++;
+			decks.put(newDeck.getDeckname(), newDeck);
+			newDeck.saveDeckCSV();
+			notifyObserver("deckChange");
+		}
+
 	}
 
 	public void loadDeck(Deck d) {
@@ -121,12 +135,9 @@ public class DeckManager extends Observable {
 				e.printStackTrace();
 			} catch (IOException e) {
 				e.printStackTrace();
-			} catch (UnValidDecknameException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
-		}
 
+		}
 	}
 
 	public void createDirectories() {

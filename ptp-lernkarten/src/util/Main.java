@@ -40,9 +40,7 @@ public class Main {
 	}
 
 	public void createDeck(String deckname) throws UnValidDecknameException {
-		Deck newDeck;
-		newDeck = new Deck(deckname);
-		deckmanager.addDeck(newDeck);
+		deckmanager.addDeck(deckname);
 	}
 
 	public Deck getDeck(String deckname) {
