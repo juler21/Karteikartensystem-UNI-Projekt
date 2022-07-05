@@ -308,6 +308,8 @@ public class StartGui extends JFrame implements Observer {
 				});
 				// setzt default Item in Combobox
 				chooseDeckComboBox.setSelectedIndex(0);
+			} else {
+				chooseDeckComboBox.removeAllItems();
 			}
 
 		}
