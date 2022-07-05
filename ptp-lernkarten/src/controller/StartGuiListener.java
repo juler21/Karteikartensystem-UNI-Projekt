@@ -18,15 +18,13 @@ public class StartGuiListener implements ActionListener {
 	// Startgui
 	private StartGui startgui;
 	private String cmd;
-	private int flashcardLearnIndex;
+	private static int flashcardLearnIndex = 0;
 
 	public StartGuiListener(StartGui startgui, DeckManager deckmanager, String cmd) {
 
 		this.deckmanager = deckmanager;
 		this.startgui = startgui;
 		this.cmd = cmd;
-
-		flashcardLearnIndex = 0;
 
 	}
 
@@ -76,16 +74,33 @@ public class StartGuiListener implements ActionListener {
 					startgui.setOnlyQuestionTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getQuestion());
 					startgui.setQuestionTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getQuestion());
 					startgui.setAnswerTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getAnswer());
+					startgui.setLearnScreen("learnQuestionCard");
 				}
 
 			} else if (cmd.equals("nextQuestionButton")) {
 
-				if (flashcardLearnIndex < selectedDeck.getAmountOfFlashcards() - 1) {
+				if (flashcardLearnIndex < selectedDeck.getAmountOfFlashcards()-1) {
 					flashcardLearnIndex++;
 					startgui.setOnlyQuestionTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getQuestion());
 					startgui.setQuestionTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getQuestion());
 					startgui.setAnswerTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getAnswer());
+					startgui.setLearnScreen("learnQuestionCard");
+				} else {
+					System.out.println("ende");
+					startgui.setLearnScreen("learnEndCard");
 				}
+			}
+			else if (cmd.equals("showAnswerButton")) {
+
+					startgui.setLearnScreen("learnAnswerCard");
+				}
+			else if (cmd.equals("restartDeckButton")) {
+
+				startgui.setLearnScreen("learnHomeCard");
+			}
+			else if (cmd.equals("switchDeckButton")) {
+
+				startgui.setDashboardScreen("decksCard");
 			}
 		} catch (NoDeckSelectedExeption e) {
 			new ErrorScreen(e.getError());
