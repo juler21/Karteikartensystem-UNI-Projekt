@@ -77,9 +77,9 @@ public class EditDeckGui extends JFrame implements Observer {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (flashcardList.getSelectedItem() != null) {
-				Flashcard f = (Flashcard) (flashcardList.getSelectedItem());
-				questionText.setText(f.getQuestion());
-				answerText.setText(f.getAnswer());
+					Flashcard f = (Flashcard) (flashcardList.getSelectedItem());
+					questionText.setText(f.getQuestion());
+					answerText.setText(f.getAnswer());
 				}
 
 			}
@@ -158,7 +158,7 @@ public class EditDeckGui extends JFrame implements Observer {
 			for (Flashcard f : selectedDeck.getDeckFlashcardlist()) {
 				flashcardList.addItem(f);
 			}
-			//setzt flashcard combobox auf erstes objekt
+			// setzt flashcard combobox auf erstes objekt
 //			flashcardList.setSelectedIndex(0);
 		}
 	}
@@ -173,7 +173,6 @@ public class EditDeckGui extends JFrame implements Observer {
 
 	public void setQuestionText(String questionText) {
 		this.questionText.setText(questionText);
-		;
 	}
 
 	public String getAnswerText() {

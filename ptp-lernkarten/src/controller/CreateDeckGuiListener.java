@@ -6,7 +6,8 @@ import java.awt.event.ActionListener;
 import model.Deck;
 import model.DeckManager;
 import model.Flashcard;
-import model.UnValidDecknameException;
+import util.DeckIsExistingException;
+import util.UnValidDecknameException;
 import view.CreateDeckGui;
 import view.ErrorScreen;
 
@@ -53,6 +54,13 @@ public class CreateDeckGuiListener implements ActionListener {
 				deckmanager.addDeck(deckname);
 			} catch (UnValidDecknameException e) {
 				new ErrorScreen(e.toString());
+				gui.getCreateDeckFrame().dispose();
+//				new CreateDeckGui(deckmanager, "DECK ERSTELLEN", null);
+
+			} catch (DeckIsExistingException e) {
+				new ErrorScreen(e.toString());
+				gui.getCreateDeckFrame().dispose();
+//				new CreateDeckGui(deckmanager, "DECK ERSTELLEN", null);
 			}
 			gui.getCreateDeckFrame().setTitle("Lernkarte zu: \"" + deckname + "\" hinzufügen");
 

@@ -12,10 +12,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import util.DeckIsExistingException;
+import util.UnValidDecknameException;
+
 public class DeckManager extends Observable {
 
 	private HashMap<String, Deck> decks;
-	private static Path pathDirectory;
+	private static Path pathDirectory; // aktuelles deck
 	private int anzahlDecks;
 
 	public DeckManager() {
@@ -25,7 +28,7 @@ public class DeckManager extends Observable {
 
 	}
 
-	private static boolean decknameisValidRegex(String deckname) throws UnValidDecknameException {
+	private static boolean decknameIsValidRegex(String deckname) throws UnValidDecknameException {
 
 		String pattern = "^[^*&%\s]+$";
 		if (deckname.matches(pattern)) {
@@ -35,10 +38,22 @@ public class DeckManager extends Observable {
 		}
 	}
 
-//TODO Hier muss die instanz von einem Deckerstellt werden. 
-	public void addDeck(String deckname) throws UnValidDecknameException {
+	private static boolean decknameIsNotExisting(String deckname) throws DeckIsExistingException {
+		boolean result = true;
+		for (File f : pathDirectory.toFile().listFiles()) {
+			System.out.println(f.getName());
+			if (f.getName().equals(deckname + ".csv")) {
+				throw new DeckIsExistingException();
+			}
+		}
+		System.out.println(result);
+		return result;
+	}
 
-		if (decknameisValidRegex(deckname)) {
+//TODO Hier muss die instanz von einem Deckerstellt werden. 
+	public void addDeck(String deckname) throws UnValidDecknameException, DeckIsExistingException {
+
+		if (decknameIsValidRegex(deckname) && decknameIsNotExisting(deckname)) {
 			Deck newDeck = new Deck(deckname);
 			anzahlDecks++;
 			decks.put(newDeck.getDeckname(), newDeck);
@@ -124,12 +139,12 @@ public class DeckManager extends Observable {
 			try {
 				Deck newdeck = new Deck(pathToFileName(paths1.get(i)));
 				BufferedReader br = new BufferedReader(new FileReader(paths.get(i)));
-				if (br.readLine() != "") {
-					while ((line = br.readLine()) != null) {
-						String[] values = line.split(";");
-						newdeck.loadFlashcard(new Flashcard(values[1], values[2]));
-					}
+//				if (br.readLine() != "") {
+				while ((line = br.readLine()) != null) {
+					String[] values = line.split(";");
+					newdeck.loadFlashcard(new Flashcard(values[1], values[2]));
 				}
+//				}
 				loadDeck(newdeck);
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();

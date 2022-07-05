@@ -8,8 +8,9 @@ import java.io.File;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import model.UnValidDecknameException;
+import util.DeckIsExistingException;
 import util.Main;
+import util.UnValidDecknameException;
 
 public class MainTest {
 	private Main app;
@@ -42,6 +43,9 @@ public class MainTest {
 		try {
 			app.createDeck("test123");
 		} catch (UnValidDecknameException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (DeckIsExistingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
