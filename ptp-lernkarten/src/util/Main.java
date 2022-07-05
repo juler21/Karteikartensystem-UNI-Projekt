@@ -1,5 +1,7 @@
 package util;
 
+import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatArcDarkContrastIJTheme;
+
 import model.Deck;
 import model.DeckManager;
 import model.Flashcard;
@@ -18,6 +20,7 @@ public class Main {
 	}
 
 	public static void main(String[] args) {
+		FlatArcDarkContrastIJTheme.setup();
 		new Main();
 	}
 

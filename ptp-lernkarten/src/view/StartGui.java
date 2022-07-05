@@ -2,7 +2,6 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -59,9 +58,9 @@ public class StartGui extends JFrame implements Observer {
 
 	public StartGui(DeckManager manager, String name) {
 		this.deckmanager = manager;
-
 		// JFrame erstellen
 		mainFrame = new JFrame(name);
+
 		fontStyle = "Ubuntu";
 		setUIFont(new javax.swing.plaf.FontUIResource(fontStyle, Font.PLAIN, 13));
 		mainFrame.setTitle("Lernkarten");
@@ -93,8 +92,6 @@ public class StartGui extends JFrame implements Observer {
 		// topButtonPanel erstellen und zum frameContentPane hinzufügen
 		topButtonPanel = new JPanel();
 		framePanel.add(topButtonPanel, BorderLayout.NORTH);
-		topButtonPanel.setBackground(new Color(244, 244, 244));
-
 		// BUTTONS
 		startButton = new JButton("START");
 		decksButton = new JButton("DECKS");
@@ -265,18 +262,16 @@ public class StartGui extends JFrame implements Observer {
 		JLabel deckEndLabel = new JLabel("Deck-Ende erreicht");
 		JButton restartDeckButton = new JButton("Erneut starten");
 		JButton switchDeckButton = new JButton("neues Deck wählen");
-		
+
 		learnEndCard.add(deckEndLabel);
 		learnEndCard.add(restartDeckButton);
 		learnEndCard.add(switchDeckButton);
-		
+
 		restartDeckButton.addActionListener(new StartGuiListener(this, deckmanager, "restartDeckButton"));
 		switchDeckButton.addActionListener(new StartGuiListener(this, deckmanager, "switchDeckButton"));
-		
-		
-		
+
 	}
-	
+
 	private void deckListeErstellen() {
 
 		chooseDeckComboBox = new JComboBox<Deck>();
@@ -333,20 +328,21 @@ public class StartGui extends JFrame implements Observer {
 		}
 
 	}
-	
+
 	public void setLearnScreen(String screenCard) {
-		
+
 		System.out.println("methode wird aufgerufen");
-		
-		((CardLayout) startCard.getLayout()).show(startCard,screenCard);
-		
+
+		((CardLayout) startCard.getLayout()).show(startCard, screenCard);
+
 	}
+
 	public void setDashboardScreen(String screenCard) {
-		
+
 		System.out.println("methode wird aufgerufen");
-		
-		((CardLayout) contentPanel.getLayout()).show(contentPanel,screenCard);
-		
+
+		((CardLayout) contentPanel.getLayout()).show(contentPanel, screenCard);
+
 	}
 
 	public JLabel getCurrentDeckLabel() {
