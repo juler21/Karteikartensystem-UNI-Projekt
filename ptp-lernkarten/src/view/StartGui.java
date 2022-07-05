@@ -49,6 +49,7 @@ public class StartGui extends JFrame implements Observer {
 	private JPanel learnAnswerCard;
 	private JLabel questionTextLabel;
 	private JLabel answerTextLabel;
+	private JPanel learnEndCard;
 
 	private String fontStyle;
 
@@ -204,12 +205,12 @@ public class StartGui extends JFrame implements Observer {
 		learnHomeCard.add(currentDeckLabel, BorderLayout.PAGE_START);
 		learnHomeCard.add(lernenBeginnenButton, BorderLayout.CENTER);
 		lernenBeginnenButton.addActionListener(new StartGuiListener(this, deckmanager, "lernenBeginnenButton"));
-		lernenBeginnenButton.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-				((CardLayout) startCard.getLayout()).show(startCard, "learnQuestionCard");
-			}
-		});
+//		lernenBeginnenButton.addActionListener(new ActionListener() {
+//
+//			public void actionPerformed(ActionEvent e) {
+//				((CardLayout) startCard.getLayout()).show(startCard, "learnQuestionCard");
+//			}
+//		});
 
 		// Question-Karte
 		learnQuestionCard = new JPanel();
@@ -220,12 +221,12 @@ public class StartGui extends JFrame implements Observer {
 
 		JButton showAnswerButton = new JButton("Antwort zeigen");
 		showAnswerButton.addActionListener(new StartGuiListener(this, deckmanager, "showAnswerButton"));
-		showAnswerButton.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-				((CardLayout) startCard.getLayout()).show(startCard, "learnAnswerCard");
-			}
-		});
+//		showAnswerButton.addActionListener(new ActionListener() {
+//
+//			public void actionPerformed(ActionEvent e) {
+//				((CardLayout) startCard.getLayout()).show(startCard, "learnAnswerCard");
+//			}
+//		});
 
 		learnQuestionCard.add(onlyQuestionTextLabel);
 		learnQuestionCard.add(showAnswerButton);
@@ -244,12 +245,12 @@ public class StartGui extends JFrame implements Observer {
 
 		JButton nextQuestionButton = new JButton("Nächste Frage");
 		nextQuestionButton.addActionListener(new StartGuiListener(this, deckmanager, "nextQuestionButton"));
-		nextQuestionButton.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-				((CardLayout) startCard.getLayout()).show(startCard, "learnQuestionCard");
-			}
-		});
+//		nextQuestionButton.addActionListener(new ActionListener() {
+//
+//			public void actionPerformed(ActionEvent e) {
+//				((CardLayout) startCard.getLayout()).show(startCard, "learnQuestionCard");
+//			}
+//		});
 
 		learnAnswerCard.add(questionLabel);
 		learnAnswerCard.add(questionTextLabel);
@@ -257,8 +258,25 @@ public class StartGui extends JFrame implements Observer {
 		learnAnswerCard.add(answerTextLabel);
 		learnAnswerCard.add(nextQuestionButton);
 
+		// learnEnd-Karte
+		learnEndCard = new JPanel();
+		startCard.add(learnEndCard, "learnEndCard");
+		learnEndCard.setLayout(new GridLayout(3, 1));
+		JLabel deckEndLabel = new JLabel("Deck-Ende erreicht");
+		JButton restartDeckButton = new JButton("Erneut starten");
+		JButton switchDeckButton = new JButton("neues Deck wählen");
+		
+		learnEndCard.add(deckEndLabel);
+		learnEndCard.add(restartDeckButton);
+		learnEndCard.add(switchDeckButton);
+		
+		restartDeckButton.addActionListener(new StartGuiListener(this, deckmanager, "restartDeckButton"));
+		switchDeckButton.addActionListener(new StartGuiListener(this, deckmanager, "switchDeckButton"));
+		
+		
+		
 	}
-
+	
 	private void deckListeErstellen() {
 
 		chooseDeckComboBox = new JComboBox<Deck>();
@@ -314,6 +332,21 @@ public class StartGui extends JFrame implements Observer {
 
 		}
 
+	}
+	
+	public void setLearnScreen(String screenCard) {
+		
+		System.out.println("methode wird aufgerufen");
+		
+		((CardLayout) startCard.getLayout()).show(startCard,screenCard);
+		
+	}
+	public void setDashboardScreen(String screenCard) {
+		
+		System.out.println("methode wird aufgerufen");
+		
+		((CardLayout) contentPanel.getLayout()).show(contentPanel,screenCard);
+		
 	}
 
 	public JLabel getCurrentDeckLabel() {
