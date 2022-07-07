@@ -29,13 +29,15 @@ public class DeckManager extends Observable {
 	}
 
 	private static boolean decknameIsValidRegex(String deckname) throws UnValidDecknameException {
-
-		String pattern = "^[^*&%\s]+$";
-		if (deckname.matches(pattern)) {
-			return true;
-		} else {
-			throw new UnValidDecknameException();
+		if (deckname != null) {
+			String pattern = "^[^*&%\s]+$";
+			if (deckname.matches(pattern)) {
+				return true;
+			} else {
+				throw new UnValidDecknameException();
+			}
 		}
+		throw new UnValidDecknameException();
 	}
 
 	private static boolean decknameIsNotExisting(String deckname) throws DeckIsExistingException {
@@ -70,7 +72,7 @@ public class DeckManager extends Observable {
 	}
 
 	public boolean isExisting(String deckname) {
-		return decks.containsKey(deckname);
+		return decks.containsKey(deckname) && deckname != null;
 	}
 
 	public Deck getDeck(String deckname) {
@@ -87,10 +89,11 @@ public class DeckManager extends Observable {
 	}
 
 	public void removeDeck(String deckname) {
-		getDeck(deckname).deleteDeckCSV();
-		decks.remove(deckname);
-		notifyObserver("deckChange");
-
+		if (isExisting(deckname)) {
+			getDeck(deckname).deleteDeckCSV();
+			decks.remove(deckname);
+			notifyObserver("deckChange");
+		}
 	}
 
 	public List<String> findAllFilesInFolder(File folder) {
