@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 import model.Deck;
 import model.DeckManager;
-import model.Flashcard;
+import model.UnvalidQAException;
 import util.DeckIsExistingException;
 import util.UnValidDecknameException;
 import view.CreateDeckGui;
@@ -42,7 +42,12 @@ public class CreateDeckGuiListener implements ActionListener {
 		if (cmd.equals("ok")) {
 			String question = gui.getQuestion().getText();
 			String answer = gui.getAnswer().getText();
-			deckmanager.getDeck(_deckname).addFlashcard(new Flashcard(question, answer));
+			try {
+				deckmanager.getDeck(_deckname).addFlashcard(question, answer);
+			} catch (UnvalidQAException e) {
+				// TODO Auto-generated catch block
+				new ErrorScreen(e.toString());
+			}
 			gui.getQuestion().setText("");
 			gui.getAnswer().setText("");
 		} else if (cmd.equals("close")) {

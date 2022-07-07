@@ -5,6 +5,7 @@ import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatArcDarkContras
 import model.Deck;
 import model.DeckManager;
 import model.Flashcard;
+import model.UnvalidQAException;
 import view.StartGui;
 
 public class Main {
@@ -20,50 +21,79 @@ public class Main {
 	}
 
 	public static void main(String[] args) {
-		//themeSetUp
+		// themeSetUp
 		FlatArcDarkContrastIJTheme.setup();
 		new Main();
 	}
 
 	// API
 
-	public void addFlashcard(String deckname, String question, String answer) {
-		Flashcard newFlashcard = new Flashcard(question, answer);
-		getDeck(deckname).addFlashcard(newFlashcard);
+	/*
+	 * 
+	 * @param deckname,
+	 * 
+	 * @param question
+	 * 
+	 * @param String answer
+	 * 
+	 */
+
+	public void addFlashcard(String deckname, String question, String answer) throws UnvalidQAException {
+		getDeck(deckname).addFlashcard(question, answer);
 	}
 
-	public void deleteFlashcard(Deck deck, int position) {
-		deck.deleteFlashcard(position);
+	/*
+	 * 
+	 */
+	public void deleteFlashcard(String deckname, int position) {
+		getDeck(deckname).deleteFlashcard(position);
 	}
 
-	public Flashcard getFlashcard(Deck deck, int position) {
-		return deck.getFlashcard(position);
+	/*
+	 * 
+	 */
+	public Flashcard getFlashcard(String deckname, int position) {
+		return getDeck(deckname).getFlashcard(position);
 	}
 
+	/*
+	 * 
+	 */
 	public void createDeck(String deckname) throws UnValidDecknameException, DeckIsExistingException {
 		deckmanager.addDeck(deckname);
 	}
 
+	/*
+	 * 
+	 */
 	public Deck getDeck(String deckname) {
 		return deckmanager.getDeck(deckname);
 	}
 
+	/*
+	 * 
+	 */
 	public void deleteDeck(String deckname) {
 		deckmanager.removeDeck(deckname);
 	}
 
+	/*
+	 * 
+	 */
 	public void createDirectory() {
 		deckmanager.createDirectories();
 	}
 
+	/*
+	 * 
+	 */
 	public String getPathDirectory() {
 		return DeckManager.getPathtoString();
 	}
 
-	public StartGui getGui() {
-		return gui;
-	}
-
+	/*
+	 * 
+	 */
 	public DeckManager getDeckmanager() {
 		return deckmanager;
 	}
