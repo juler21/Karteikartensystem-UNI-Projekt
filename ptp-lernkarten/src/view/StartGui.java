@@ -2,11 +2,14 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.nio.file.Path;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -179,6 +182,17 @@ public class StartGui extends JFrame implements Observer {
 
 		// Einstellungen-Karte
 		einstellungenCard = new JPanel();
+		// Combobox für Path, wo man die Carteikarten abspeichert
+		JPanel directoryPanel = new JPanel(new FlowLayout());
+		JComboBox<Path> comboboxdirectory = new JComboBox();
+		comboboxdirectory.setPreferredSize(new Dimension(350, 30));
+		comboboxdirectory.addItem(deckmanager.getPathDirectory());
+		comboboxdirectory.setEditable(true);
+		JButton browseButton = new JButton("Browse");
+		directoryPanel.add(comboboxdirectory, FlowLayout.LEFT);
+		directoryPanel.add(browseButton);
+
+		einstellungenCard.add(directoryPanel);
 		contentPanel.add(einstellungenCard, "einstellungenCard");
 
 		// Anfangsbildschirm setzten auf "Start"

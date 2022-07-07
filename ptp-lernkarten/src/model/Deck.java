@@ -40,6 +40,10 @@ public class Deck extends Observable {
 
 	}
 
+	public void deleteAllFlashcards() {
+		flashcardList.removeAll(flashcardList);
+	}
+
 	public void loadFlashcard(Flashcard flash) {
 		flashcardList.add(flash);
 	}

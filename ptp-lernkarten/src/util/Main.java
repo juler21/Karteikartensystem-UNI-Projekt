@@ -49,6 +49,10 @@ public class Main {
 		getDeck(deckname).deleteFlashcard(position);
 	}
 
+	public void removeAllFlashcards(String deckname) {
+		getDeck(deckname).deleteAllFlashcards();
+	}
+
 	/*
 	 * 
 	 */

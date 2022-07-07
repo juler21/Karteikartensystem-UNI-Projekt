@@ -110,7 +110,43 @@ public class MainTest {
 			e.printStackTrace();
 		}
 
-		assertEquals(app.getFlashcard("test2", 0).getQuestion(), "Frage");
+		assertEquals("Frage", app.getFlashcard("test2", 0).getQuestion());
+	}
 
+	@Test
+	public void testdeleteFlashcard() {
+		app.removeAllFlashcards("test3");
+		try {
+			app.addFlashcard("test3", "Hallo", "Tschüss");
+			app.addFlashcard("test3", "Moin", "Hello");
+		} catch (UnvalidQAException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		app.deleteFlashcard("test3", 0);
+		assertEquals(1, app.getDeck("test3").getAmountOfFlashcards());
+	}
+
+	@Test
+	public void testgetDeck() {
+		try {
+			app.createDeck("test4");
+		} catch (UnValidDecknameException | DeckIsExistingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		assertEquals("test4", app.getDeck("test4").getDeckname());
+	}
+
+	public void testgetFlashcard() {
+		try {
+			app.createDeck("test5");
+			app.addFlashcard("test5", "Frage1", "Antwort1");
+		} catch (UnvalidQAException | UnValidDecknameException | DeckIsExistingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		assertEquals("Frage1", app.getFlashcard("test5", 0).getQuestion());
+		assertEquals("Antwort1", app.getFlashcard("test5", 0).getAnswer());
 	}
 }
