@@ -7,7 +7,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
-	<classpathentry kind="lib" path="/Users/juliandillmann/Downloads/flatlaf-2.3 (1).jar"/>
-	<classpathentry kind="lib" path="/Users/juliandillmann/Downloads/flatlaf-intellij-themes-2.3.jar"/>
+	<classpathentry kind="lib" path="/Users/juliandillmann/git/ptp22-do08-lernkarten/ptp-lernkarten/flatlaf-2.3 (1).jar"/>
+	<classpathentry kind="lib" path="/Users/juliandillmann/git/ptp22-do08-lernkarten/ptp-lernkarten/flatlaf-intellij-themes-2.3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
