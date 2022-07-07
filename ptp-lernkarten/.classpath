@@ -11,7 +11,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
-	<classpathentry kind="lib" path="/Users/juliandillmann/git/ptp22-do08-lernkarten/ptp-lernkarten/lib/flatlaf-2.3 (1).jar"/>
-	<classpathentry kind="lib" path="/Users/juliandillmann/git/ptp22-do08-lernkarten/ptp-lernkarten/lib/flatlaf-intellij-themes-2.3.jar"/>
+	<classpathentry kind="lib" path="lib/flatlaf-2.3 (1).jar"/>
+	<classpathentry kind="lib" path="lib/flatlaf-intellij-themes-2.3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
