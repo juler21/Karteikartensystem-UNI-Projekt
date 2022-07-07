@@ -26,11 +26,9 @@ public class Main {
 
 	// API
 
-	public void addFlashcard(Deck deck, String question, String answer) {
-//		int position = deck.getDeckFlashcardlist().size();
+	public void addFlashcard(String deckname, String question, String answer) {
 		Flashcard newFlashcard = new Flashcard(question, answer);
-//		Flashcard newFlashcard = new Flashcard(position, question, answer);
-		deck.addFlashcard(newFlashcard);
+		getDeck(deckname).addFlashcard(newFlashcard);
 	}
 
 	public void deleteFlashcard(Deck deck, int position) {

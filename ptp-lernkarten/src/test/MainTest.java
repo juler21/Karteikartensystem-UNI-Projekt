@@ -1,5 +1,7 @@
 package test;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -40,6 +42,7 @@ public class MainTest {
 
 	@Test
 	public void testaddDeck() {
+		app.deleteDeck("test123");
 		try {
 			app.createDeck("test123");
 		} catch (UnValidDecknameException e) {
@@ -61,5 +64,32 @@ public class MainTest {
 		}
 		assertTrue(result);
 		assertEquals(app.getDeckmanager().getDecks().get("test123").getDeckname(), "test123");
+
+		assertThrows(UnValidDecknameException.class, () -> {
+			app.createDeck(null);
+		});
+		assertThrows(UnValidDecknameException.class, () -> {
+			app.createDeck("Hallo%");
+		});
+		assertThrows(DeckIsExistingException.class, () -> {
+			app.createDeck("test123");
+		});
+	}
+
+	@Test
+	public void testDeleteDeck() {
+		app.deleteDeck("test123");
+		File folder = new File(app.getPathDirectory());
+		boolean result = false;
+		for (String f : folder.list()) {
+			System.out.println("Hier:" + f);
+		}
+		for (String f : folder.list()) {
+			if (f.equals("test123.csv")) {
+				result = true;
+			}
+		}
+		assertFalse(result);
+		assertEquals(app.getDeckmanager().getDecks().get("test123"), null);
 	}
 }
