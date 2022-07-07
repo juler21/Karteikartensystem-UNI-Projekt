@@ -189,6 +189,7 @@ public class StartGui extends JFrame implements Observer {
 		comboboxdirectory.addItem(deckmanager.getPathDirectory());
 		comboboxdirectory.setEditable(true);
 		JButton browseButton = new JButton("Browse");
+		browseButton.addActionListener(new StartGuiListener(this, deckmanager, "browse"));
 		directoryPanel.add(comboboxdirectory, FlowLayout.LEFT);
 		directoryPanel.add(browseButton);
 

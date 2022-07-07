@@ -76,10 +76,8 @@ public class StartGuiListener implements ActionListener {
 					startgui.setAnswerTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getAnswer());
 					startgui.setLearnScreen("learnQuestionCard");
 				}
-
 			} else if (cmd.equals("nextQuestionButton")) {
-
-				if (flashcardLearnIndex < selectedDeck.getAmountOfFlashcards()-1) {
+				if (flashcardLearnIndex < selectedDeck.getAmountOfFlashcards() - 1) {
 					flashcardLearnIndex++;
 					startgui.setOnlyQuestionTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getQuestion());
 					startgui.setQuestionTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getQuestion());
@@ -89,17 +87,11 @@ public class StartGuiListener implements ActionListener {
 					System.out.println("ende");
 					startgui.setLearnScreen("learnEndCard");
 				}
-			}
-			else if (cmd.equals("showAnswerButton")) {
-
-					startgui.setLearnScreen("learnAnswerCard");
-				}
-			else if (cmd.equals("restartDeckButton")) {
-
+			} else if (cmd.equals("showAnswerButton")) {
+				startgui.setLearnScreen("learnAnswerCard");
+			} else if (cmd.equals("restartDeckButton")) {
 				startgui.setLearnScreen("learnHomeCard");
-			}
-			else if (cmd.equals("switchDeckButton")) {
-
+			} else if (cmd.equals("switchDeckButton")) {
 				startgui.setDashboardScreen("decksCard");
 			}
 		} catch (NoDeckSelectedExeption e) {
