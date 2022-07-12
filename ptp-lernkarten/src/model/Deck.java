@@ -19,11 +19,29 @@ public class Deck extends Observable {
 		deckname = deck;
 	}
 
-	public void addFlashcard(Flashcard flash) {
-		flashcardList.add(flash);
-		deleteDeckCSV();
-		saveDeckCSV();
-		notifyObserver("flashcardChange");
+	private boolean checkRegex(String question, String answer) throws UnvalidQAException {
+		String pattern = ".+";
+
+		if (question != null && answer != null && question.matches(pattern) && answer.matches(pattern)) {
+			return true;
+		} else {
+			throw new UnvalidQAException();
+		}
+	}
+
+	public void addFlashcard(String question, String answer) throws UnvalidQAException {
+		if (checkRegex(question, answer)) {
+			Flashcard flash = new Flashcard(question, answer);
+			flashcardList.add(flash);
+			deleteDeckCSV();
+			saveDeckCSV();
+			notifyObserver("flashcardChange");
+		}
+
+	}
+
+	public void deleteAllFlashcards() {
+		flashcardList.removeAll(flashcardList);
 	}
 
 	public void loadFlashcard(Flashcard flash) {

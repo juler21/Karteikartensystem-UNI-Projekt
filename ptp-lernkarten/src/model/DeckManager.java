@@ -177,4 +177,12 @@ public class DeckManager extends Observable {
 		return pathDirectory.toString();
 	}
 
+	public static Path getPathDirectory() {
+		return pathDirectory;
+	}
+
+	public static void setPathDirectory(Path pathDirectory) {
+		DeckManager.pathDirectory = pathDirectory;
+	}
+
 }
