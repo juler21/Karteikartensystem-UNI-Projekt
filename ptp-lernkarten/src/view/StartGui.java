@@ -59,6 +59,7 @@ public class StartGui extends JFrame implements Observer {
 	private String fontStyle;
 
 	private JComboBox<Deck> chooseDeckComboBox;
+	private JButton switchThemeButton;
 
 	private DeckManager deckmanager;
 
@@ -196,8 +197,12 @@ public class StartGui extends JFrame implements Observer {
 		browseButton.addActionListener(new StartGuiListener(this, deckmanager, "browse"));
 		directoryPanel.add(comboboxdirectory, FlowLayout.LEFT);
 		directoryPanel.add(browseButton);
-
 		einstellungenCard.add(directoryPanel);
+		
+		switchThemeButton = new JButton("Dark Mode");
+		switchThemeButton.addActionListener(new StartGuiListener(this, deckmanager, "switchThemeButton"));
+		einstellungenCard.add(switchThemeButton);
+		
 		contentPanel.add(einstellungenCard, "einstellungenCard");
 
 		// Anfangsbildschirm setzten auf "Start"
@@ -441,6 +446,9 @@ public class StartGui extends JFrame implements Observer {
 
 	public JButton getEinstellungenButton() {
 		return einstellungenButton;
+	}
+	public JButton getSwitchThemeButton() {
+		return switchThemeButton;
 	}
 
 	public JPanel getContentPanel() {
