@@ -2,18 +2,18 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.nio.file.Path;
 
-import javax.swing.BorderFactory;
 import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -72,7 +72,7 @@ public class StartGui extends JFrame implements Observer {
 		mainFrame.setTitle("Lernkarten");
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setBounds(100, 100, 500, 300);
-		mainFrame.setPreferredSize(new Dimension(1000,500));
+		mainFrame.setPreferredSize(new Dimension(1000, 500));
 
 		// frameContentPane erstellen, dass direkt auf dem JFrame liegt
 		framePanel = new JPanel();
@@ -211,21 +211,41 @@ public class StartGui extends JFrame implements Observer {
 
 		// Home-Karte
 		learnHomeCard = new JPanel();
-		learnHomeCard.setLayout(new GridLayout(3,1));
-		startCard.add(learnHomeCard, "learnHomeCard");
+		learnHomeCard.setLayout(new BorderLayout());
+		JPanel westPanel = new JPanel();
 
+		startCard.add(learnHomeCard, "learnHomeCard");
 		JButton lernenBeginnenButton = new JButton("Lernen Beginnen");
+		lernenBeginnenButton.setAlignmentX(Component.LEFT_ALIGNMENT);
 		JLabel currentDeckInfoLabel = new JLabel("Aktuelles Deck:");
-		currentDeckInfoLabel.setFont(new Font(fontStyle, Font.PLAIN, 20));
+		JLabel startLearningLabel = new JLabel();
+		startLearningLabel.setText("<html><body>Karteikarten einfach<br>lernen!</body></html>");
+		startLearningLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+		startLearningLabel.setFont(new Font(fontStyle, Font.PLAIN, 45));
+
+		currentDeckInfoLabel.setFont(new Font(fontStyle, Font.PLAIN, 15));
 		currentDeckLabel = new JLabel("noch kein Deck gewählt");
-		currentDeckLabel.setFont(new Font(fontStyle, Font.PLAIN, 20));
-		learnHomeCard.add(currentDeckInfoLabel);
-		learnHomeCard.add(currentDeckLabel, BorderLayout.PAGE_START);
+		currentDeckLabel.setFont(new Font(fontStyle, Font.PLAIN, 15));
+
+		JPanel currentDeckPanel = new JPanel(new FlowLayout());
+		currentDeckPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+		westPanel.add(Box.createRigidArea(new Dimension(0, 20)));
+		westPanel.add(startLearningLabel, BorderLayout.WEST);
+		westPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+
 //		learnHomeCard.add(Box.createGlue());
-		learnHomeCard.add(lernenBeginnenButton, BorderLayout.CENTER);
+		westPanel.add(lernenBeginnenButton);
+		currentDeckPanel.add(currentDeckInfoLabel);
+		currentDeckPanel.add(currentDeckLabel);
+		westPanel.add(Box.createRigidArea(new Dimension(0, 5)));
+		westPanel.add(currentDeckPanel);
+		learnHomeCard.add(westPanel, BorderLayout.WEST);
 		lernenBeginnenButton.addActionListener(new StartGuiListener(this, deckmanager, "lernenBeginnenButton"));
+		westPanel.setLayout(new BoxLayout(westPanel, BoxLayout.Y_AXIS));
+		// learnHomeCard.add(westPanel, BorderLayout.WEST);
+
 //		lernenBeginnenButton.addActionListener(new ActionListener() {
-//
+////
 //			public void actionPerformed(ActionEvent e) {
 //				((CardLayout) startCard.getLayout()).show(startCard, "learnQuestionCard");
 //			}
