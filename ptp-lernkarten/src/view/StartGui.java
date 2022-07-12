@@ -5,8 +5,6 @@ import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
@@ -215,13 +213,12 @@ public class StartGui extends JFrame implements Observer {
 		learnHomeCard = new JPanel();
 		learnHomeCard.setLayout(new GridLayout(3,1));
 		startCard.add(learnHomeCard, "learnHomeCard");
-//		30, 50, 300, 50
-//		JPanel lernenBeginnenButtonPanel = new JPanel();
+
 		JButton lernenBeginnenButton = new JButton("Lernen Beginnen");
-//		lernenBeginnenButtonPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-//		lernenBeginnenButtonPanel.add(lernenBeginnenButton);
-		JLabel currentDeckInfoLabel = new JLabel("Aktuelles Deck::");
+		JLabel currentDeckInfoLabel = new JLabel("Aktuelles Deck:");
+		currentDeckInfoLabel.setFont(new Font(fontStyle, Font.PLAIN, 20));
 		currentDeckLabel = new JLabel("noch kein Deck gewählt");
+		currentDeckLabel.setFont(new Font(fontStyle, Font.PLAIN, 20));
 		learnHomeCard.add(currentDeckInfoLabel);
 		learnHomeCard.add(currentDeckLabel, BorderLayout.PAGE_START);
 //		learnHomeCard.add(Box.createGlue());
