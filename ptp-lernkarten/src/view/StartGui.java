@@ -25,6 +25,7 @@ import controller.StartGuiListener;
 import model.Deck;
 import model.DeckManager;
 import util.NoDeckSelectedExeption;
+import util.ToggleSwitch;
 
 public class StartGui extends JFrame implements Observer {
 
@@ -60,6 +61,8 @@ public class StartGui extends JFrame implements Observer {
 
 	private JComboBox<Deck> chooseDeckComboBox;
 
+	private JButton switchThemeButton;
+	
 	private DeckManager deckmanager;
 
 	public StartGui(DeckManager manager, String name) {
@@ -78,6 +81,8 @@ public class StartGui extends JFrame implements Observer {
 		framePanel = new JPanel();
 		framePanel.setLayout(new BorderLayout(0, 0));
 		mainFrame.setContentPane(framePanel);
+		
+		System.setProperty( "apple.awt.application.appearance", "system" );
 
 		// topButtonPanel mit entsprechenden Buttons erstellen
 		generateTopButtons();
@@ -186,7 +191,7 @@ public class StartGui extends JFrame implements Observer {
 
 		// Einstellungen-Karte
 		einstellungenCard = new JPanel();
-		// Combobox für Path, wo man die Carteikarten abspeichert
+		// Combobox für Path, wo man die Karteikarten abspeichert
 		JPanel directoryPanel = new JPanel(new FlowLayout());
 		JComboBox<Path> comboboxdirectory = new JComboBox();
 		comboboxdirectory.setPreferredSize(new Dimension(350, 30));
@@ -196,8 +201,12 @@ public class StartGui extends JFrame implements Observer {
 		browseButton.addActionListener(new StartGuiListener(this, deckmanager, "browse"));
 		directoryPanel.add(comboboxdirectory, FlowLayout.LEFT);
 		directoryPanel.add(browseButton);
-
 		einstellungenCard.add(directoryPanel);
+		
+		switchThemeButton = new JButton("Dark Mode");
+		switchThemeButton.addActionListener(new StartGuiListener(this, deckmanager, "switchThemeButton"));
+		einstellungenCard.add(switchThemeButton);
+		
 		contentPanel.add(einstellungenCard, "einstellungenCard");
 
 		// Anfangsbildschirm setzten auf "Start"
@@ -441,6 +450,10 @@ public class StartGui extends JFrame implements Observer {
 
 	public JButton getEinstellungenButton() {
 		return einstellungenButton;
+	}
+	
+	public JButton getSwitchThemeButton() {
+		return switchThemeButton;
 	}
 
 	public JPanel getContentPanel() {
