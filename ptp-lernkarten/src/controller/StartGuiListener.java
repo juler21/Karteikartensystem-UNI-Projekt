@@ -5,8 +5,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.UnsupportedLookAndFeelException;
 
-import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatArcDarkContrastIJTheme;
-
 import model.Deck;
 import model.DeckManager;
 import util.NoDeckSelectedExeption;
@@ -50,23 +48,21 @@ public class StartGuiListener implements ActionListener {
 			System.out.println("switchThemeButton");
 			try {
 				if (theme.equals("light")) {
-				javax.swing.UIManager.setLookAndFeel(new com.formdev.flatlaf.intellijthemes.FlatDarkFlatIJTheme());
-				com.formdev.flatlaf.FlatLaf.updateUI();
-				startgui.getSwitchThemeButton().setText("Light Mode");
-				theme = "dark";
-				}
-				else if (theme.equals("dark"))
-				{
-				javax.swing.UIManager.setLookAndFeel(new com.formdev.flatlaf.intellijthemes.FlatLightFlatIJTheme());
-				com.formdev.flatlaf.FlatLaf.updateUI();
-				startgui.getSwitchThemeButton().setText("Dark Mode");
-				theme = "light";
+					javax.swing.UIManager.setLookAndFeel(new com.formdev.flatlaf.intellijthemes.FlatDarkFlatIJTheme());
+					com.formdev.flatlaf.FlatLaf.updateUI();
+					startgui.getSwitchThemeButton().setText("Light Mode");
+					theme = "dark";
+				} else if (theme.equals("dark")) {
+					javax.swing.UIManager.setLookAndFeel(new com.formdev.flatlaf.intellijthemes.FlatLightFlatIJTheme());
+					com.formdev.flatlaf.FlatLaf.updateUI();
+					startgui.getSwitchThemeButton().setText("Dark Mode");
+					theme = "light";
 				}
 			} catch (UnsupportedLookAndFeelException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		
+
 		}
 //		if (cmd.equals("startButtonPressed")) {
 //			JPanel contentPanel = ((StartGui) startgui).getContentPanel();
@@ -102,6 +98,7 @@ public class StartGuiListener implements ActionListener {
 					startgui.setOnlyQuestionTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getQuestion());
 					startgui.setQuestionTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getQuestion());
 					startgui.setAnswerTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getAnswer());
+					System.out.println("lernenBeginnenButton");
 					startgui.setLearnScreen("learnQuestionCard");
 				}
 			} else if (cmd.equals("nextQuestionButton")) {
