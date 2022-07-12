@@ -2,12 +2,18 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
+import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -61,11 +67,12 @@ public class StartGui extends JFrame implements Observer {
 		// JFrame erstellen
 		mainFrame = new JFrame(name);
 
-		fontStyle = "Ubuntu";
+		fontStyle = "Helvetica";
 		setUIFont(new javax.swing.plaf.FontUIResource(fontStyle, Font.PLAIN, 13));
 		mainFrame.setTitle("Lernkarten");
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setBounds(100, 100, 500, 300);
+		mainFrame.setPreferredSize(new Dimension(1000,500));
 
 		// frameContentPane erstellen, dass direkt auf dem JFrame liegt
 		framePanel = new JPanel();
@@ -192,14 +199,18 @@ public class StartGui extends JFrame implements Observer {
 
 		// Home-Karte
 		learnHomeCard = new JPanel();
-		learnHomeCard.setLayout(new GridLayout(3, 1));
+		learnHomeCard.setLayout(new GridLayout(3,1));
 		startCard.add(learnHomeCard, "learnHomeCard");
-
+//		30, 50, 300, 50
+//		JPanel lernenBeginnenButtonPanel = new JPanel();
 		JButton lernenBeginnenButton = new JButton("Lernen Beginnen");
+//		lernenBeginnenButtonPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+//		lernenBeginnenButtonPanel.add(lernenBeginnenButton);
 		JLabel currentDeckInfoLabel = new JLabel("Aktuelles Deck::");
 		currentDeckLabel = new JLabel("noch kein Deck gewählt");
 		learnHomeCard.add(currentDeckInfoLabel);
 		learnHomeCard.add(currentDeckLabel, BorderLayout.PAGE_START);
+//		learnHomeCard.add(Box.createGlue());
 		learnHomeCard.add(lernenBeginnenButton, BorderLayout.CENTER);
 		lernenBeginnenButton.addActionListener(new StartGuiListener(this, deckmanager, "lernenBeginnenButton"));
 //		lernenBeginnenButton.addActionListener(new ActionListener() {
