@@ -11,6 +11,7 @@ import org.junit.AfterClass;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import model.Flashcard;
 import util.DeckIsExistingException;
 import util.Main;
 import util.UnValidDecknameException;
@@ -127,6 +128,9 @@ public class MainTest {
 			e.printStackTrace();
 		}
 		app.deleteFlashcard("test3", 0);
+		//neuer vergleich
+		assertEquals(app.getFlashcard("test3", 0), new Flashcard("Moin", "Hello"));
+		//alter vergleich
 		assertEquals(1, app.getDeck("testDeck3").getAmountOfFlashcards());
 	}
 
@@ -135,7 +139,7 @@ public class MainTest {
 		try {
 			app.createDeck("test4");
 		} catch (UnValidDecknameException | DeckIsExistingException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 		assertEquals("test4", app.getDeck("test4").getDeckname());
