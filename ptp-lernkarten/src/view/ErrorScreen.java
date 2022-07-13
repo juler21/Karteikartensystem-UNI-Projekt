@@ -9,6 +9,7 @@ public class ErrorScreen {
 
 	public ErrorScreen(String errorMessage) {
 		errorFrame = new JFrame();
+
 		JOptionPane.showMessageDialog(errorFrame, errorMessage, "Warning", JOptionPane.WARNING_MESSAGE);
 	}
 }
