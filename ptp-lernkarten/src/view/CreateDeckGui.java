@@ -2,6 +2,7 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -15,6 +16,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
+import javax.swing.UIManager;
+import javax.swing.border.EmptyBorder;
 
 import controller.CreateDeckGuiListener;
 import model.Deck;
@@ -39,14 +42,18 @@ public class CreateDeckGui {
 	private JTextField answer;
 	private JButton confirmDeckname;
 
+	private String fontStyle;
+
 	public CreateDeckGui(DeckManager deckmanager, String windowname, Deck d) {
 		this.deckmanager = deckmanager;
 
 		// JFrame erstellen
 		createDeckFrame = new JFrame(windowname);
 		createDeckFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		createDeckFrame.setFont(new Font("Ubuntu", Font.PLAIN, 12));
-		createDeckFrame.setBounds(100, 100, 500, 300);
+		createDeckFrame.setBounds(600, 300, 500, 300);
+		fontStyle = "Helvetica";
+		setUIFont(new javax.swing.plaf.FontUIResource(fontStyle, Font.PLAIN, 20));
+//		mainFrame.setMinimumSize(new Dimension(680,400));
 
 		framePanel = new JPanel();
 		framePanel.setLayout(new CardLayout(0, 0));
@@ -59,8 +66,11 @@ public class CreateDeckGui {
 		framePanel.add(setDecknameCard, "decknameCard");
 
 		JLabel label1 = new JLabel("Geben Sie den Name des Decks ein:");
+		label1.setPreferredSize(new Dimension(300,80));
+		label1.setFont(new Font(fontStyle, Font.PLAIN, 25));
 		deckName = new JTextField("");
 		JPanel buttonPanel1 = new JPanel(new FlowLayout());
+		buttonPanel1.setBorder(new EmptyBorder(15,5,15,5));
 
 		confirmDeckname = new JButton("Deckname Bestätigen");
 		confirmDeckname.addActionListener(new ActionListener() {
@@ -69,7 +79,7 @@ public class CreateDeckGui {
 			}
 		});
 		confirmDeckname.addActionListener(new CreateDeckGuiListener(this, deckmanager, "Deckname"));
-		JButton closeButton = new JButton("ABBRECHEN");
+		JButton closeButton = new JButton("Abbrechen");
 		closeButton.addActionListener(new CreateDeckGuiListener(this, deckmanager, "close"));
 
 		buttonPanel1.add(confirmDeckname);
@@ -146,7 +156,7 @@ public class CreateDeckGui {
 		});
 		answer.setFocusable(true);
 
-		JButton confirmButton = new JButton("SCHLIEßEN");
+		JButton confirmButton = new JButton("Schließen");
 		confirmButton.addActionListener(new CreateDeckGuiListener(this, deckmanager, "close"));
 
 		buttonPanel.add(okButton);
@@ -181,4 +191,18 @@ public class CreateDeckGui {
 		this.framePanel = framePanel;
 	}
 
+	
+	/*
+	 * Setzt alle Default UI Fonts auf die übergebene Font
+	 *
+	 */
+	private void setUIFont(javax.swing.plaf.FontUIResource f) {
+		java.util.Enumeration keys = UIManager.getDefaults().keys();
+		while (keys.hasMoreElements()) {
+			Object key = keys.nextElement();
+			Object value = UIManager.get(key);
+			if (value instanceof javax.swing.plaf.FontUIResource)
+				UIManager.put(key, f);
+		}
+	}
 }

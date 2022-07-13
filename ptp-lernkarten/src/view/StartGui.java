@@ -20,6 +20,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 
 import controller.StartGuiListener;
 import model.Deck;
@@ -69,11 +71,11 @@ public class StartGui extends JFrame implements Observer {
 		mainFrame = new JFrame(name);
 
 		fontStyle = "Helvetica";
-		setUIFont(new javax.swing.plaf.FontUIResource(fontStyle, Font.PLAIN, 13));
+		setUIFont(new javax.swing.plaf.FontUIResource(fontStyle, Font.PLAIN, 20));
 		mainFrame.setTitle("Lernkarten");
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		mainFrame.setBounds(100, 100, 500, 300);
-		mainFrame.setPreferredSize(new Dimension(1000, 500));
+		mainFrame.setBounds(400, 200, 900, 550);
+		mainFrame.setMinimumSize(new Dimension(680,400));
 
 		// frameContentPane erstellen, dass direkt auf dem JFrame liegt
 		framePanel = new JPanel();
@@ -99,12 +101,18 @@ public class StartGui extends JFrame implements Observer {
 
 		// topButtonPanel erstellen und zum frameContentPane hinzufügen
 		topButtonPanel = new JPanel();
+		topButtonPanel.setLayout(new FlowLayout());
+		topButtonPanel.setBorder(new EmptyBorder(15,5,15,5));
 		framePanel.add(topButtonPanel, BorderLayout.NORTH);
 		// BUTTONS
 		startButton = new JButton("START");
+		startButton.setPreferredSize(new Dimension(130, 40));
 		decksButton = new JButton("DECKS");
+		decksButton.setPreferredSize(new Dimension(130, 40));
 		statistikButton = new JButton("STATISTIK");
+		statistikButton.setPreferredSize(new Dimension(160, 40));
 		einstellungenButton = new JButton("EINSTELLUNGEN");
+		einstellungenButton.setPreferredSize(new Dimension(230, 40));
 
 		topButtonPanel.add(startButton);
 		topButtonPanel.add(decksButton);
@@ -163,21 +171,28 @@ public class StartGui extends JFrame implements Observer {
 
 		// Decks-Karte
 		decksCard = new JPanel();
-		decksCard.setLayout(new GridLayout(4, 1, 0, 0));
+		decksCard.setLayout(new GridLayout(4, 1, 10, 5));
 		contentPanel.add(decksCard, "decksCard");
 
 		deckListeErstellen();
-		decksCard.add(chooseDeckComboBox);
+		JPanel comboBoxPanel = new JPanel();
+		chooseDeckComboBox.setPreferredSize(new Dimension(700, 40));
+		comboBoxPanel.add(chooseDeckComboBox);
+		decksCard.add(comboBoxPanel);
+//		decksCard.add(Box.createRigidArea(new Dimension(0, 1400)));
 
 		JButton deckErstellenButton = new JButton("Deck Erstellen");
+		deckErstellenButton.setFont(new Font(fontStyle, Font.PLAIN, 27));
 		deckErstellenButton.addActionListener(new StartGuiListener(this, deckmanager, "deckErstellen"));
 		decksCard.add(deckErstellenButton);
 
 		JButton deckBearbeitenButton = new JButton("Deck Bearbeiten");
+		deckBearbeitenButton.setFont(new Font(fontStyle, Font.PLAIN, 27));
 		deckBearbeitenButton.addActionListener(new StartGuiListener(this, deckmanager, "deckBearbeiten"));
 		decksCard.add(deckBearbeitenButton);
 
 		JButton deckLöschenButton = new JButton("Deck Löschen");
+		deckLöschenButton.setFont(new Font(fontStyle, Font.PLAIN, 27));
 		deckLöschenButton.addActionListener(new StartGuiListener(this, deckmanager, "deckLöschen"));
 		decksCard.add(deckLöschenButton);
 
@@ -189,8 +204,9 @@ public class StartGui extends JFrame implements Observer {
 		einstellungenCard = new JPanel();
 		// Combobox für Path, wo man die Carteikarten abspeichert
 		JPanel directoryPanel = new JPanel(new FlowLayout());
+		
 		JComboBox<Path> comboboxdirectory = new JComboBox();
-		comboboxdirectory.setPreferredSize(new Dimension(350, 30));
+		comboboxdirectory.setPreferredSize(new Dimension(500, 40));
 		comboboxdirectory.addItem(deckmanager.getPathDirectory());
 		comboboxdirectory.setEditable(true);
 		JButton browseButton = new JButton("Browse");
@@ -216,37 +232,36 @@ public class StartGui extends JFrame implements Observer {
 
 		// Home-Karte
 		learnHomeCard = new JPanel();
-		learnHomeCard.setLayout(new BorderLayout());
-		JPanel westPanel = new JPanel();
+		learnHomeCard.setLayout(null);
+//		JPanel westPanel = new JPanel();
 
 		startCard.add(learnHomeCard, "learnHomeCard");
-		JButton lernenBeginnenButton = new JButton("Lernen Beginnen");
-		lernenBeginnenButton.setAlignmentX(Component.LEFT_ALIGNMENT);
-		JLabel currentDeckInfoLabel = new JLabel("Aktuelles Deck:");
+		
 		JLabel startLearningLabel = new JLabel();
 		startLearningLabel.setText("<html><body>Karteikarten einfach<br>lernen!</body></html>");
-		startLearningLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-		startLearningLabel.setFont(new Font(fontStyle, Font.PLAIN, 45));
-
-		currentDeckInfoLabel.setFont(new Font(fontStyle, Font.PLAIN, 15));
+		startLearningLabel.setFont(new Font(fontStyle, Font.PLAIN, 60));
+		startLearningLabel.setBounds(50,-70, 700, 300);
+		
+		JButton lernenBeginnenButton = new JButton("Lernen Beginnen");
+		lernenBeginnenButton.setFont(new Font(fontStyle, Font.PLAIN, 27));
+		lernenBeginnenButton.setBounds(50,165, 300, 60);
+//		lernenBeginnenButton.setAlignmentX(Component.LEFT_ALIGNMENT);
+		
+		JLabel currentDeckInfoLabel = new JLabel("<html><body>Aktuelles Deck:</body></html>");
+		currentDeckInfoLabel.setFont(new Font(fontStyle, Font.PLAIN, 27));
+		currentDeckInfoLabel.setBounds(50,235, 300, 60);
 		currentDeckLabel = new JLabel("noch kein Deck gewählt");
-		currentDeckLabel.setFont(new Font(fontStyle, Font.PLAIN, 15));
+		currentDeckLabel.setFont(new Font(fontStyle, Font.PLAIN, 27));
+		currentDeckLabel.setBounds(250,235, 300, 60);
 
-		JPanel currentDeckPanel = new JPanel(new FlowLayout());
-		currentDeckPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
-		westPanel.add(Box.createRigidArea(new Dimension(0, 20)));
-		westPanel.add(startLearningLabel, BorderLayout.WEST);
-		westPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-
-//		learnHomeCard.add(Box.createGlue());
-		westPanel.add(lernenBeginnenButton);
-		currentDeckPanel.add(currentDeckInfoLabel);
-		currentDeckPanel.add(currentDeckLabel);
-		westPanel.add(Box.createRigidArea(new Dimension(0, 5)));
-		westPanel.add(currentDeckPanel);
-		learnHomeCard.add(westPanel, BorderLayout.WEST);
+		
+		learnHomeCard.add(startLearningLabel);
+		learnHomeCard.add(lernenBeginnenButton);
+		learnHomeCard.add(currentDeckInfoLabel);
+		learnHomeCard.add(currentDeckLabel);
+		
 		lernenBeginnenButton.addActionListener(new StartGuiListener(this, deckmanager, "lernenBeginnenButton"));
-		westPanel.setLayout(new BoxLayout(westPanel, BoxLayout.Y_AXIS));
+//		westPanel.setLayout(new BoxLayout(westPanel, BoxLayout.Y_AXIS));
 		// learnHomeCard.add(westPanel, BorderLayout.WEST);
 
 //		lernenBeginnenButton.addActionListener(new ActionListener() {
@@ -258,12 +273,13 @@ public class StartGui extends JFrame implements Observer {
 
 		// Question-Karte
 		learnQuestionCard = new JPanel();
-		learnQuestionCard.setLayout(new GridLayout(2, 1));
+		learnQuestionCard.setLayout(new GridLayout(2, 1, 10, 5));
 		startCard.add(learnQuestionCard, "learnQuestionCard");
 		onlyQuestionTextLabel = new JLabel(""); // default Deck einladen
-		onlyQuestionTextLabel.setFont(new Font(fontStyle, Font.PLAIN, 20));
+		onlyQuestionTextLabel.setFont(new Font(fontStyle, Font.PLAIN, 27));
 
 		JButton showAnswerButton = new JButton("Antwort zeigen");
+		showAnswerButton.setFont(new Font(fontStyle, Font.PLAIN, 27));
 		showAnswerButton.addActionListener(new StartGuiListener(this, deckmanager, "showAnswerButton"));
 //		showAnswerButton.addActionListener(new ActionListener() {
 //
@@ -277,17 +293,20 @@ public class StartGui extends JFrame implements Observer {
 
 		// Answer-Karte
 		learnAnswerCard = new JPanel();
-		learnAnswerCard.setLayout(new GridLayout(5, 1));
+		learnAnswerCard.setLayout(new GridLayout(5, 1,10, 5));
 		startCard.add(learnAnswerCard, "learnAnswerCard");
 
 		JLabel questionLabel = new JLabel("Frage:");
+		questionLabel.setFont(new Font(fontStyle, Font.BOLD, 27));
 		questionTextLabel = new JLabel("");
-		questionTextLabel.setFont(new Font(fontStyle, Font.PLAIN, 20));
+		questionTextLabel.setFont(new Font(fontStyle, Font.PLAIN, 27));
 		JLabel answerLabel = new JLabel("Antwort:");
+		answerLabel.setFont(new Font(fontStyle, Font.BOLD, 27));
 		answerTextLabel = new JLabel("");
-		answerTextLabel.setFont(new Font(fontStyle, Font.PLAIN, 20));
+		answerTextLabel.setFont(new Font(fontStyle, Font.PLAIN, 27));
 
 		JButton nextQuestionButton = new JButton("Nächste Frage");
+		nextQuestionButton.setFont(new Font(fontStyle, Font.PLAIN, 27));
 		nextQuestionButton.addActionListener(new StartGuiListener(this, deckmanager, "nextQuestionButton"));
 //		nextQuestionButton.addActionListener(new ActionListener() {
 //
@@ -305,10 +324,13 @@ public class StartGui extends JFrame implements Observer {
 		// learnEnd-Karte
 		learnEndCard = new JPanel();
 		startCard.add(learnEndCard, "learnEndCard");
-		learnEndCard.setLayout(new GridLayout(3, 1));
+		learnEndCard.setLayout(new GridLayout(3, 1,10, 5));
 		JLabel deckEndLabel = new JLabel("Deck-Ende erreicht");
+		deckEndLabel.setFont(new Font(fontStyle, Font.PLAIN, 27));
 		JButton restartDeckButton = new JButton("Erneut starten");
+		restartDeckButton.setFont(new Font(fontStyle, Font.PLAIN, 27));
 		JButton switchDeckButton = new JButton("neues Deck wählen");
+		switchDeckButton.setFont(new Font(fontStyle, Font.PLAIN, 27));
 
 		learnEndCard.add(deckEndLabel);
 		learnEndCard.add(restartDeckButton);

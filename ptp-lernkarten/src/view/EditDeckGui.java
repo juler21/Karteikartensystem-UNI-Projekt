@@ -13,6 +13,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.UIManager;
+import javax.swing.border.EmptyBorder;
 
 import controller.EditDeckGuiListener;
 import model.Deck;
@@ -34,7 +36,7 @@ public class EditDeckGui extends JFrame implements Observer {
 	private JPanel lowerButtonPanel;
 	private JPanel listPanel;
 	private JPanel qaPanel;
-	private JComboBox<Flashcard> flashcardList;
+	private JComboBox<Flashcard> flashcardComboBox;
 	private JLabel questionLabel;
 	private JTextArea questionText;
 	private JLabel answerLabel;
@@ -44,6 +46,8 @@ public class EditDeckGui extends JFrame implements Observer {
 	private JButton quitButton;
 	private JButton newFlashcardButton;
 
+	private String fontStyle;
+
 	public EditDeckGui(DeckManager deckmanager, StartGui startgui, Deck selectedDeck, String windowname) {
 
 		this.deckmanager = deckmanager;
@@ -52,9 +56,10 @@ public class EditDeckGui extends JFrame implements Observer {
 
 		// JFrame erstellen
 		editDeckFrame = new JFrame(windowname);
-		editDeckFrame.setFont(new Font("Ubuntu", Font.PLAIN, 12));
 		editDeckFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		editDeckFrame.setBounds(100, 100, 500, 300);
+		editDeckFrame.setBounds(550, 300, 600, 400);
+		fontStyle = "Helvetica";
+		setUIFont(new javax.swing.plaf.FontUIResource(fontStyle, Font.PLAIN, 20));
 
 		//
 		editDeckPanel = new JPanel();
@@ -69,15 +74,16 @@ public class EditDeckGui extends JFrame implements Observer {
 			flashcardArray[i] = selectedDeck.getFlashcard(i);
 		}
 
-//		
-		flashcardList = new JComboBox<Flashcard>(flashcardArray);
-		editDeckPanel.add(flashcardList, BorderLayout.PAGE_START);
-		flashcardList.addActionListener(new ActionListener() {
+
+		flashcardComboBox = new JComboBox<Flashcard>(flashcardArray);
+//		flashcardComboBox.setBorder(new EmptyBorder(15,5,15,5));
+		editDeckPanel.add(flashcardComboBox, BorderLayout.PAGE_START);
+		flashcardComboBox.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (flashcardList.getSelectedItem() != null) {
-					Flashcard f = (Flashcard) (flashcardList.getSelectedItem());
+				if (flashcardComboBox.getSelectedItem() != null) {
+					Flashcard f = (Flashcard) (flashcardComboBox.getSelectedItem());
 					questionText.setText(f.getQuestion());
 					answerText.setText(f.getAnswer());
 				}
@@ -87,15 +93,14 @@ public class EditDeckGui extends JFrame implements Observer {
 
 		qaPanel = new JPanel();
 		qaPanel.setLayout(new GridLayout(4, 1));
-//		qaPanel.setAlignmentX(CENTER_ALIGNMENT);
-//		qaPanel.setAlignmentY(CENTER_ALIGNMENT);
-		System.out.println((Flashcard) (flashcardList.getSelectedItem()));
-		Flashcard f = (Flashcard) (flashcardList.getSelectedItem());
-		questionLabel = new JLabel("FRAGE");
-//		questionLabel.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+		System.out.println((Flashcard) (flashcardComboBox.getSelectedItem()));
+		Flashcard f = (Flashcard) (flashcardComboBox.getSelectedItem());
+		questionLabel = new JLabel("Frage");
+		questionLabel.setFont(new Font(fontStyle, Font.PLAIN, 25));
 		questionText = new JTextArea(3, 10);
-		answerLabel = new JLabel("ANTWORT");
-//		answerLabel.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+		
+		answerLabel = new JLabel("Antwort");
+		answerLabel.setFont(new Font(fontStyle, Font.PLAIN, 25));
 		answerText = new JTextArea(3, 10);
 
 		if (!selectedDeck.getDeckFlashcardlist().isEmpty()) {
@@ -111,15 +116,15 @@ public class EditDeckGui extends JFrame implements Observer {
 		editDeckPanel.add(qaPanel, BorderLayout.CENTER);
 
 		lowerButtonPanel = new JPanel();
-		deleteFlashcardButton = new JButton("LÖSCHEN");
+		deleteFlashcardButton = new JButton("Löschen");
 		deleteFlashcardButton
 				.addActionListener(new EditDeckGuiListener(this, selectedDeck, deckmanager, "deleteFlashcard"));
-		saveFlashcardButton = new JButton("SPEICHERN");
+		saveFlashcardButton = new JButton("Speichern");
 		saveFlashcardButton
 				.addActionListener((new EditDeckGuiListener(this, selectedDeck, deckmanager, "editFlashcard")));
-		quitButton = new JButton("SCHLIEßEN");
+		quitButton = new JButton("Schließen");
 		quitButton.addActionListener((new EditDeckGuiListener(this, selectedDeck, deckmanager, "close")));
-		newFlashcardButton = new JButton("HINZUFÜGEN");
+		newFlashcardButton = new JButton("Hinzufügen");
 		newFlashcardButton.addActionListener(new EditDeckGuiListener(this, selectedDeck, deckmanager, "newFlashcard"));
 		lowerButtonPanel.add(deleteFlashcardButton);
 		lowerButtonPanel.add(saveFlashcardButton);
@@ -138,12 +143,12 @@ public class EditDeckGui extends JFrame implements Observer {
 	}
 
 	public JComboBox<Flashcard> getFlashcardList() {
-		return flashcardList;
+		return flashcardComboBox;
 	}
 
 	public Flashcard getSelectedFlashcard() throws NoFlashcardSelectedExeption {
-		if (flashcardList.getSelectedItem() != null) {
-			return (Flashcard) flashcardList.getSelectedItem();
+		if (flashcardComboBox.getSelectedItem() != null) {
+			return (Flashcard) flashcardComboBox.getSelectedItem();
 		} else {
 			throw new NoFlashcardSelectedExeption();
 		}
@@ -154,9 +159,9 @@ public class EditDeckGui extends JFrame implements Observer {
 	public void update(String changeType) {
 		if (changeType.equals("flashcardChange")) {
 			System.out.println("update");
-			flashcardList.removeAllItems();
+			flashcardComboBox.removeAllItems();
 			for (Flashcard f : selectedDeck.getDeckFlashcardlist()) {
-				flashcardList.addItem(f);
+				flashcardComboBox.addItem(f);
 			}
 			// setzt flashcard combobox auf erstes objekt
 //			flashcardList.setSelectedIndex(0);
@@ -182,5 +187,17 @@ public class EditDeckGui extends JFrame implements Observer {
 	public void setAnswerText(String answerText) {
 		this.answerText.setText(answerText);
 	}
-
+	/*
+	 * Setzt alle Default UI Fonts auf die übergebene Font
+	 *
+	 */
+	private void setUIFont(javax.swing.plaf.FontUIResource f) {
+		java.util.Enumeration keys = UIManager.getDefaults().keys();
+		while (keys.hasMoreElements()) {
+			Object key = keys.nextElement();
+			Object value = UIManager.get(key);
+			if (value instanceof javax.swing.plaf.FontUIResource)
+				UIManager.put(key, f);
+		}
+	}
 }
