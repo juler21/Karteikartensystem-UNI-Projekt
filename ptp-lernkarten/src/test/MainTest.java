@@ -10,10 +10,10 @@ import java.io.File;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import model.UnvalidQAException;
 import util.DeckIsExistingException;
 import util.Main;
 import util.UnValidDecknameException;
+import util.UnvalidQAException;
 
 public class MainTest {
 	private Main app;

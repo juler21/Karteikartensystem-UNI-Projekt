@@ -5,9 +5,9 @@ import java.awt.event.ActionListener;
 
 import model.Deck;
 import model.DeckManager;
-import model.UnvalidQAException;
 import util.DeckIsExistingException;
 import util.UnValidDecknameException;
+import util.UnvalidQAException;
 import view.CreateDeckGui;
 import view.ErrorScreen;
 

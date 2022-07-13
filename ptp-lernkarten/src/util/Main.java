@@ -10,7 +10,6 @@ import com.formdev.flatlaf.util.SystemInfo;
 import model.Deck;
 import model.DeckManager;
 import model.Flashcard;
-import model.UnvalidQAException;
 import view.StartGui;
 
 public class Main {

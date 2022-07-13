@@ -9,6 +9,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import util.UnvalidQAException;
+
 public class Deck extends Observable {
 
 	private List<Flashcard> flashcardList = new ArrayList<Flashcard>();
