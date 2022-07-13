@@ -129,7 +129,8 @@ public class MainTest {
 		}
 		app.deleteFlashcard("test3", 0);
 		//neuer vergleich
-		assertEquals(app.getFlashcard("test3", 0), new Flashcard("Moin", "Hello"));
+		assertEquals(app.getFlashcard("test3", 0).getQuestion(), "Moin");
+		assertEquals(app.getFlashcard("test3", 0).getAnswer(), "Hello");
 		//alter vergleich
 		assertEquals(1, app.getDeck("testDeck3").getAmountOfFlashcards());
 	}
