@@ -38,14 +38,9 @@ public class EditDeckGuiListener implements ActionListener {
 			if (cmd.equals("deleteFlashcard")) {
 
 				int index = selectedDeck.getDeckFlashcardlist().indexOf(gui.getSelectedFlashcard());
+				gui.setQuestionText("");
+				gui.setAnswerText("");
 				selectedDeck.deleteFlashcard(index);
-				if (gui.getSelectedFlashcard() != null) {
-					gui.setQuestionText(gui.getSelectedFlashcard().getQuestion());
-					gui.setQuestionText(gui.getSelectedFlashcard().getAnswer());
-				} else {
-					gui.setQuestionText("");
-					gui.setAnswerText("");
-				}
 
 			} else if (cmd.equals("editFlashcard")) {
 				gui.getSelectedFlashcard().setQuestion(gui.getQuestionText());

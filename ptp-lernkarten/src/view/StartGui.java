@@ -198,11 +198,11 @@ public class StartGui extends JFrame implements Observer {
 		directoryPanel.add(comboboxdirectory, FlowLayout.LEFT);
 		directoryPanel.add(browseButton);
 		einstellungenCard.add(directoryPanel);
-		
+
 		switchThemeButton = new JButton("Dark Mode");
 		switchThemeButton.addActionListener(new StartGuiListener(this, deckmanager, "switchThemeButton"));
 		einstellungenCard.add(switchThemeButton);
-		
+
 		contentPanel.add(einstellungenCard, "einstellungenCard");
 
 		// Anfangsbildschirm setzten auf "Start"
@@ -247,7 +247,7 @@ public class StartGui extends JFrame implements Observer {
 		learnHomeCard.add(westPanel, BorderLayout.WEST);
 		lernenBeginnenButton.addActionListener(new StartGuiListener(this, deckmanager, "lernenBeginnenButton"));
 		westPanel.setLayout(new BoxLayout(westPanel, BoxLayout.Y_AXIS));
-		//learnHomeCard.add(westPanel, BorderLayout.WEST);
+		// learnHomeCard.add(westPanel, BorderLayout.WEST);
 
 //		lernenBeginnenButton.addActionListener(new ActionListener() {
 ////
@@ -322,8 +322,8 @@ public class StartGui extends JFrame implements Observer {
 	private void deckListeErstellen() {
 
 		chooseDeckComboBox = new JComboBox<Deck>();
+		chooseDeckComboBox.setSize(getPreferredSize());
 
-		// Was wird da gemacht (Julian)
 		deckmanager.getData(new File(DeckManager.getPathtoString()));
 		update("deckChange");
 	}
@@ -447,6 +447,7 @@ public class StartGui extends JFrame implements Observer {
 	public JButton getEinstellungenButton() {
 		return einstellungenButton;
 	}
+
 	public JButton getSwitchThemeButton() {
 		return switchThemeButton;
 	}

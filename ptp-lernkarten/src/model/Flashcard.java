@@ -4,7 +4,6 @@ public class Flashcard {
 
 	private String question;
 	private String answer;
-//	private int index;
 
 	public Flashcard(String q, String a) {
 //		this.index = index;

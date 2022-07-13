@@ -63,7 +63,7 @@ public class StartGuiListener implements ActionListener {
 				e.printStackTrace();
 			}
 
-		}
+		} else {
 //		if (cmd.equals("startButtonPressed")) {
 //			JPanel contentPanel = ((StartGui) startgui).getContentPanel();
 //			
@@ -77,50 +77,51 @@ public class StartGuiListener implements ActionListener {
 //		}
 //
 //		}
-		try {
+			try {
 
-			Deck selectedDeck = startgui.getSelectedDeck();
-			System.out.println(selectedDeck);
+				Deck selectedDeck = startgui.getSelectedDeck();
+				System.out.println(selectedDeck);
 
-			if (cmd.equals("deckBearbeiten")) {
+				if (cmd.equals("deckBearbeiten")) {
 
-				new EditDeckGui(deckmanager, startgui, selectedDeck,
-						"DECK: \"" + selectedDeck.getDeckname() + "\" BEARBEITEN");
+					new EditDeckGui(deckmanager, startgui, selectedDeck,
+							"DECK: \"" + selectedDeck.getDeckname() + "\" BEARBEITEN");
 
-			} else if (cmd.equals("deckLöschen")) {
+				} else if (cmd.equals("deckLöschen")) {
 
-				deckmanager.removeDeck(selectedDeck.getDeckname());
+					deckmanager.removeDeck(selectedDeck.getDeckname());
 
-			} else if (cmd.equals("lernenBeginnenButton")) {
-				System.out.println(flashcardLearnIndex);
-				flashcardLearnIndex = 0;
-				if (selectedDeck.getAmountOfFlashcards() != 0) {
-					startgui.setOnlyQuestionTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getQuestion());
-					startgui.setQuestionTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getQuestion());
-					startgui.setAnswerTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getAnswer());
-					System.out.println("lernenBeginnenButton");
-					startgui.setLearnScreen("learnQuestionCard");
+				} else if (cmd.equals("lernenBeginnenButton")) {
+					System.out.println(flashcardLearnIndex);
+					flashcardLearnIndex = 0;
+					if (selectedDeck.getAmountOfFlashcards() != 0) {
+						startgui.setOnlyQuestionTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getQuestion());
+						startgui.setQuestionTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getQuestion());
+						startgui.setAnswerTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getAnswer());
+						System.out.println("lernenBeginnenButton");
+						startgui.setLearnScreen("learnQuestionCard");
+					}
+				} else if (cmd.equals("nextQuestionButton")) {
+					if (flashcardLearnIndex < selectedDeck.getAmountOfFlashcards() - 1) {
+						flashcardLearnIndex++;
+						startgui.setOnlyQuestionTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getQuestion());
+						startgui.setQuestionTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getQuestion());
+						startgui.setAnswerTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getAnswer());
+						startgui.setLearnScreen("learnQuestionCard");
+					} else {
+						System.out.println("ende");
+						startgui.setLearnScreen("learnEndCard");
+					}
+				} else if (cmd.equals("showAnswerButton")) {
+					startgui.setLearnScreen("learnAnswerCard");
+				} else if (cmd.equals("restartDeckButton")) {
+					startgui.setLearnScreen("learnHomeCard");
+				} else if (cmd.equals("switchDeckButton")) {
+					startgui.setDashboardScreen("decksCard");
 				}
-			} else if (cmd.equals("nextQuestionButton")) {
-				if (flashcardLearnIndex < selectedDeck.getAmountOfFlashcards() - 1) {
-					flashcardLearnIndex++;
-					startgui.setOnlyQuestionTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getQuestion());
-					startgui.setQuestionTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getQuestion());
-					startgui.setAnswerTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getAnswer());
-					startgui.setLearnScreen("learnQuestionCard");
-				} else {
-					System.out.println("ende");
-					startgui.setLearnScreen("learnEndCard");
-				}
-			} else if (cmd.equals("showAnswerButton")) {
-				startgui.setLearnScreen("learnAnswerCard");
-			} else if (cmd.equals("restartDeckButton")) {
-				startgui.setLearnScreen("learnHomeCard");
-			} else if (cmd.equals("switchDeckButton")) {
-				startgui.setDashboardScreen("decksCard");
+			} catch (NoDeckSelectedExeption e) {
+				new ErrorScreen(e.getError());
 			}
-		} catch (NoDeckSelectedExeption e) {
-			new ErrorScreen(e.getError());
 		}
 	}
 }
