@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.File;
 
+import org.junit.AfterClass;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -22,17 +23,13 @@ public class MainTest {
 	public void newMain() {
 		app = new Main();
 	}
-
+    
 	@Test
 	public void testCreateDirectory() {
-//		app.createDirectory();
 		boolean result = false;
 		String path = System.getProperty("user.home");
 		File folder = new File(path);
 		System.out.println(folder.getPath());
-//		for (String f : folder.list()) {
-//			System.out.println(f);
-//		}
 		for (File f : folder.listFiles()) {
 			if (f.getPath().equals(app.getPathDirectory())) {
 				result = true;
@@ -115,16 +112,22 @@ public class MainTest {
 
 	@Test
 	public void testdeleteFlashcard() {
-		app.removeAllFlashcards("test3");
+		app.deleteDeck("test3");
+		try {
+			app.createDeck("test3");
+			System.out.println(app.getDeck("test3").getAmountOfFlashcards());
+		} catch (UnValidDecknameException | DeckIsExistingException e1) {
+			e1.printStackTrace();
+		}
+//
 		try {
 			app.addFlashcard("test3", "Hallo", "Tschüss");
 			app.addFlashcard("test3", "Moin", "Hello");
 		} catch (UnvalidQAException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		app.deleteFlashcard("test3", 0);
-		assertEquals(1, app.getDeck("test3").getAmountOfFlashcards());
+		assertEquals(1, app.getDeck("testDeck3").getAmountOfFlashcards());
 	}
 
 	@Test
