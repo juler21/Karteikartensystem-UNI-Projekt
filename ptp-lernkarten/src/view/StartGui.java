@@ -2,7 +2,6 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -12,15 +11,12 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.nio.file.Path;
 
-import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 import controller.StartGuiListener;
@@ -74,8 +70,8 @@ public class StartGui extends JFrame implements Observer {
 		setUIFont(new javax.swing.plaf.FontUIResource(fontStyle, Font.PLAIN, 20));
 		mainFrame.setTitle("Lernkarten");
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		mainFrame.setBounds(400, 200, 900, 550);
-		mainFrame.setMinimumSize(new Dimension(680,400));
+		mainFrame.setBounds(270, 170, 900, 550);
+		mainFrame.setMinimumSize(new Dimension(680, 400));
 
 		// frameContentPane erstellen, dass direkt auf dem JFrame liegt
 		framePanel = new JPanel();
@@ -102,7 +98,7 @@ public class StartGui extends JFrame implements Observer {
 		// topButtonPanel erstellen und zum frameContentPane hinzufügen
 		topButtonPanel = new JPanel();
 		topButtonPanel.setLayout(new FlowLayout());
-		topButtonPanel.setBorder(new EmptyBorder(15,5,15,5));
+		topButtonPanel.setBorder(new EmptyBorder(15, 5, 15, 5));
 		framePanel.add(topButtonPanel, BorderLayout.NORTH);
 		// BUTTONS
 		startButton = new JButton("START");
@@ -204,7 +200,7 @@ public class StartGui extends JFrame implements Observer {
 		einstellungenCard = new JPanel();
 		// Combobox für Path, wo man die Carteikarten abspeichert
 		JPanel directoryPanel = new JPanel(new FlowLayout());
-		
+
 		JComboBox<Path> comboboxdirectory = new JComboBox();
 		comboboxdirectory.setPreferredSize(new Dimension(500, 40));
 		comboboxdirectory.addItem(deckmanager.getPathDirectory());
@@ -236,30 +232,29 @@ public class StartGui extends JFrame implements Observer {
 //		JPanel westPanel = new JPanel();
 
 		startCard.add(learnHomeCard, "learnHomeCard");
-		
+
 		JLabel startLearningLabel = new JLabel();
 		startLearningLabel.setText("<html><body>Karteikarten einfach<br>lernen!</body></html>");
 		startLearningLabel.setFont(new Font(fontStyle, Font.PLAIN, 60));
-		startLearningLabel.setBounds(50,-70, 700, 300);
-		
+		startLearningLabel.setBounds(50, -70, 700, 300);
+
 		JButton lernenBeginnenButton = new JButton("Lernen Beginnen");
 		lernenBeginnenButton.setFont(new Font(fontStyle, Font.PLAIN, 27));
-		lernenBeginnenButton.setBounds(50,165, 300, 60);
+		lernenBeginnenButton.setBounds(50, 165, 300, 60);
 //		lernenBeginnenButton.setAlignmentX(Component.LEFT_ALIGNMENT);
-		
+
 		JLabel currentDeckInfoLabel = new JLabel("<html><body>Aktuelles Deck:</body></html>");
 		currentDeckInfoLabel.setFont(new Font(fontStyle, Font.PLAIN, 27));
-		currentDeckInfoLabel.setBounds(50,235, 300, 60);
+		currentDeckInfoLabel.setBounds(50, 235, 300, 60);
 		currentDeckLabel = new JLabel("noch kein Deck gewählt");
 		currentDeckLabel.setFont(new Font(fontStyle, Font.PLAIN, 27));
-		currentDeckLabel.setBounds(250,235, 300, 60);
+		currentDeckLabel.setBounds(250, 235, 300, 60);
 
-		
 		learnHomeCard.add(startLearningLabel);
 		learnHomeCard.add(lernenBeginnenButton);
 		learnHomeCard.add(currentDeckInfoLabel);
 		learnHomeCard.add(currentDeckLabel);
-		
+
 		lernenBeginnenButton.addActionListener(new StartGuiListener(this, deckmanager, "lernenBeginnenButton"));
 //		westPanel.setLayout(new BoxLayout(westPanel, BoxLayout.Y_AXIS));
 		// learnHomeCard.add(westPanel, BorderLayout.WEST);
@@ -293,7 +288,7 @@ public class StartGui extends JFrame implements Observer {
 
 		// Answer-Karte
 		learnAnswerCard = new JPanel();
-		learnAnswerCard.setLayout(new GridLayout(5, 1,10, 5));
+		learnAnswerCard.setLayout(new GridLayout(5, 1, 10, 5));
 		startCard.add(learnAnswerCard, "learnAnswerCard");
 
 		JLabel questionLabel = new JLabel("Frage:");
@@ -324,7 +319,7 @@ public class StartGui extends JFrame implements Observer {
 		// learnEnd-Karte
 		learnEndCard = new JPanel();
 		startCard.add(learnEndCard, "learnEndCard");
-		learnEndCard.setLayout(new GridLayout(3, 1,10, 5));
+		learnEndCard.setLayout(new GridLayout(3, 1, 10, 5));
 		JLabel deckEndLabel = new JLabel("Deck-Ende erreicht");
 		deckEndLabel.setFont(new Font(fontStyle, Font.PLAIN, 27));
 		JButton restartDeckButton = new JButton("Erneut starten");

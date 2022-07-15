@@ -50,7 +50,7 @@ public class CreateDeckGui {
 		// JFrame erstellen
 		createDeckFrame = new JFrame(windowname);
 		createDeckFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		createDeckFrame.setBounds(600, 300, 500, 300);
+		createDeckFrame.setBounds(480, 300, 500, 300);
 		fontStyle = "Helvetica";
 		setUIFont(new javax.swing.plaf.FontUIResource(fontStyle, Font.PLAIN, 20));
 //		mainFrame.setMinimumSize(new Dimension(680,400));
@@ -66,11 +66,11 @@ public class CreateDeckGui {
 		framePanel.add(setDecknameCard, "decknameCard");
 
 		JLabel label1 = new JLabel("Geben Sie den Name des Decks ein:");
-		label1.setPreferredSize(new Dimension(300,80));
+		label1.setPreferredSize(new Dimension(300, 80));
 		label1.setFont(new Font(fontStyle, Font.PLAIN, 25));
 		deckName = new JTextField("");
 		JPanel buttonPanel1 = new JPanel(new FlowLayout());
-		buttonPanel1.setBorder(new EmptyBorder(15,5,15,5));
+		buttonPanel1.setBorder(new EmptyBorder(15, 5, 15, 5));
 
 		confirmDeckname = new JButton("Deckname Bestätigen");
 		confirmDeckname.addActionListener(new ActionListener() {
@@ -191,7 +191,6 @@ public class CreateDeckGui {
 		this.framePanel = framePanel;
 	}
 
-	
 	/*
 	 * Setzt alle Default UI Fonts auf die übergebene Font
 	 *

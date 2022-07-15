@@ -2,10 +2,7 @@ package util;
 
 import javax.swing.UIManager;
 
-import com.formdev.flatlaf.intellijthemes.FlatArcIJTheme;
 import com.formdev.flatlaf.intellijthemes.FlatLightFlatIJTheme;
-import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatArcDarkContrastIJTheme;
-import com.formdev.flatlaf.util.SystemInfo;
 
 import model.Deck;
 import model.DeckManager;
@@ -26,18 +23,20 @@ public class Main {
 
 	public static void main(String[] args) {
 		// themeSetUp
+		System.setProperty("apple.awt.application.appearance", "system");
+
 		FlatLightFlatIJTheme.setup();
 //		FlatArcDarkContrastIJTheme.setup();
 //		FlatArcIJTheme.setup();
-		UIManager.put( "Button.arc", 12 );
-		UIManager.put( "Component.arc", 12 );
+		UIManager.put("Button.arc", 12);
+		UIManager.put("Component.arc", 12);
 //		UIManager.put( "ComoboBox.arc", 12 );
-		UIManager.put( "TextComponent.arc", 12 );
-		
-		//soll Fenster dunkel machen 
-		if( SystemInfo.isMacOS ) {
-		System.setProperty( "apple.awt.application.appearance", "system" );
-		 }
+		UIManager.put("TextComponent.arc", 12);
+
+		// soll Fenster dunkel machen
+//		if( SystemInfo.isMacOS ) {
+//		System.setProperty( "apple.awt.application.appearance", "system" );
+//		 }
 		new Main();
 	}
 

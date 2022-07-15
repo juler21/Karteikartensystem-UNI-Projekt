@@ -14,7 +14,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.UIManager;
-import javax.swing.border.EmptyBorder;
 
 import controller.EditDeckGuiListener;
 import model.Deck;
@@ -57,7 +56,7 @@ public class EditDeckGui extends JFrame implements Observer {
 		// JFrame erstellen
 		editDeckFrame = new JFrame(windowname);
 		editDeckFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		editDeckFrame.setBounds(550, 300, 600, 400);
+		editDeckFrame.setBounds(420, 270, 600, 400);
 		fontStyle = "Helvetica";
 		setUIFont(new javax.swing.plaf.FontUIResource(fontStyle, Font.PLAIN, 20));
 
@@ -73,7 +72,6 @@ public class EditDeckGui extends JFrame implements Observer {
 		for (int i = 0; i < selectedDeck.getAmountOfFlashcards(); i++) {
 			flashcardArray[i] = selectedDeck.getFlashcard(i);
 		}
-
 
 		flashcardComboBox = new JComboBox<Flashcard>(flashcardArray);
 //		flashcardComboBox.setBorder(new EmptyBorder(15,5,15,5));
@@ -97,11 +95,15 @@ public class EditDeckGui extends JFrame implements Observer {
 		Flashcard f = (Flashcard) (flashcardComboBox.getSelectedItem());
 		questionLabel = new JLabel("Frage");
 		questionLabel.setFont(new Font(fontStyle, Font.PLAIN, 25));
-		questionText = new JTextArea(3, 10);
-		
+		questionText = new JTextArea(1, 1);
+		questionText.setLineWrap(true);
+		questionText.setWrapStyleWord(true);
+
 		answerLabel = new JLabel("Antwort");
 		answerLabel.setFont(new Font(fontStyle, Font.PLAIN, 25));
-		answerText = new JTextArea(3, 10);
+		answerText = new JTextArea(11, 1);
+		answerText.setLineWrap(true);
+		answerText.setWrapStyleWord(true);
 
 		if (!selectedDeck.getDeckFlashcardlist().isEmpty()) {
 			questionText.setText(f.getQuestion());
@@ -187,6 +189,7 @@ public class EditDeckGui extends JFrame implements Observer {
 	public void setAnswerText(String answerText) {
 		this.answerText.setText(answerText);
 	}
+
 	/*
 	 * Setzt alle Default UI Fonts auf die übergebene Font
 	 *
