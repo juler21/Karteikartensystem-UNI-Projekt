@@ -20,7 +20,6 @@ import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 import controller.CreateDeckGuiListener;
-import model.Deck;
 import model.DeckManager;
 
 public class CreateDeckGui {
@@ -44,7 +43,7 @@ public class CreateDeckGui {
 
 	private String fontStyle;
 
-	public CreateDeckGui(DeckManager deckmanager, String windowname, Deck d) {
+	public CreateDeckGui(DeckManager deckmanager, String windowname, String d) {
 		this.deckmanager = deckmanager;
 
 		// JFrame erstellen

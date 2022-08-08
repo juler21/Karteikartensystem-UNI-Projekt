@@ -16,7 +16,6 @@ import javax.swing.JTextArea;
 import javax.swing.UIManager;
 
 import controller.EditDeckGuiListener;
-import model.Deck;
 import model.DeckManager;
 import model.Flashcard;
 import util.NoDeckSelectedExeption;
@@ -28,7 +27,7 @@ public class EditDeckGui extends JFrame implements Observer {
 	private DeckManager deckmanager;
 
 	private StartGui startgui;
-	private Deck selectedDeck;
+	private String selectedDeck;
 
 	private JFrame editDeckFrame;
 	private JPanel editDeckPanel;
@@ -47,7 +46,7 @@ public class EditDeckGui extends JFrame implements Observer {
 
 	private String fontStyle;
 
-	public EditDeckGui(DeckManager deckmanager, StartGui startgui, Deck selectedDeck, String windowname) {
+	public EditDeckGui(DeckManager deckmanager, StartGui startgui, String selectedDeck, String windowname) {
 
 		this.deckmanager = deckmanager;
 		this.startgui = startgui;
@@ -68,9 +67,9 @@ public class EditDeckGui extends JFrame implements Observer {
 
 		Flashcard[] flashcardArray = new Flashcard[0];
 
-		flashcardArray = new Flashcard[selectedDeck.getDeckFlashcardlist().size()];
-		for (int i = 0; i < selectedDeck.getAmountOfFlashcards(); i++) {
-			flashcardArray[i] = selectedDeck.getFlashcard(i);
+		flashcardArray = new Flashcard[deckmanager.getFlashcardList(selectedDeck).size()];
+		for (int i = 0; i < deckmanager.getAmountOfFlashcards(selectedDeck); i++) {
+			flashcardArray[i] = deckmanager.getFlashcard(selectedDeck, i);
 		}
 
 		flashcardComboBox = new JComboBox<Flashcard>(flashcardArray);
@@ -82,8 +81,8 @@ public class EditDeckGui extends JFrame implements Observer {
 			public void actionPerformed(ActionEvent e) {
 				if (flashcardComboBox.getSelectedItem() != null) {
 					Flashcard f = (Flashcard) (flashcardComboBox.getSelectedItem());
-					questionText.setText(f.getQuestion());
-					answerText.setText(f.getAnswer());
+					deckmanager.setQuestion(f, deckmanager.getQuestion(f));
+					deckmanager.setAnswer(f, deckmanager.getAnswer(f));
 				}
 
 			}
@@ -105,9 +104,9 @@ public class EditDeckGui extends JFrame implements Observer {
 		answerText.setLineWrap(true);
 		answerText.setWrapStyleWord(true);
 
-		if (!selectedDeck.getDeckFlashcardlist().isEmpty()) {
-			questionText.setText(f.getQuestion());
-			answerText.setText(f.getAnswer());
+		if (!deckmanager.getFlashcardList(selectedDeck).isEmpty()) {
+			questionText.setText(deckmanager.getQuestion(f));
+			answerText.setText(deckmanager.getAnswer(f));
 		}
 
 		qaPanel.add(questionLabel);
@@ -135,7 +134,7 @@ public class EditDeckGui extends JFrame implements Observer {
 		editDeckPanel.add(lowerButtonPanel, BorderLayout.PAGE_END);
 
 		try {
-			startgui.getSelectedDeck().registerObserver(this);
+			deckmanager.getDeck(startgui.getSelectedDeck()).registerObserver(this);
 		} catch (NoDeckSelectedExeption e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -162,7 +161,7 @@ public class EditDeckGui extends JFrame implements Observer {
 		if (changeType.equals("flashcardChange")) {
 			System.out.println("update");
 			flashcardComboBox.removeAllItems();
-			for (Flashcard f : selectedDeck.getDeckFlashcardlist()) {
+			for (Flashcard f : deckmanager.getFlashcardList(selectedDeck)) {
 				flashcardComboBox.addItem(f);
 			}
 			// setzt flashcard combobox auf erstes objekt

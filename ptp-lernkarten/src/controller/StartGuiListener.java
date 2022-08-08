@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.UnsupportedLookAndFeelException;
 
-import model.Deck;
 import model.DeckManager;
 import util.NoDeckSelectedExeption;
 import view.CreateDeckGui;
@@ -79,34 +78,36 @@ public class StartGuiListener implements ActionListener {
 //		}
 			try {
 
-				Deck selectedDeck = startgui.getSelectedDeck();
+				String selectedDeck = startgui.getSelectedDeck();
 				System.out.println(selectedDeck);
 
 				if (cmd.equals("deckBearbeiten")) {
 
-					new EditDeckGui(deckmanager, startgui, selectedDeck,
-							"Deck: \"" + selectedDeck.getDeckname() + "\" Bearbeiten");
+					new EditDeckGui(deckmanager, startgui, selectedDeck, "Deck: \"" + selectedDeck + "\" Bearbeiten");
 
 				} else if (cmd.equals("deckLöschen")) {
 
-					deckmanager.removeDeck(selectedDeck.getDeckname());
+					deckmanager.removeDeck(selectedDeck);
 
 				} else if (cmd.equals("lernenBeginnenButton")) {
 					System.out.println(flashcardLearnIndex);
 					flashcardLearnIndex = 0;
-					if (selectedDeck.getAmountOfFlashcards() != 0) {
-						startgui.setOnlyQuestionTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getQuestion());
-						startgui.setQuestionTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getQuestion());
-						startgui.setAnswerTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getAnswer());
-						System.out.println("lernenBeginnenButton");
+					if (deckmanager.getAmountOfFlashcards(selectedDeck) != 0) {
+						startgui.setOnlyQuestionTextLabel(
+								deckmanager.getQuestionFlashcard(selectedDeck, flashcardLearnIndex));
+						startgui.setQuestionTextLabel(
+								deckmanager.getQuestionFlashcard(selectedDeck, flashcardLearnIndex));
+						startgui.setAnswerTextLabel(deckmanager.getAnswerFlashcard(selectedDeck, flashcardLearnIndex));
 						startgui.setLearnScreen("learnQuestionCard");
 					}
 				} else if (cmd.equals("nextQuestionButton")) {
-					if (flashcardLearnIndex < selectedDeck.getAmountOfFlashcards() - 1) {
+					if (flashcardLearnIndex < deckmanager.getAmountOfFlashcards(selectedDeck) - 1) {
 						flashcardLearnIndex++;
-						startgui.setOnlyQuestionTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getQuestion());
-						startgui.setQuestionTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getQuestion());
-						startgui.setAnswerTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getAnswer());
+						startgui.setOnlyQuestionTextLabel(
+								deckmanager.getQuestionFlashcard(selectedDeck, flashcardLearnIndex));
+						startgui.setQuestionTextLabel(
+								deckmanager.getQuestionFlashcard(selectedDeck, flashcardLearnIndex));
+						startgui.setAnswerTextLabel(deckmanager.getAnswerFlashcard(selectedDeck, flashcardLearnIndex));
 						startgui.setLearnScreen("learnQuestionCard");
 					} else {
 						System.out.println("ende");

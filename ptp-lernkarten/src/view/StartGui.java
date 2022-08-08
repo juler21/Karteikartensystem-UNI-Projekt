@@ -123,7 +123,7 @@ public class StartGui extends JFrame implements Observer {
 				((CardLayout) contentPanel.getLayout()).show(contentPanel, "startCard");
 				((CardLayout) startCard.getLayout()).show(startCard, "learnHomeCard");
 				try {
-					getCurrentDeckLabel().setText(getSelectedDeck().getDeckname());
+					getCurrentDeckLabel().setText(getSelectedDeck());
 				} catch (NoDeckSelectedExeption e1) {
 					getCurrentDeckLabel().setText("kein Deck gewählt");
 				}
@@ -349,9 +349,9 @@ public class StartGui extends JFrame implements Observer {
 		return chooseDeckComboBox;
 	}
 
-	public Deck getSelectedDeck() throws NoDeckSelectedExeption {
+	public String getSelectedDeck() throws NoDeckSelectedExeption {
 		if (chooseDeckComboBox.getSelectedItem() != null) {
-			return (Deck) (chooseDeckComboBox.getSelectedItem());
+			return chooseDeckComboBox.getSelectedItem().toString();
 		} else {
 			throw new NoDeckSelectedExeption();
 		}

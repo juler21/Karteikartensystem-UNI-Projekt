@@ -31,7 +31,7 @@ public class Deck extends Observable {
 		}
 	}
 
-	public void addFlashcard(String question, String answer) throws UnvalidQAException {
+	void addFlashcard(String question, String answer) throws UnvalidQAException {
 		if (checkRegex(question, answer)) {
 			Flashcard flash = new Flashcard(question, answer);
 			flashcardList.add(flash);
@@ -42,26 +42,26 @@ public class Deck extends Observable {
 
 	}
 
-	public void deleteAllFlashcards() {
+	void deleteAllFlashcards() {
 		flashcardList.removeAll(flashcardList);
 	}
 
-	public void loadFlashcard(Flashcard flash) {
+	void loadFlashcard(Flashcard flash) {
 		flashcardList.add(flash);
 	}
 
-	public Flashcard getFlashcard(int index) {
+	Flashcard getFlashcard(int index) {
 		return flashcardList.get(index);
 	}
 
-	public void deleteFlashcard(int index) {
+	void deleteFlashcard(int index) {
 		flashcardList.remove(index);
 		deleteDeckCSV();
 		saveDeckCSV();
 		notifyObserver("flashcardChange");
 	}
 
-	public void saveDeckCSV() {
+	void saveDeckCSV() {
 
 		Path pathCSV = Paths.get(DeckManager.getPathtoString(), deckname + ".csv");
 		String pathCSVString = pathCSV.toString();
@@ -81,28 +81,8 @@ public class Deck extends Observable {
 			e.printStackTrace();
 		}
 	}
-//	public void saveDeckCSV() {
-//
-//		Path pathCSV = Paths.get(DeckManager.getPathtoString(), deckname + ".csv");
-//		String pathCSVString = pathCSV.toString();
-//
-//		try {
-//			BufferedWriter writeBuffer = new BufferedWriter(new FileWriter(pathCSVString, true));
-//			if (getAmountOfFlashcards() > 0) {
-//				for (Flashcard f : flashcardList) {
-//					String row = String.format("%d;%s;%s%n", f.getIndex(), f.getQuestion(), f.getAnswer());
-//
-//					writeBuffer.append(row);
-//				}
-//			}
-//			writeBuffer.close();
-//
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//	}
 
-	public void deleteDeckCSV() {
+	void deleteDeckCSV() {
 		Path pathCSV = Paths.get(DeckManager.getPathtoString(), deckname + ".csv");
 		try {
 			Files.deleteIfExists(pathCSV);
@@ -112,19 +92,19 @@ public class Deck extends Observable {
 		}
 	}
 
-	public int getAmountOfFlashcards() {
+	int getAmountOfFlashcards() {
 		return flashcardList.size();
 	}
 
-	public List<Flashcard> getDeckFlashcardlist() {
+	List<Flashcard> getDeckFlashcardlist() {
 		return flashcardList;
 	}
 
-	public String getDeckname() {
+	String getDeckname() {
 		return deckname;
 	}
 
-	public void setDeckname(String deckname) {
+	void setDeckname(String deckname) {
 		this.deckname = deckname;
 	}
 

@@ -14,6 +14,7 @@ import java.util.List;
 
 import util.DeckIsExistingException;
 import util.UnValidDecknameException;
+import util.UnvalidQAException;
 
 public class DeckManager extends Observable {
 
@@ -43,7 +44,6 @@ public class DeckManager extends Observable {
 	private static boolean decknameIsNotExisting(String deckname) throws DeckIsExistingException {
 		boolean result = true;
 		for (File f : pathDirectory.toFile().listFiles()) {
-			System.out.println(f.getName());
 			if (f.getName().equals(deckname + ".csv")) {
 				throw new DeckIsExistingException();
 			}
@@ -183,6 +183,67 @@ public class DeckManager extends Observable {
 
 	public static void setPathDirectory(Path pathDirectory) {
 		DeckManager.pathDirectory = pathDirectory;
+	}
+
+	public String getDeckname(Deck d) {
+		return d.getDeckname();
+	}
+
+	public List<Flashcard> getFlashcardList(String deckname) {
+		return getDeck(deckname).getDeckFlashcardlist();
+	}
+
+	public String getAnswerFlashcard(String deckname, int position) {
+		return getDeck(deckname).getFlashcard(position).getAnswer();
+	}
+
+	public String getQuestionFlashcard(String deckname, int position) {
+		return getDeck(deckname).getFlashcard(position).getQuestion();
+	}
+
+	public Flashcard getFlashcard(String deckname, int position) {
+		return getDeck(deckname).getFlashcard(position);
+	}
+
+	public void deleteFlashcard(String deckname, int position) {
+		getDeck(deckname).deleteFlashcard(position);
+	}
+
+	public void removeAllFlashcards(String deckname) {
+		getDeck(deckname).deleteAllFlashcards();
+	}
+
+	public void addFlashcard(String deckname, String question, String answer) throws UnvalidQAException {
+		getDeck(deckname).addFlashcard(question, answer);
+	}
+
+	public int getAmountOfFlashcards(String deckname) {
+		return getDeck(deckname).getAmountOfFlashcards();
+	}
+
+	public boolean containsDeck(String deckname) {
+		return decks.containsKey(deckname);
+	}
+
+	public void setQuestion(Flashcard flashcard, String question) {
+		flashcard.setQuestion(question);
+	}
+
+	public void setAnswer(Flashcard flashcard, String answer) {
+		flashcard.setAnswer(answer);
+	}
+
+	public void updateCSV(String deckname) {
+		getDeck(deckname).deleteDeckCSV();
+		getDeck(deckname).saveDeckCSV();
+	}
+
+	public String getQuestion(Flashcard f) {
+		return f.getQuestion();
+	}
+
+	public String getAnswer(Flashcard f) {
+		return f.getAnswer();
 	}
 
 }

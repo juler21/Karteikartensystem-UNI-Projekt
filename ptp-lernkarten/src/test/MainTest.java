@@ -7,11 +7,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.File;
 
-import org.junit.AfterClass;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import model.Flashcard;
 import util.DeckIsExistingException;
 import util.Main;
 import util.UnValidDecknameException;
@@ -24,7 +22,7 @@ public class MainTest {
 	public void newMain() {
 		app = new Main();
 	}
-    
+
 	@Test
 	public void testCreateDirectory() {
 		boolean result = false;
@@ -62,7 +60,7 @@ public class MainTest {
 			}
 		}
 		assertTrue(result);
-		assertEquals(app.getDeckmanager().getDecks().get("test1").getDeckname(), "test1");
+		assertTrue(app.isDeckExisting("test1"));
 
 		assertThrows(UnValidDecknameException.class, () -> {
 			app.createDeck(null);
@@ -108,7 +106,7 @@ public class MainTest {
 			e.printStackTrace();
 		}
 
-		assertEquals("Frage", app.getFlashcard("test2", 0).getQuestion());
+		assertEquals("Frage", app.getQuestion("test2", 0));
 	}
 
 	@Test
@@ -116,7 +114,6 @@ public class MainTest {
 		app.deleteDeck("test3");
 		try {
 			app.createDeck("test3");
-			System.out.println(app.getDeck("test3").getAmountOfFlashcards());
 		} catch (UnValidDecknameException | DeckIsExistingException e1) {
 			e1.printStackTrace();
 		}
@@ -128,11 +125,11 @@ public class MainTest {
 			e.printStackTrace();
 		}
 		app.deleteFlashcard("test3", 0);
-		//neuer vergleich
-		assertEquals(app.getFlashcard("test3", 0).getQuestion(), "Moin");
-		assertEquals(app.getFlashcard("test3", 0).getAnswer(), "Hello");
-		//alter vergleich
-		assertEquals(1, app.getDeck("testDeck3").getAmountOfFlashcards());
+		// neuer vergleich
+		assertEquals(app.getQuestion("test3", 0), "Moin");
+		assertEquals(app.getAnswer("test3", 0), "Hello");
+		// alter vergleich
+		assertEquals(1, app.getAmountFlashcards("test3"));
 	}
 
 	@Test
@@ -143,7 +140,7 @@ public class MainTest {
 
 			e.printStackTrace();
 		}
-		assertEquals("test4", app.getDeck("test4").getDeckname());
+		assertTrue(app.isDeckExisting("test4"));
 	}
 
 	public void testgetFlashcard() {
@@ -154,7 +151,7 @@ public class MainTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		assertEquals("Frage1", app.getFlashcard("test5", 0).getQuestion());
-		assertEquals("Antwort1", app.getFlashcard("test5", 0).getAnswer());
+		assertEquals("Frage1", app.getQuestion("test5", 0));
+		assertEquals("Antwort1", app.getAnswer("test5", 0));
 	}
 }

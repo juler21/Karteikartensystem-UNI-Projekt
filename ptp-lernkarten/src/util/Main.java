@@ -33,10 +33,6 @@ public class Main {
 //		UIManager.put( "ComoboBox.arc", 12 );
 		UIManager.put("TextComponent.arc", 12);
 
-		// soll Fenster dunkel machen
-//		if( SystemInfo.isMacOS ) {
-//		System.setProperty( "apple.awt.application.appearance", "system" );
-//		 }
 		new Main();
 	}
 
@@ -53,25 +49,25 @@ public class Main {
 	 */
 
 	public void addFlashcard(String deckname, String question, String answer) throws UnvalidQAException {
-		getDeck(deckname).addFlashcard(question, answer);
+		deckmanager.addFlashcard(deckname, question, answer);
 	}
 
 	/*
 	 * 
 	 */
 	public void deleteFlashcard(String deckname, int position) {
-		getDeck(deckname).deleteFlashcard(position);
+		deckmanager.deleteFlashcard(deckname, position);
 	}
 
 	public void removeAllFlashcards(String deckname) {
-		getDeck(deckname).deleteAllFlashcards();
+		deckmanager.removeAllFlashcards(deckname);
 	}
 
 	/*
 	 * 
 	 */
 	public Flashcard getFlashcard(String deckname, int position) {
-		return getDeck(deckname).getFlashcard(position);
+		return deckmanager.getFlashcard(deckname, position);
 	}
 
 	/*
@@ -114,6 +110,22 @@ public class Main {
 	 */
 	public DeckManager getDeckmanager() {
 		return deckmanager;
+	}
+
+	public String getAnswer(String deckname, int position) {
+		return deckmanager.getAnswerFlashcard(deckname, position);
+	}
+
+	public String getQuestion(String deckname, int position) {
+		return deckmanager.getQuestionFlashcard(deckname, position);
+	}
+
+	public int getAmountFlashcards(String deckname) {
+		return deckmanager.getAmountOfFlashcards(deckname);
+	}
+
+	public boolean isDeckExisting(String deckname) {
+		return deckmanager.containsDeck(deckname);
 	}
 
 }

@@ -3,7 +3,6 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import model.Deck;
 import model.DeckManager;
 import util.DeckIsExistingException;
 import util.UnValidDecknameException;
@@ -23,12 +22,12 @@ public class CreateDeckGuiListener implements ActionListener {
 		this.cmd = cmd;
 	}
 
-	public CreateDeckGuiListener(CreateDeckGui gui, DeckManager model, String cmd, Deck d) {
+	public CreateDeckGuiListener(CreateDeckGui gui, DeckManager model, String cmd, String d) {
 		this.gui = gui;
 		this.deckmanager = model;
 		this.cmd = cmd;
 		if (d != null) {
-			_deckname = d.getDeckname();
+			_deckname = d;
 		}
 
 	}
@@ -43,7 +42,7 @@ public class CreateDeckGuiListener implements ActionListener {
 			String question = gui.getQuestion().getText();
 			String answer = gui.getAnswer().getText();
 			try {
-				deckmanager.getDeck(_deckname).addFlashcard(question, answer);
+				deckmanager.addFlashcard(_deckname, question, answer);
 			} catch (UnvalidQAException e) {
 				// TODO Auto-generated catch block
 				new ErrorScreen(e.toString());
