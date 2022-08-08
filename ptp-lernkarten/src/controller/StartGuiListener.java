@@ -64,19 +64,6 @@ public class StartGuiListener implements ActionListener {
 			}
 
 		} else {
-//		if (cmd.equals("startButtonPressed")) {
-//			JPanel contentPanel = ((StartGui) startgui).getContentPanel();
-//			
-//			startgui.getContentPanel().getLayout().show(getContentPanel(, "startCard");
-//			((CardLayout) startCard.getLayout()).show(startCard, "learnHomeCard");
-//			try {
-//				getCurrentDeckLabel().setText(getSelectedDeck().getDeckname());
-//			} catch (NoDeckSelectedExeption e1) {
-//				getCurrentDeckLabel().setText("kein Deck gewählt");
-//			}
-//		}
-//
-//		}
 			try {
 
 				Deck selectedDeck = startgui.getSelectedDeck();
@@ -95,18 +82,20 @@ public class StartGuiListener implements ActionListener {
 					System.out.println(flashcardLearnIndex);
 					flashcardLearnIndex = 0;
 					if (selectedDeck.getAmountOfFlashcards() != 0) {
-						startgui.setOnlyQuestionTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getQuestion());
-						startgui.setQuestionTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getQuestion());
-						startgui.setAnswerTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getAnswer());
+						startgui.setOnlyQuestionTextArea(selectedDeck.getFlashcard(flashcardLearnIndex).getQuestion());
+						startgui.setQuestionTextArea(selectedDeck.getFlashcard(flashcardLearnIndex).getQuestion());
+						startgui.setAnswerTextArea(selectedDeck.getFlashcard(flashcardLearnIndex).getAnswer());
+						startgui.getAnswerTextArea().setCaretPosition(0);
 						System.out.println("lernenBeginnenButton");
 						startgui.setLearnScreen("learnQuestionCard");
 					}
 				} else if (cmd.equals("nextQuestionButton")) {
 					if (flashcardLearnIndex < selectedDeck.getAmountOfFlashcards() - 1) {
 						flashcardLearnIndex++;
-						startgui.setOnlyQuestionTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getQuestion());
-						startgui.setQuestionTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getQuestion());
-						startgui.setAnswerTextLabel(selectedDeck.getFlashcard(flashcardLearnIndex).getAnswer());
+						startgui.setOnlyQuestionTextArea(selectedDeck.getFlashcard(flashcardLearnIndex).getQuestion());
+						startgui.setQuestionTextArea(selectedDeck.getFlashcard(flashcardLearnIndex).getQuestion());
+						startgui.setAnswerTextArea(selectedDeck.getFlashcard(flashcardLearnIndex).getAnswer());
+						startgui.getAnswerTextArea().setCaretPosition(0);
 						startgui.setLearnScreen("learnQuestionCard");
 					} else {
 						System.out.println("ende");
