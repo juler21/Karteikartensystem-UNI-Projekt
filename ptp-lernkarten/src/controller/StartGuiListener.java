@@ -63,19 +63,6 @@ public class StartGuiListener implements ActionListener {
 			}
 
 		} else {
-//		if (cmd.equals("startButtonPressed")) {
-//			JPanel contentPanel = ((StartGui) startgui).getContentPanel();
-//			
-//			startgui.getContentPanel().getLayout().show(getContentPanel(, "startCard");
-//			((CardLayout) startCard.getLayout()).show(startCard, "learnHomeCard");
-//			try {
-//				getCurrentDeckLabel().setText(getSelectedDeck().getDeckname());
-//			} catch (NoDeckSelectedExeption e1) {
-//				getCurrentDeckLabel().setText("kein Deck gewählt");
-//			}
-//		}
-//
-//		}
 			try {
 
 				String selectedDeck = startgui.getSelectedDeck();
@@ -92,22 +79,38 @@ public class StartGuiListener implements ActionListener {
 				} else if (cmd.equals("lernenBeginnenButton")) {
 					System.out.println(flashcardLearnIndex);
 					flashcardLearnIndex = 0;
+<<<<<<< HEAD
 					if (deckmanager.getAmountOfFlashcards(selectedDeck) != 0) {
 						startgui.setOnlyQuestionTextLabel(
 								deckmanager.getQuestionFlashcard(selectedDeck, flashcardLearnIndex));
 						startgui.setQuestionTextLabel(
 								deckmanager.getQuestionFlashcard(selectedDeck, flashcardLearnIndex));
 						startgui.setAnswerTextLabel(deckmanager.getAnswerFlashcard(selectedDeck, flashcardLearnIndex));
+=======
+					if (selectedDeck.getAmountOfFlashcards() != 0) {
+						startgui.setOnlyQuestionTextArea(selectedDeck.getFlashcard(flashcardLearnIndex).getQuestion());
+						startgui.setQuestionTextArea(selectedDeck.getFlashcard(flashcardLearnIndex).getQuestion());
+						startgui.setAnswerTextArea(selectedDeck.getFlashcard(flashcardLearnIndex).getAnswer());
+						startgui.getAnswerTextArea().setCaretPosition(0);
+						System.out.println("lernenBeginnenButton");
+>>>>>>> branch 'main' of https://git.informatik.uni-hamburg.de/0sterkel/ptp22-do08-lernkarten.git
 						startgui.setLearnScreen("learnQuestionCard");
 					}
 				} else if (cmd.equals("nextQuestionButton")) {
 					if (flashcardLearnIndex < deckmanager.getAmountOfFlashcards(selectedDeck) - 1) {
 						flashcardLearnIndex++;
+<<<<<<< HEAD
 						startgui.setOnlyQuestionTextLabel(
 								deckmanager.getQuestionFlashcard(selectedDeck, flashcardLearnIndex));
 						startgui.setQuestionTextLabel(
 								deckmanager.getQuestionFlashcard(selectedDeck, flashcardLearnIndex));
 						startgui.setAnswerTextLabel(deckmanager.getAnswerFlashcard(selectedDeck, flashcardLearnIndex));
+=======
+						startgui.setOnlyQuestionTextArea(selectedDeck.getFlashcard(flashcardLearnIndex).getQuestion());
+						startgui.setQuestionTextArea(selectedDeck.getFlashcard(flashcardLearnIndex).getQuestion());
+						startgui.setAnswerTextArea(selectedDeck.getFlashcard(flashcardLearnIndex).getAnswer());
+						startgui.getAnswerTextArea().setCaretPosition(0);
+>>>>>>> branch 'main' of https://git.informatik.uni-hamburg.de/0sterkel/ptp22-do08-lernkarten.git
 						startgui.setLearnScreen("learnQuestionCard");
 					} else {
 						System.out.println("ende");

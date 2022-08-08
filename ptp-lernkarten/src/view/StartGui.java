@@ -16,6 +16,8 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
@@ -48,10 +50,12 @@ public class StartGui extends JFrame implements Observer {
 	private JPanel learnHomeCard;
 	private JLabel currentDeckLabel;
 	private JPanel learnQuestionCard;
-	private JLabel onlyQuestionTextLabel;
+	private JTextArea onlyQuestionTextArea;
 	private JPanel learnAnswerCard;
-	private JLabel questionTextLabel;
-	private JLabel answerTextLabel;
+	private JTextArea questionTextArea;
+	private JScrollPane answerScrollPane;
+//	private JLabel answerTextLabel;
+	private JTextArea answerTextArea;
 	private JPanel learnEndCard;
 
 	private String fontStyle;
@@ -60,6 +64,7 @@ public class StartGui extends JFrame implements Observer {
 	private JButton switchThemeButton;
 
 	private DeckManager deckmanager;
+	private JScrollPane questionScrollPane;
 
 	public StartGui(DeckManager manager, String name) {
 		this.deckmanager = manager;
@@ -116,7 +121,6 @@ public class StartGui extends JFrame implements Observer {
 		topButtonPanel.add(einstellungenButton);
 
 		// ACTIONLISTENER
-//		startButton.addActionListener(new StartGuiListener(this, deckmanager, "startButtonPressed"));
 		startButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
@@ -270,8 +274,12 @@ public class StartGui extends JFrame implements Observer {
 		learnQuestionCard = new JPanel();
 		learnQuestionCard.setLayout(new GridLayout(2, 1, 10, 5));
 		startCard.add(learnQuestionCard, "learnQuestionCard");
-		onlyQuestionTextLabel = new JLabel(""); // default Deck einladen
-		onlyQuestionTextLabel.setFont(new Font(fontStyle, Font.PLAIN, 27));
+		onlyQuestionTextArea = new JTextArea(3,1);
+		onlyQuestionTextArea.setFont(new Font(fontStyle, Font.PLAIN, 27));
+		onlyQuestionTextArea.setLineWrap(true);
+		onlyQuestionTextArea.setWrapStyleWord(true);
+		onlyQuestionTextArea.setEditable(false);
+		
 
 		JButton showAnswerButton = new JButton("Antwort zeigen");
 		showAnswerButton.setFont(new Font(fontStyle, Font.PLAIN, 27));
@@ -283,7 +291,7 @@ public class StartGui extends JFrame implements Observer {
 //			}
 //		});
 
-		learnQuestionCard.add(onlyQuestionTextLabel);
+		learnQuestionCard.add(onlyQuestionTextArea);
 		learnQuestionCard.add(showAnswerButton);
 
 		// Answer-Karte
@@ -293,12 +301,25 @@ public class StartGui extends JFrame implements Observer {
 
 		JLabel questionLabel = new JLabel("Frage:");
 		questionLabel.setFont(new Font(fontStyle, Font.BOLD, 27));
-		questionTextLabel = new JLabel("");
-		questionTextLabel.setFont(new Font(fontStyle, Font.PLAIN, 27));
+		questionTextArea = new JTextArea(2,1);
+		questionTextArea.setFont(new Font(fontStyle, Font.PLAIN, 27));
+		questionTextArea.setLineWrap(true);
+		questionTextArea.setWrapStyleWord(true);
+		questionTextArea.setEditable(false);
+		questionScrollPane = new JScrollPane(questionTextArea);
+
+		
 		JLabel answerLabel = new JLabel("Antwort:");
 		answerLabel.setFont(new Font(fontStyle, Font.BOLD, 27));
-		answerTextLabel = new JLabel("");
-		answerTextLabel.setFont(new Font(fontStyle, Font.PLAIN, 27));
+//		answerTextLabel = new JLabel("");
+//		answerTextLabel.setFont(new Font(fontStyle, Font.PLAIN, 27));
+		answerTextArea = new JTextArea(2,1);
+		answerTextArea.setFont(new Font(fontStyle, Font.PLAIN, 27));
+		answerTextArea.setLineWrap(true);
+		answerTextArea.setWrapStyleWord(true);
+		answerTextArea.setEditable(false);
+		answerScrollPane = new JScrollPane(answerTextArea);
+//		answerScrollPane.setBounds(3,3,400,400);
 
 		JButton nextQuestionButton = new JButton("Nächste Frage");
 		nextQuestionButton.setFont(new Font(fontStyle, Font.PLAIN, 27));
@@ -311,9 +332,9 @@ public class StartGui extends JFrame implements Observer {
 //		});
 
 		learnAnswerCard.add(questionLabel);
-		learnAnswerCard.add(questionTextLabel);
+		learnAnswerCard.add(questionScrollPane);
 		learnAnswerCard.add(answerLabel);
-		learnAnswerCard.add(answerTextLabel);
+		learnAnswerCard.add(answerScrollPane);
 		learnAnswerCard.add(nextQuestionButton);
 
 		// learnEnd-Karte
@@ -413,28 +434,34 @@ public class StartGui extends JFrame implements Observer {
 		return currentDeckLabel;
 	}
 
-	public JLabel getOnlyQuestionTextLabel() {
-		return onlyQuestionTextLabel;
+	public JTextArea getOnlyQuestionTextLabel() {
+		return onlyQuestionTextArea;
 	}
 
 	public void setOnlyQuestionTextLabel(String text) {
-		this.onlyQuestionTextLabel.setText(text);
+		this.onlyQuestionTextArea.setText(text);
+	}
+	public JTextArea getOnlyQuestionTextArea() {
+		return onlyQuestionTextArea;
+	}
+	public void setOnlyQuestionTextArea(String text) {
+		this.onlyQuestionTextArea.setText(text);
 	}
 
-	public JLabel getQuestionTextLabel() {
-		return questionTextLabel;
+	public JTextArea getQuestionTextArea() {
+		return questionTextArea;
 	}
 
-	public void setQuestionTextLabel(String text) {
-		this.questionTextLabel.setText(text);
+	public void setQuestionTextArea(String text) {
+		this.questionTextArea.setText(text);
 	}
 
-	public JLabel getAnswerTextLabel() {
-		return answerTextLabel;
+	public JTextArea getAnswerTextArea() {
+		return answerTextArea;
 	}
 
-	public void setAnswerTextLabel(String text) {
-		this.answerTextLabel.setText(text);
+	public void setAnswerTextArea(String text) {
+		this.answerTextArea.setText(text);
 	}
 
 	public JFrame getMainFrame() {

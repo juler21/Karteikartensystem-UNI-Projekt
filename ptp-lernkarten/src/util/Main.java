@@ -32,6 +32,9 @@ public class Main {
 		UIManager.put("Component.arc", 12);
 //		UIManager.put( "ComoboBox.arc", 12 );
 		UIManager.put("TextComponent.arc", 12);
+		UIManager.put("TextArea.arc", 12);
+		UIManager.put("ScrollPane.arc", 12);
+
 
 		new Main();
 	}
