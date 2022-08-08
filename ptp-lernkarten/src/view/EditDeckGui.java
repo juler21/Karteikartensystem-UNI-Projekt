@@ -26,7 +26,7 @@ public class EditDeckGui extends JFrame implements Observer {
 	// Model
 	private DeckManager deckmanager;
 
-	private StartGui startgui;
+	private DecksGui decksgui;
 	private String selectedDeck;
 
 	private JFrame editDeckFrame;
@@ -46,10 +46,10 @@ public class EditDeckGui extends JFrame implements Observer {
 
 	private String fontStyle;
 
-	public EditDeckGui(DeckManager deckmanager, StartGui startgui, String selectedDeck, String windowname) {
+	public EditDeckGui(DeckManager deckmanager, DecksGui decksgui, String selectedDeck, String windowname) {
 
 		this.deckmanager = deckmanager;
-		this.startgui = startgui;
+		this.decksgui = decksgui;
 		this.selectedDeck = selectedDeck;
 
 		// JFrame erstellen
@@ -81,8 +81,8 @@ public class EditDeckGui extends JFrame implements Observer {
 			public void actionPerformed(ActionEvent e) {
 				if (flashcardComboBox.getSelectedItem() != null) {
 					Flashcard f = (Flashcard) (flashcardComboBox.getSelectedItem());
-					deckmanager.setQuestion(f, deckmanager.getQuestion(f));
-					deckmanager.setAnswer(f, deckmanager.getAnswer(f));
+					questionText.setText(deckmanager.getQuestion(f));
+					answerText.setText(deckmanager.getAnswer(f));
 				}
 
 			}
@@ -134,7 +134,7 @@ public class EditDeckGui extends JFrame implements Observer {
 		editDeckPanel.add(lowerButtonPanel, BorderLayout.PAGE_END);
 
 		try {
-			deckmanager.getDeck(startgui.getSelectedDeck()).registerObserver(this);
+			deckmanager.getDeck(decksgui.getSelectedDeck()).registerObserver(this);
 		} catch (NoDeckSelectedExeption e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

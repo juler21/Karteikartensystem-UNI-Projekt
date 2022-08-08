@@ -7,17 +7,17 @@ import com.formdev.flatlaf.intellijthemes.FlatLightFlatIJTheme;
 import model.Deck;
 import model.DeckManager;
 import model.Flashcard;
-import view.StartGui;
+import view.MainGui;
 
 public class Main {
 
-	private StartGui gui; // view
+	private MainGui gui; // view
 	private DeckManager deckmanager; // model
 
 	public Main() {
 		deckmanager = new DeckManager();
 		String name = "Flaschcard System";
-		gui = new StartGui(deckmanager, name);
+		gui = new MainGui(deckmanager, name);
 
 	}
 
