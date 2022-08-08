@@ -64,6 +64,7 @@ public class StartGui extends JFrame implements Observer {
 	private JButton switchThemeButton;
 
 	private DeckManager deckmanager;
+	private JScrollPane questionScrollPane;
 
 	public StartGui(DeckManager manager, String name) {
 		this.deckmanager = manager;
@@ -273,8 +274,6 @@ public class StartGui extends JFrame implements Observer {
 		learnQuestionCard = new JPanel();
 		learnQuestionCard.setLayout(new GridLayout(2, 1, 10, 5));
 		startCard.add(learnQuestionCard, "learnQuestionCard");
-//		onlyQuestionTextLabel = new JLabel(""); // default Deck einladen
-//		onlyQuestionTextLabel.setFont(new Font(fontStyle, Font.PLAIN, 27));
 		onlyQuestionTextArea = new JTextArea(3,1);
 		onlyQuestionTextArea.setFont(new Font(fontStyle, Font.PLAIN, 27));
 		onlyQuestionTextArea.setLineWrap(true);
@@ -302,18 +301,19 @@ public class StartGui extends JFrame implements Observer {
 
 		JLabel questionLabel = new JLabel("Frage:");
 		questionLabel.setFont(new Font(fontStyle, Font.BOLD, 27));
-		questionTextArea = new JTextArea(3,1);
+		questionTextArea = new JTextArea(2,1);
 		questionTextArea.setFont(new Font(fontStyle, Font.PLAIN, 27));
 		questionTextArea.setLineWrap(true);
 		questionTextArea.setWrapStyleWord(true);
 		questionTextArea.setEditable(false);
+		questionScrollPane = new JScrollPane(questionTextArea);
 
 		
 		JLabel answerLabel = new JLabel("Antwort:");
 		answerLabel.setFont(new Font(fontStyle, Font.BOLD, 27));
 //		answerTextLabel = new JLabel("");
 //		answerTextLabel.setFont(new Font(fontStyle, Font.PLAIN, 27));
-		answerTextArea = new JTextArea(3,1);
+		answerTextArea = new JTextArea(2,1);
 		answerTextArea.setFont(new Font(fontStyle, Font.PLAIN, 27));
 		answerTextArea.setLineWrap(true);
 		answerTextArea.setWrapStyleWord(true);
@@ -332,7 +332,7 @@ public class StartGui extends JFrame implements Observer {
 //		});
 
 		learnAnswerCard.add(questionLabel);
-		learnAnswerCard.add(questionTextArea);
+		learnAnswerCard.add(questionScrollPane);
 		learnAnswerCard.add(answerLabel);
 		learnAnswerCard.add(answerScrollPane);
 		learnAnswerCard.add(nextQuestionButton);
