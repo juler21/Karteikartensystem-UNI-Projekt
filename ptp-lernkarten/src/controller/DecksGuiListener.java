@@ -37,6 +37,13 @@ public class DecksGuiListener implements ActionListener {
 			return;
 
 		}
+//		
+//		if (cmd.equals("comboBox")) {
+//
+//			
+//			return;
+//
+//		}
 		try {
 
 			String selectedDeck = decksgui.getSelectedDeck();

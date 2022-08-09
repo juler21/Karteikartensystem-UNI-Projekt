@@ -17,15 +17,19 @@ public class DecksGui {
 	private MainGui mainGui;
 	
 	private JComboBox<Deck> chooseDeckComboBox;
+	private DeckManager deckmanager;
 	
 	DecksGui(JPanel decksCard, DeckManager deckmanager, MainGui maingui) {
 		
 		this.mainGui = maingui;
 		this.chooseDeckComboBox = mainGui.getJCombobox();
+		this.deckmanager = deckmanager;
 		fontStyle = "Helvetica";
+//		deckmanager.registerObserver(this);
 		
 		JPanel comboBoxPanel = new JPanel();
 		chooseDeckComboBox.setPreferredSize(new Dimension(700, 40));
+//		chooseDeckComboBox.addActionListener(new DecksGuiListener(this, deckmanager, "comboBox"));
 		comboBoxPanel.add(chooseDeckComboBox);
 		decksCard.add(comboBoxPanel);
 
@@ -49,6 +53,7 @@ public class DecksGui {
 	public String getSelectedDeck() throws NoDeckSelectedExeption {
 		return mainGui.getSelectedDeck();
 	}
+
 	
 
 

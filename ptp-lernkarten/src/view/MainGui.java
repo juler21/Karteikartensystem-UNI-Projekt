@@ -74,7 +74,7 @@ public class MainGui extends JFrame implements Observer {
 
 		// startContentPane mit Karten das auf dem frameContentPane liegt erstellen
 		generateContentPanel();
-
+		
 		deckmanager.registerObserver(this);
 		mainFrame.setVisible(true);
 
