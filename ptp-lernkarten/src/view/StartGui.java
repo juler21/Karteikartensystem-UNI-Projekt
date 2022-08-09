@@ -40,13 +40,13 @@ public class StartGui {
 	private MainGui mainGui;
 
 	
-	public StartGui(JPanel startCard, DeckManager deckmanager, MainGui maingui) {
+	public StartGui(JPanel startCard, DeckManager deckmanager, String fontstyle, MainGui maingui) {
 		
 		super();
 		this.startCard = startCard;
 		this.deckmanager = deckmanager;
 		this.mainGui =maingui;
-		fontStyle = "Helvetica";
+		fontStyle = fontstyle;
 		
 		createLearnHomeCard();
 		

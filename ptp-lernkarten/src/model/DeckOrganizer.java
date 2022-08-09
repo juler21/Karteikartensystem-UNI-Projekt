@@ -121,7 +121,6 @@ public class DeckOrganizer {
 		return name;
 	}
 
-//TODO nehme eine Methode
 	void getData(File folder) {
 		List<String> paths = findAllFilesInFolder(folder);
 		List<Path> paths1 = findAllFilesInFolderPath(folder);

@@ -19,12 +19,12 @@ public class DecksGui {
 	private JComboBox<Deck> chooseDeckComboBox;
 	private DeckManager deckmanager;
 	
-	DecksGui(JPanel decksCard, DeckManager deckmanager, MainGui maingui) {
+	DecksGui(JPanel decksCard, DeckManager deckmanager, String fontstyle, MainGui maingui) {
 		
 		this.mainGui = maingui;
 		this.chooseDeckComboBox = mainGui.getJCombobox();
 		this.deckmanager = deckmanager;
-		fontStyle = "Helvetica";
+		fontStyle = fontstyle;
 //		deckmanager.registerObserver(this);
 		
 		JPanel comboBoxPanel = new JPanel();

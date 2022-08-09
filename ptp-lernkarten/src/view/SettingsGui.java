@@ -17,11 +17,13 @@ public class SettingsGui {
 	
 	private JPanel einstellungenCard;
 	private JButton switchThemeButton;
+	private String fontStyle;
 	
 	
-	public SettingsGui(JPanel einstellungenCard) {
+	public SettingsGui(JPanel einstellungenCard, String fontstyle) {
 		
 		this.einstellungenCard = einstellungenCard;
+		this.fontStyle = fontstyle;
 
 		// Combobox für Path, wo man die Carteikarten abspeichert
 		JPanel directoryPanel = new JPanel(new FlowLayout());
