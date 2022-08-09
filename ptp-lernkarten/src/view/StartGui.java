@@ -42,6 +42,7 @@ public class StartGui {
 	
 	public StartGui(JPanel startCard, DeckManager deckmanager, MainGui maingui) {
 		
+		super();
 		this.startCard = startCard;
 		this.deckmanager = deckmanager;
 		this.mainGui =maingui;
@@ -61,7 +62,7 @@ public class StartGui {
 		startCard.add(learnEndCard, "learnEndCard");
 		
 		//Anfangscreen auf Home setzten	
-		setLearnScreen("learnHomeCard");
+		((CardLayout) startCard.getLayout()).show(startCard, "learnHomeCard");
 		
 	}
 
@@ -174,7 +175,7 @@ public class StartGui {
 		learnEndCard.add(switchDeckButton);
 
 		restartDeckButton.addActionListener(new StartGuiListener(this, deckmanager, "restartDeckButton"));
-		switchDeckButton.addActionListener(new StartGuiListener(this, deckmanager, "switchDeckButton"));
+		switchDeckButton.addActionListener(new StartGuiListener(this, mainGui, deckmanager, "switchDeckButton"));
 
 		
 	}
@@ -183,7 +184,6 @@ public class StartGui {
 		return mainGui.getSelectedDeck();
 	}
 	
-
 	public void setOnlyQuestionTextArea(String text) {
 		this.onlyQuestionTextArea.setText(text);
 	}
@@ -200,14 +200,14 @@ public class StartGui {
 		return answerTextArea;
 	
 	}
-	
-	public void setLearnScreen(String screenCard) {
-
-		System.out.println("methode wird aufgerufen");
-
-		((CardLayout) startCard.getLayout()).show(startCard, screenCard);
-
+	public JPanel getStartCard() {
+		return startCard;
 	}
+	
+	public void setCurrentDeckLabel(String text) {
+		currentDeckLabel.setText(text);
+	}
+	
 	
 }
 

@@ -31,7 +31,6 @@ public class DecksGui {
 		this.chooseDeckComboBox = mainGui.getJCombobox();
 		fontStyle = "Helvetica";
 		
-//		deckListeErstellen();
 		JPanel comboBoxPanel = new JPanel();
 		chooseDeckComboBox.setPreferredSize(new Dimension(700, 40));
 		comboBoxPanel.add(chooseDeckComboBox);
