@@ -23,6 +23,7 @@ public class DeckOrganizer extends Observable {
 	public DeckOrganizer() {
 		decks = new HashMap<String, Deck>();
 		createDirectories();
+		getData(new File(getPathtoString()));
 	}
 
 	private static boolean decknameIsValidRegex(String deckname) throws UnValidDecknameException {

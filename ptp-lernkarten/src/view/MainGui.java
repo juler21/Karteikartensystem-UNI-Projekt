@@ -7,7 +7,6 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.io.File;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -153,8 +152,6 @@ public class MainGui extends JFrame implements Observer {
 
 		chooseDeckComboBox = new JComboBox<Deck>();
 		chooseDeckComboBox.setSize(getPreferredSize());
-
-		deckmanager.getData(new File(DeckManager.getPathtoString()));
 		update("deckChange");
 	}
 
