@@ -8,21 +8,15 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.io.File;
-<<<<<<< HEAD
 
-=======
->>>>>>> branch 'main' of https://git.informatik.uni-hamburg.de/0sterkel/ptp22-do08-lernkarten.git
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-<<<<<<< HEAD
-=======
-
->>>>>>> branch 'main' of https://git.informatik.uni-hamburg.de/0sterkel/ptp22-do08-lernkarten.git
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
+import controller.MainGuiListener;
 import model.Deck;
 import model.DeckManager;
 import util.NoDeckSelectedExeption;
@@ -74,7 +68,7 @@ public class MainGui extends JFrame implements Observer {
 		mainFrame.setContentPane(framePanel);
 
 		deckListeErstellen();
-		
+
 		// topButtonPanel mit entsprechenden Buttons erstellen
 		generateTopButtons();
 
@@ -112,50 +106,11 @@ public class MainGui extends JFrame implements Observer {
 		topButtonPanel.add(statistikButton);
 		topButtonPanel.add(einstellungenButton);
 
-
 		// ACTIONLISTENER
-<<<<<<< HEAD
-		startButton.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-				((CardLayout) contentPanel.getLayout()).show(contentPanel, "startCard");
-				((CardLayout) startCard.getLayout()).show(startCard, "learnHomeCard");
-
-				// Aktuelles Deck Anzeige
-//				try {
-//					getCurrentDeckLabel().setText(getSelectedDeck());
-//				} catch (NoDeckSelectedExeption e1) {
-//					getCurrentDeckLabel().setText("kein Deck gewählt");
-//				}
-			}
-		});
-
-		decksButton.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-				((CardLayout) contentPanel.getLayout()).show(contentPanel, "decksCard");
-			}
-		});
-
-		statistikButton.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-				((CardLayout) contentPanel.getLayout()).show(contentPanel, "statistikCard");
-			}
-		});
-
-		einstellungenButton.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-				((CardLayout) contentPanel.getLayout()).show(contentPanel, "einstellungenCard");
-			}
-		});
-=======
 		startButton.addActionListener(new MainGuiListener(this, "startCard"));
 		decksButton.addActionListener(new MainGuiListener(this, "decksCard"));
 		statistikButton.addActionListener(new MainGuiListener(this, "statistikCard"));
 		einstellungenButton.addActionListener(new MainGuiListener(this, "einstellungenCard"));
->>>>>>> branch 'main' of https://git.informatik.uni-hamburg.de/0sterkel/ptp22-do08-lernkarten.git
 
 	}
 
@@ -260,7 +215,7 @@ public class MainGui extends JFrame implements Observer {
 	public CardLayout getContentPanelCardLayout() {
 		return contentPanelCardLayout;
 	}
-	
+
 	public Container getContentPanel() {
 		return contentPanel;
 	}
@@ -288,7 +243,7 @@ public class MainGui extends JFrame implements Observer {
 	public DeckManager getDeckmanager() {
 		return deckmanager;
 	}
-	
+
 	public StartGui getStartGui() {
 		return startGui;
 	}
