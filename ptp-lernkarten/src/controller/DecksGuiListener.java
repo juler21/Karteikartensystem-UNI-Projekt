@@ -17,11 +17,13 @@ public class DecksGuiListener implements ActionListener {
 	// Startgui
 	private DecksGui decksgui;
 	private String cmd;
+	private String fontStyle;
 
-	public DecksGuiListener(DecksGui decksgui, DeckManager deckmanager, String cmd) {
+	public DecksGuiListener(DecksGui decksgui, DeckManager deckmanager, String fontstyle, String cmd) {
 
 		this.deckmanager = deckmanager;
 		this.decksgui = decksgui;
+		this.fontStyle = fontstyle;
 		this.cmd = cmd;
 	}
 
@@ -51,7 +53,7 @@ public class DecksGuiListener implements ActionListener {
 
 		if (cmd.equals("deckBearbeiten")) {
 
-				new EditDeckGui(deckmanager, decksgui, selectedDeck, "Deck: \"" + selectedDeck + "\" Bearbeiten");
+				new EditDeckGui(deckmanager, decksgui, selectedDeck, "Deck: \"" + selectedDeck + "\" Bearbeiten", fontStyle);
 
 		} else if (cmd.equals("deckLöschen")) {
 

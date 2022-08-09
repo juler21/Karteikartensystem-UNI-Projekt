@@ -4,6 +4,7 @@ import java.awt.CardLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 
+import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -38,6 +39,7 @@ public class StartGui {
 	private JScrollPane answerScrollPane;
 	private JTextArea answerTextArea;
 	private MainGui mainGui;
+	private AbstractButton lernenBeginnenButton;
 
 	
 	public StartGui(JPanel startCard, DeckManager deckmanager, String fontstyle, MainGui maingui) {
@@ -77,17 +79,29 @@ public class StartGui {
 		startLearningLabel.setFont(new Font(fontStyle, Font.PLAIN, 60));
 		startLearningLabel.setBounds(50, -70, 700, 300);
 
-		JButton lernenBeginnenButton = new JButton("Lernen Beginnen");
+		lernenBeginnenButton = new JButton("Lernen Beginnen");
 		lernenBeginnenButton.setFont(new Font(fontStyle, Font.PLAIN, 27));
 		lernenBeginnenButton.setBounds(50, 165, 300, 60);
 
 		JLabel currentDeckInfoLabel = new JLabel("<html><body>Aktuelles Deck:</body></html>");
 		currentDeckInfoLabel.setFont(new Font(fontStyle, Font.PLAIN, 27));
 		currentDeckInfoLabel.setBounds(50, 235, 300, 60);
-		currentDeckLabel = new JLabel("noch kein Deck gewählt");
+		
+		currentDeckLabel = new JLabel();
 		currentDeckLabel.setFont(new Font(fontStyle, Font.PLAIN, 27));
 		currentDeckLabel.setBounds(250, 235, 300, 60);
 
+		//versucht aktuelles Deck zu setzten 
+		try {
+			if (deckmanager.getAmountOfFlashcards(mainGui.getSelectedDeck())==0) {
+				enableLernenBeginnenButton(false);
+			}
+			setCurrentDeckLabel(mainGui.getSelectedDeck());
+		} catch (NoDeckSelectedExeption e1) {
+			setCurrentDeckLabel("kein Deck vorhanden");
+			enableLernenBeginnenButton(false);
+		}
+		
 		learnHomeCard.add(startLearningLabel);
 		learnHomeCard.add(lernenBeginnenButton);
 		learnHomeCard.add(currentDeckInfoLabel);
@@ -206,6 +220,10 @@ public class StartGui {
 	
 	public void setCurrentDeckLabel(String text) {
 		currentDeckLabel.setText(text);
+	}
+	
+	public void enableLernenBeginnenButton(boolean value) {
+		lernenBeginnenButton.setEnabled(value);
 	}
 	
 	

@@ -14,6 +14,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 import javax.swing.UIManager;
@@ -37,11 +39,13 @@ public class CreateDeckGui {
 	private JPanel setDecknameCard;
 	private JPanel createFlashcardsCard;
 	private JTextField deckName;
-	private JTextField question;
-	private JTextField answer;
+	private JTextArea question;
+	private JTextArea answer;
 	private JButton confirmDeckname;
 
 	private String fontStyle;
+	private JScrollPane questionScrollPane;
+	private JScrollPane answerScrollPane;
 
 	public CreateDeckGui(DeckManager deckmanager, String windowname, String d) {
 		this.deckmanager = deckmanager;
@@ -118,13 +122,21 @@ public class CreateDeckGui {
 		JPanel qaPanel = new JPanel(new SpringLayout());
 		JLabel lQuestion = new JLabel("Frage: ", JLabel.TRAILING);
 		JLabel lAnswer = new JLabel("Antwort: ", JLabel.TRAILING);
-		question = new JTextField(10);
-		answer = new JTextField(10);
+		
+		question = new JTextArea(2, 1);
+		question.setLineWrap(true);
+		question.setWrapStyleWord(true);
+		questionScrollPane = new JScrollPane(question);
+		
+		answer = new JTextArea(2, 1);
+		answer.setLineWrap(true);
+		answer.setWrapStyleWord(true);
+		answerScrollPane = new JScrollPane(answer);
 
 		qaPanel.add(lQuestion);
-		qaPanel.add(question);
+		qaPanel.add(questionScrollPane);
 		qaPanel.add(lAnswer);
-		qaPanel.add(answer);
+		qaPanel.add(answerScrollPane);
 		createFlashcardsCard.add(qaPanel);
 
 		// Lay out the panel.
@@ -135,7 +147,7 @@ public class CreateDeckGui {
 		JPanel buttonPanel = new JPanel(new FlowLayout());
 		JButton okButton = new JButton("OK");
 		okButton.addActionListener(new CreateDeckGuiListener(this, deckmanager, "ok", d));
-		answer.addKeyListener(new KeyListener() {
+		okButton.addKeyListener(new KeyListener() {
 
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -153,7 +165,7 @@ public class CreateDeckGui {
 			public void keyReleased(KeyEvent e) {
 			}
 		});
-		answer.setFocusable(true);
+		okButton.setFocusable(true);
 
 		JButton confirmButton = new JButton("Schließen");
 		confirmButton.addActionListener(new CreateDeckGuiListener(this, deckmanager, "close"));
@@ -170,11 +182,11 @@ public class CreateDeckGui {
 
 	}
 
-	public JTextField getQuestion() {
+	public JTextArea getQuestion() {
 		return question;
 	}
 
-	public JTextField getAnswer() {
+	public JTextArea getAnswer() {
 		return answer;
 	}
 

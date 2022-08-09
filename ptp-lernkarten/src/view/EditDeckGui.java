@@ -12,6 +12,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.UIManager;
 
@@ -46,17 +47,21 @@ public class EditDeckGui extends JFrame implements Observer {
 
 	private String fontStyle;
 
-	public EditDeckGui(DeckManager deckmanager, DecksGui decksgui, String selectedDeck, String windowname) {
+	private JScrollPane questionScrollPane;
+
+	private JScrollPane answerScrollPane;
+
+	public EditDeckGui(DeckManager deckmanager, DecksGui decksgui, String selectedDeck, String windowname, String fontstyle) {
 
 		this.deckmanager = deckmanager;
 		this.decksgui = decksgui;
 		this.selectedDeck = selectedDeck;
+		this.fontStyle = fontstyle;
 
 		// JFrame erstellen
 		editDeckFrame = new JFrame(windowname);
 		editDeckFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		editDeckFrame.setBounds(420, 270, 600, 400);
-		fontStyle = "Helvetica";
 		setUIFont(new javax.swing.plaf.FontUIResource(fontStyle, Font.PLAIN, 20));
 
 		//
@@ -94,15 +99,17 @@ public class EditDeckGui extends JFrame implements Observer {
 		Flashcard f = (Flashcard) (flashcardComboBox.getSelectedItem());
 		questionLabel = new JLabel("Frage");
 		questionLabel.setFont(new Font(fontStyle, Font.PLAIN, 25));
-		questionText = new JTextArea(1, 1);
+		questionText = new JTextArea(2, 1);
 		questionText.setLineWrap(true);
 		questionText.setWrapStyleWord(true);
+		questionScrollPane = new JScrollPane(questionText);
 
 		answerLabel = new JLabel("Antwort");
 		answerLabel.setFont(new Font(fontStyle, Font.PLAIN, 25));
-		answerText = new JTextArea(11, 1);
+		answerText = new JTextArea(2, 1);
 		answerText.setLineWrap(true);
 		answerText.setWrapStyleWord(true);
+		answerScrollPane = new JScrollPane(answerText);
 
 		if (!deckmanager.getFlashcardList(selectedDeck).isEmpty()) {
 			questionText.setText(deckmanager.getQuestion(f));
@@ -110,9 +117,9 @@ public class EditDeckGui extends JFrame implements Observer {
 		}
 
 		qaPanel.add(questionLabel);
-		qaPanel.add(questionText);
+		qaPanel.add(questionScrollPane);
 		qaPanel.add(answerLabel);
-		qaPanel.add(answerText);
+		qaPanel.add(answerScrollPane);
 
 		editDeckPanel.add(qaPanel, BorderLayout.CENTER);
 

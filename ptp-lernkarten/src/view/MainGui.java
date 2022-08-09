@@ -107,10 +107,10 @@ public class MainGui extends JFrame implements Observer {
 		topButtonPanel.add(einstellungenButton);
 
 		// ACTIONLISTENER
-		startButton.addActionListener(new MainGuiListener(this, "startCard"));
-		decksButton.addActionListener(new MainGuiListener(this, "decksCard"));
-		statistikButton.addActionListener(new MainGuiListener(this, "statistikCard"));
-		einstellungenButton.addActionListener(new MainGuiListener(this, "einstellungenCard"));
+		startButton.addActionListener(new MainGuiListener(this, deckmanager, "startCard"));
+		decksButton.addActionListener(new MainGuiListener(this,deckmanager, "decksCard"));
+		statistikButton.addActionListener(new MainGuiListener(this,deckmanager, "statistikCard"));
+		einstellungenButton.addActionListener(new MainGuiListener(this,deckmanager, "einstellungenCard"));
 
 	}
 
@@ -128,6 +128,7 @@ public class MainGui extends JFrame implements Observer {
 		startGui = new StartGui(startCard, deckmanager, fontStyle, this);
 		contentPanel.add(startCard, "startCard");
 
+		
 		// Decks-Karte
 		decksCard = new JPanel();
 		decksCard.setLayout(new GridLayout(4, 1, 10, 5));
@@ -184,6 +185,11 @@ public class MainGui extends JFrame implements Observer {
 				});
 				// setzt default Item in Combobox
 				chooseDeckComboBox.setSelectedIndex(0);
+				
+				//aktiviert lernen beginnen Button
+//				if(startGui != null) {
+//					startGui.enableLernenBeginnenButton(true);
+//				}
 			} else {
 				chooseDeckComboBox.removeAllItems();
 			}
@@ -206,11 +212,6 @@ public class MainGui extends JFrame implements Observer {
 		}
 	}
 
-	public void setDashboardScreen(String screenCard) {
-
-		((CardLayout) contentPanel.getLayout()).show(contentPanel, screenCard);
-
-	}
 
 	public CardLayout getContentPanelCardLayout() {
 		return contentPanelCardLayout;

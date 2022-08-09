@@ -35,17 +35,17 @@ public class DecksGui {
 
 		JButton deckErstellenButton = new JButton("Deck Erstellen");
 		deckErstellenButton.setFont(new Font(fontStyle, Font.PLAIN, 27));
-		deckErstellenButton.addActionListener(new DecksGuiListener(this, deckmanager, "deckErstellen"));
+		deckErstellenButton.addActionListener(new DecksGuiListener(this, deckmanager, fontStyle,  "deckErstellen"));
 		decksCard.add(deckErstellenButton);
 		
 		JButton deckBearbeitenButton = new JButton("Deck Bearbeiten");
 		deckBearbeitenButton.setFont(new Font(fontStyle, Font.PLAIN, 27));
-		deckBearbeitenButton.addActionListener(new DecksGuiListener(this, deckmanager, "deckBearbeiten"));
+		deckBearbeitenButton.addActionListener(new DecksGuiListener(this, deckmanager, fontStyle, "deckBearbeiten"));
 		decksCard.add(deckBearbeitenButton);
 		
 		JButton deckLöschenButton = new JButton("Deck Löschen");
 		deckLöschenButton.setFont(new Font(fontStyle, Font.PLAIN, 27));
-		deckLöschenButton.addActionListener(new DecksGuiListener(this, deckmanager, "deckLöschen"));
+		deckLöschenButton.addActionListener(new DecksGuiListener(this, deckmanager, fontStyle, "deckLöschen"));
 		decksCard.add(deckLöschenButton);
 		
 	}

@@ -49,6 +49,8 @@ public class EditDeckGuiListener implements ActionListener {
 			} else if (cmd.equals("newFlashcard")) {
 				CreateDeckGui DeckGUI = new CreateDeckGui(deckmanager, selectedDeck.toString(), selectedDeck);
 				((CardLayout) DeckGUI.getFramePanel().getLayout()).show(DeckGUI.getFramePanel(), "deckKartenCard");
+//				Thread.sleep(500);
+//			    frame.setVisible(false);
 
 			}
 		} catch (NoFlashcardSelectedExeption e) {
