@@ -7,7 +7,6 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.io.File;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -74,7 +73,7 @@ public class MainGui extends JFrame implements Observer {
 
 		// startContentPane mit Karten das auf dem frameContentPane liegt erstellen
 		generateContentPanel();
-		
+
 		deckmanager.registerObserver(this);
 		mainFrame.setVisible(true);
 
@@ -154,9 +153,8 @@ public class MainGui extends JFrame implements Observer {
 
 		chooseDeckComboBox = new JComboBox<Deck>();
 		chooseDeckComboBox.setSize(getPreferredSize());
-		deckmanager.getData(new File(DeckManager.getPathtoString()));
 		update("deckChange");
-		
+
 	}
 
 	public String getSelectedDeck() throws NoDeckSelectedExeption {
@@ -173,7 +171,6 @@ public class MainGui extends JFrame implements Observer {
 
 	@Override
 	public void update(String changeType) {
-
 
 		if (changeType.equals("deckChange")) {
 			System.out.println("Deckupdate");
