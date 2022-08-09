@@ -3,14 +3,7 @@ package controller;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.UnsupportedLookAndFeelException;
-
-import model.DeckManager;
 import util.NoDeckSelectedExeption;
-import view.CreateDeckGui;
-import view.EditDeckGui;
-import view.ErrorScreen;
 import view.MainGui;
 
 public class MainGuiListener implements ActionListener {
