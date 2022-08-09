@@ -19,13 +19,10 @@ public class DeckOrganizer extends Observable {
 
 	private HashMap<String, Deck> decks;
 	private static Path pathDirectory; // aktuelles deck
-	private int anzahlDecks;
 
 	public DeckOrganizer() {
 		decks = new HashMap<String, Deck>();
-		anzahlDecks = 0;
 		createDirectories();
-
 	}
 
 	private static boolean decknameIsValidRegex(String deckname) throws UnValidDecknameException {
@@ -55,7 +52,6 @@ public class DeckOrganizer extends Observable {
 
 		if (decknameIsValidRegex(deckname) && decknameIsNotExisting(deckname)) {
 			Deck newDeck = new Deck(deckname);
-			anzahlDecks++;
 			decks.put(newDeck.getDeckname(), newDeck);
 			newDeck.saveDeckCSV();
 			notifyObserver("deckChange");
@@ -64,7 +60,6 @@ public class DeckOrganizer extends Observable {
 	}
 
 	void loadDeck(Deck d) {
-		anzahlDecks++;
 		decks.put(d.getDeckname(), d);
 		notifyObserver("deckChange");
 	}
