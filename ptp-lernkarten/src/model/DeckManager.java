@@ -1,14 +1,7 @@
 package model;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -18,171 +11,52 @@ import util.UnvalidQAException;
 
 public class DeckManager extends Observable {
 
-	private HashMap<String, Deck> decks;
-	private static Path pathDirectory; // aktuelles deck
-	private int anzahlDecks;
+	DeckOrganizer deckorganizer;
 
 	public DeckManager() {
-		decks = new HashMap<String, Deck>();
-		anzahlDecks = 0;
-		createDirectories();
-
-	}
-
-	private static boolean decknameIsValidRegex(String deckname) throws UnValidDecknameException {
-		if (deckname != null) {
-			String pattern = "^[^*&%\s]+$";
-			if (deckname.matches(pattern)) {
-				return true;
-			} else {
-				throw new UnValidDecknameException();
-			}
-		}
-		throw new UnValidDecknameException();
-	}
-
-	private static boolean decknameIsNotExisting(String deckname) throws DeckIsExistingException {
-		boolean result = true;
-		for (File f : pathDirectory.toFile().listFiles()) {
-			if (f.getName().equals(deckname + ".csv")) {
-				throw new DeckIsExistingException();
-			}
-		}
-		System.out.println(result);
-		return result;
+		deckorganizer = new DeckOrganizer();
 	}
 
 //TODO Hier muss die instanz von einem Deckerstellt werden. 
 	public void addDeck(String deckname) throws UnValidDecknameException, DeckIsExistingException {
-
-		if (decknameIsValidRegex(deckname) && decknameIsNotExisting(deckname)) {
-			Deck newDeck = new Deck(deckname);
-			anzahlDecks++;
-			decks.put(newDeck.getDeckname(), newDeck);
-			newDeck.saveDeckCSV();
-			notifyObserver("deckChange");
-		}
-
+		deckorganizer.addDeck(deckname);
 	}
 
 	public void loadDeck(Deck d) {
-		anzahlDecks++;
-		decks.put(d.getDeckname(), d);
-		notifyObserver("deckChange");
+		deckorganizer.loadDeck(d);
 	}
 
 	public boolean isExisting(String deckname) {
-		return decks.containsKey(deckname) && deckname != null;
+		return deckorganizer.isExisting(deckname);
 	}
 
 	public Deck getDeck(String deckname) {
-		return decks.get(deckname);
-	}
-
-	public HashMap<String, Deck> getDecks() {
-		return decks;
+		return deckorganizer.getDeck(deckname);
 	}
 
 	public void setDecks(HashMap<String, Deck> decks) {
-		this.decks = decks;
-		notifyObserver("deckChange");
+		deckorganizer.setDecks(decks);
 	}
 
 	public void removeDeck(String deckname) {
-		if (isExisting(deckname)) {
-			getDeck(deckname).deleteDeckCSV();
-			decks.remove(deckname);
-			notifyObserver("deckChange");
-		}
+		deckorganizer.removeDeck(deckname);
 	}
 
 	public List<String> findAllFilesInFolder(File folder) {
-
-		// Änderung noch nicht komplett NICHT LÖSCHEN geheime DS_STORE Dateien bei MAC
-		List<String> paths = new ArrayList<String>();
-
-		for (File p : folder.listFiles()) {
-			System.out.println(p.getPath());
-		}
-		if (folder.listFiles() != null) {
-			for (File p : folder.listFiles()) {
-				if (p.getPath().endsWith(".csv")) {
-					paths.add(p.toString());
-				}
-			}
-		}
-		return paths;
+		return deckorganizer.findAllFilesInFolder(folder);
 	}
 
 	public List<Path> findAllFilesInFolderPath(File folder) {
-		List<Path> paths = new ArrayList<Path>();
-		if (folder.listFiles() != null) {
-			for (File p : folder.listFiles()) {
-				if (p.getPath().endsWith(".csv")) {
-					paths.add(p.toPath());
-				}
-			}
-		}
-		return paths;
+		return deckorganizer.findAllFilesInFolderPath(folder);
 	}
 
 	public String pathToFileName(Path path) {
-		int length = path.getFileName().toString().length() - 4;
-		String name = path.getFileName().toString().substring(0, length);
-		return name;
+		return deckorganizer.pathToFileName(path);
 	}
 
 //TODO nehme eine Methode
 	public void getData(File folder) {
-		List<String> paths = findAllFilesInFolder(folder);
-		List<Path> paths1 = findAllFilesInFolderPath(folder);
-		String line = "";
-		for (int i = 0; i < paths.size(); i++) {
-
-			try {
-				Deck newdeck = new Deck(pathToFileName(paths1.get(i)));
-				BufferedReader br = new BufferedReader(new FileReader(paths.get(i)));
-//				if (br.readLine() != "") {
-				while ((line = br.readLine()) != null) {
-					String[] values = line.split(";");
-					newdeck.loadFlashcard(new Flashcard(values[1], values[2]));
-				}
-//				}
-				loadDeck(newdeck);
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-
-		}
-	}
-
-	public void createDirectories() {
-
-		String path = System.getProperty("user.home");
-		pathDirectory = Paths.get(path, "decks");
-		try {
-			Files.createDirectories(pathDirectory);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
-
-	public static String getPathtoString() {
-		String path = System.getProperty("user.home");
-		pathDirectory = Paths.get(path, "decks");
-		return pathDirectory.toString();
-	}
-
-	public static Path getPathDirectory() {
-		return pathDirectory;
-	}
-
-	public static void setPathDirectory(Path pathDirectory) {
-		DeckManager.pathDirectory = pathDirectory;
+		deckorganizer.getData(folder);
 	}
 
 	public String getDeckname(Deck d) {
@@ -222,7 +96,8 @@ public class DeckManager extends Observable {
 	}
 
 	public boolean containsDeck(String deckname) {
-		return decks.containsKey(deckname);
+		return deckorganizer.containsDeck(deckname);
+
 	}
 
 	public void setQuestion(Flashcard flashcard, String question) {
@@ -244,6 +119,23 @@ public class DeckManager extends Observable {
 
 	public String getAnswer(Flashcard f) {
 		return f.getAnswer();
+	}
+
+	public void createDirectories() {
+		deckorganizer.createDirectories();
+
+	}
+
+	public static String getPathtoString() {
+		return DeckOrganizer.getPathtoString();
+	}
+
+	public boolean decksisEmpty() {
+		return deckorganizer.isEmpty();
+	}
+
+	public HashMap<String, Deck> getDecks() {
+		return deckorganizer.getDecks();
 	}
 
 }

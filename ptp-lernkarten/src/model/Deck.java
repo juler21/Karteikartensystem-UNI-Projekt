@@ -63,7 +63,7 @@ public class Deck extends Observable {
 
 	void saveDeckCSV() {
 
-		Path pathCSV = Paths.get(DeckManager.getPathtoString(), deckname + ".csv");
+		Path pathCSV = Paths.get(DeckOrganizer.getPathtoString(), deckname + ".csv");
 		String pathCSVString = pathCSV.toString();
 
 		try {
@@ -83,7 +83,7 @@ public class Deck extends Observable {
 	}
 
 	void deleteDeckCSV() {
-		Path pathCSV = Paths.get(DeckManager.getPathtoString(), deckname + ".csv");
+		Path pathCSV = Paths.get(DeckOrganizer.getPathtoString(), deckname + ".csv");
 		try {
 			Files.deleteIfExists(pathCSV);
 		} catch (IOException e) {

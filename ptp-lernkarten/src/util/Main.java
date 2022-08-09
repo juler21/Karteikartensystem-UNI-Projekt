@@ -35,7 +35,6 @@ public class Main {
 		UIManager.put("TextArea.arc", 12);
 		UIManager.put("ScrollPane.arc", 12);
 
-
 		new Main();
 	}
 
@@ -104,13 +103,6 @@ public class Main {
 	/*
 	 * 
 	 */
-	public String getPathDirectory() {
-		return DeckManager.getPathtoString();
-	}
-
-	/*
-	 * 
-	 */
 	public DeckManager getDeckmanager() {
 		return deckmanager;
 	}
@@ -129,6 +121,11 @@ public class Main {
 
 	public boolean isDeckExisting(String deckname) {
 		return deckmanager.containsDeck(deckname);
+	}
+
+	public String getPathDirectory() {
+		// TODO Auto-generated method stub
+		return DeckManager.getPathtoString();
 	}
 
 }

@@ -9,19 +9,14 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.nio.file.Path;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
-import controller.MainGuiListener;
 import model.Deck;
 import model.DeckManager;
 import util.NoDeckSelectedExeption;
@@ -47,12 +42,11 @@ public class MainGui extends JFrame implements Observer {
 	private JPanel einstellungenCard;
 	private String fontStyle;
 
-
 	private DeckManager deckmanager;
 	private SettingsGui settingsGui;
 	private StartGui startGui;
 	private DecksGui decksGui;
-	
+
 	private JComboBox<Deck> chooseDeckComboBox;
 
 	public MainGui(DeckManager manager, String name) {
@@ -111,8 +105,8 @@ public class MainGui extends JFrame implements Observer {
 			public void actionPerformed(ActionEvent e) {
 				((CardLayout) contentPanel.getLayout()).show(contentPanel, "startCard");
 				((CardLayout) startCard.getLayout()).show(startCard, "learnHomeCard");
-				
-				//Aktuelles Deck Anzeige
+
+				// Aktuelles Deck Anzeige
 //				try {
 //					getCurrentDeckLabel().setText(getSelectedDeck());
 //				} catch (NoDeckSelectedExeption e1) {
@@ -177,7 +171,7 @@ public class MainGui extends JFrame implements Observer {
 		((CardLayout) contentPanel.getLayout()).show(contentPanel, "startCard");
 
 	}
-	
+
 	private void deckListeErstellen() {
 
 		chooseDeckComboBox = new JComboBox<Deck>();
@@ -186,7 +180,6 @@ public class MainGui extends JFrame implements Observer {
 		deckmanager.getData(new File(DeckManager.getPathtoString()));
 		update("deckChange");
 	}
-
 
 	public String getSelectedDeck() throws NoDeckSelectedExeption {
 		if (chooseDeckComboBox.getSelectedItem() != null) {
@@ -199,7 +192,6 @@ public class MainGui extends JFrame implements Observer {
 	public JComboBox<Deck> getJCombobox() {
 		return chooseDeckComboBox;
 	}
-	
 
 	@Override
 	public void update(String changeType) {
@@ -208,7 +200,7 @@ public class MainGui extends JFrame implements Observer {
 
 		if (changeType.equals("deckChange")) {
 			// combobox update
-			if (!deckmanager.getDecks().isEmpty()) {
+			if (!deckmanager.decksisEmpty()) {
 				chooseDeckComboBox.removeAllItems();
 				deckmanager.getDecks().forEach((key, value) -> {
 					chooseDeckComboBox.addItem(deckmanager.getDeck(key));
@@ -222,7 +214,7 @@ public class MainGui extends JFrame implements Observer {
 		}
 
 	}
-	
+
 	/*
 	 * Setzt alle Default UI Fonts auf die übergebene Font
 	 *

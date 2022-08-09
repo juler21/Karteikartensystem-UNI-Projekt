@@ -87,7 +87,7 @@ public class MainTest {
 			}
 		}
 		assertFalse(result);
-		assertEquals(app.getDeckmanager().getDecks().get("test1"), null);
+		assertFalse(app.isDeckExisting("test1"));
 	}
 
 	@Test
