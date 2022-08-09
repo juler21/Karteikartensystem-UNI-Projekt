@@ -9,7 +9,6 @@ import view.CreateDeckGui;
 import view.DecksGui;
 import view.EditDeckGui;
 import view.ErrorScreen;
-import view.MainGui;
 
 public class DecksGuiListener implements ActionListener {
 

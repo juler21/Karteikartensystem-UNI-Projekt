@@ -2,18 +2,24 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'main' of https://git.informatik.uni-hamburg.de/0sterkel/ptp22-do08-lernkarten.git
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+<<<<<<< HEAD
+=======
+
+>>>>>>> branch 'main' of https://git.informatik.uni-hamburg.de/0sterkel/ptp22-do08-lernkarten.git
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
@@ -36,6 +42,7 @@ public class MainGui extends JFrame implements Observer {
 
 	// ContentPanel auf dem verschiedene CardLayout Karten liegen
 	private JPanel contentPanel;
+	private CardLayout contentPanelCardLayout;
 	private JPanel startCard;
 	private JPanel decksCard;
 	private JPanel statistikCard;
@@ -66,6 +73,8 @@ public class MainGui extends JFrame implements Observer {
 		framePanel.setLayout(new BorderLayout(0, 0));
 		mainFrame.setContentPane(framePanel);
 
+		deckListeErstellen();
+		
 		// topButtonPanel mit entsprechenden Buttons erstellen
 		generateTopButtons();
 
@@ -75,6 +84,10 @@ public class MainGui extends JFrame implements Observer {
 		deckmanager.registerObserver(this);
 		mainFrame.setVisible(true);
 
+	}
+
+	public MainGui() {
+		// TODO Auto-generated constructor stub
 	}
 
 	private void generateTopButtons() {
@@ -99,7 +112,9 @@ public class MainGui extends JFrame implements Observer {
 		topButtonPanel.add(statistikButton);
 		topButtonPanel.add(einstellungenButton);
 
+
 		// ACTIONLISTENER
+<<<<<<< HEAD
 		startButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
@@ -135,6 +150,12 @@ public class MainGui extends JFrame implements Observer {
 				((CardLayout) contentPanel.getLayout()).show(contentPanel, "einstellungenCard");
 			}
 		});
+=======
+		startButton.addActionListener(new MainGuiListener(this, "startCard"));
+		decksButton.addActionListener(new MainGuiListener(this, "decksCard"));
+		statistikButton.addActionListener(new MainGuiListener(this, "statistikCard"));
+		einstellungenButton.addActionListener(new MainGuiListener(this, "einstellungenCard"));
+>>>>>>> branch 'main' of https://git.informatik.uni-hamburg.de/0sterkel/ptp22-do08-lernkarten.git
 
 	}
 
@@ -142,7 +163,8 @@ public class MainGui extends JFrame implements Observer {
 
 		// ContentPanel erstellen
 		contentPanel = new JPanel();
-		contentPanel.setLayout(new CardLayout(0, 0));
+		contentPanelCardLayout = new CardLayout(0, 0);
+		contentPanel.setLayout(contentPanelCardLayout);
 		framePanel.add(contentPanel, BorderLayout.CENTER);
 
 		// Start-Karte
@@ -154,7 +176,7 @@ public class MainGui extends JFrame implements Observer {
 		// Decks-Karte
 		decksCard = new JPanel();
 		decksCard.setLayout(new GridLayout(4, 1, 10, 5));
-		deckListeErstellen();
+//		deckListeErstellen();
 		decksGui = new DecksGui(decksCard, deckmanager, this);
 		contentPanel.add(decksCard, "decksCard");
 
@@ -235,7 +257,11 @@ public class MainGui extends JFrame implements Observer {
 
 	}
 
-	public JPanel getContentPanel() {
+	public CardLayout getContentPanelCardLayout() {
+		return contentPanelCardLayout;
+	}
+	
+	public Container getContentPanel() {
 		return contentPanel;
 	}
 
@@ -261,6 +287,10 @@ public class MainGui extends JFrame implements Observer {
 
 	public DeckManager getDeckmanager() {
 		return deckmanager;
+	}
+	
+	public StartGui getStartGui() {
+		return startGui;
 	}
 
 }

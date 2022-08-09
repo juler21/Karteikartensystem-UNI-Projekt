@@ -1,27 +1,34 @@
 package controller;
 
+import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import model.DeckManager;
 import util.NoDeckSelectedExeption;
 import view.ErrorScreen;
+import view.MainGui;
 import view.StartGui;
 
 public class StartGuiListener implements ActionListener {
 	private String cmd;
-	private String theme;
 	private StartGui startgui;
+	private MainGui mainGui;
 	private DeckManager deckmanager;
 	private static int flashcardLearnIndex = 0;
 	
 	public StartGuiListener(StartGui startgui, DeckManager deckmanager, String cmd) {
-		this.theme = "light";
 		this.startgui = startgui;
 		this.deckmanager = deckmanager;
 		this.cmd = cmd;
 	}
 	
+	public StartGuiListener(StartGui startgui, MainGui maingui, DeckManager deckmanager, String cmd) {
+		this.startgui = startgui;
+		this.deckmanager = deckmanager;
+		this.cmd = cmd;
+		this.mainGui = maingui;
+	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -45,7 +52,7 @@ public class StartGuiListener implements ActionListener {
 
 					startgui.getAnswerTextArea().setCaretPosition(0);
 					System.out.println("lernenBeginnenButton");
-					startgui.setLearnScreen("learnQuestionCard");
+					setLearnScreen("learnQuestionCard");
 				}
 			
 			} else if (cmd.equals("nextQuestionButton")) {
@@ -59,25 +66,33 @@ public class StartGuiListener implements ActionListener {
 					startgui.setAnswerTextArea(deckmanager.getAnswerFlashcard(selectedDeck, flashcardLearnIndex));
 
 					startgui.getAnswerTextArea().setCaretPosition(0);
-					startgui.setLearnScreen("learnQuestionCard");
+					setLearnScreen("learnQuestionCard");
 				} else {
 					System.out.println("ende");
-					startgui.setLearnScreen("learnEndCard");
+					setLearnScreen("learnEndCard");
 				}
 				
 			} else if (cmd.equals("showAnswerButton")) {
-				startgui.setLearnScreen("learnAnswerCard");
+				setLearnScreen("learnAnswerCard");
 				
 			} else if (cmd.equals("restartDeckButton")) {
-				startgui.setLearnScreen("learnHomeCard");
+				setLearnScreen("learnHomeCard");
 				
 			} else if (cmd.equals("switchDeckButton")) {
-//				startgui.setDashboardScreen("decksCard");
+				CardLayout cardLayout = mainGui.getContentPanelCardLayout();
+				cardLayout.show(mainGui.getContentPanel(), "decksCard");
 			}
 		
 		} catch (NoDeckSelectedExeption e) {
 			new ErrorScreen(e.getError());
 		}
+		
+	}
+	
+	public void setLearnScreen(String screenCard) {
+
+		CardLayout cardLayout = (CardLayout) startgui.getStartCard().getLayout();
+		cardLayout.show(startgui.getStartCard(), screenCard);
 
 	}
 }

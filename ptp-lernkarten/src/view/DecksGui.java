@@ -2,22 +2,17 @@ package view;
 
 import java.awt.Dimension;
 import java.awt.Font;
-import java.io.File;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
 import controller.DecksGuiListener;
-import controller.MainGuiListener;
 import model.Deck;
 import model.DeckManager;
 import util.NoDeckSelectedExeption;
 
 public class DecksGui {
 	
-	private JPanel decksCard;
-	private DeckManager deckmanager;
 	private String fontStyle;
 	private MainGui mainGui;
 	
@@ -25,13 +20,10 @@ public class DecksGui {
 	
 	DecksGui(JPanel decksCard, DeckManager deckmanager, MainGui maingui) {
 		
-		this.decksCard = decksCard;
-		this.deckmanager = deckmanager;
 		this.mainGui = maingui;
 		this.chooseDeckComboBox = mainGui.getJCombobox();
 		fontStyle = "Helvetica";
 		
-//		deckListeErstellen();
 		JPanel comboBoxPanel = new JPanel();
 		chooseDeckComboBox.setPreferredSize(new Dimension(700, 40));
 		comboBoxPanel.add(chooseDeckComboBox);
