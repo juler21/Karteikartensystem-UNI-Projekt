@@ -18,6 +18,7 @@ public class DeckManager extends Observable {
 
 	public void addDeck(String deckname) throws UnValidDecknameException, DeckIsExistingException {
 		deckorganizer.addDeck(deckname);
+		notifyObserver("deckChange");
 	}
 
 	public Deck getDeck(String deckname) {
@@ -26,6 +27,7 @@ public class DeckManager extends Observable {
 
 	public void removeDeck(String deckname) {
 		deckorganizer.removeDeck(deckname);
+		notifyObserver("deckChange");
 	}
 
 	public void getData(File folder) {
@@ -50,14 +52,18 @@ public class DeckManager extends Observable {
 
 	public void deleteFlashcard(String deckname, int position) {
 		getDeck(deckname).deleteFlashcard(position);
+		notifyObserver("flashcardChange");
 	}
 
 	public void removeAllFlashcards(String deckname) {
 		getDeck(deckname).deleteAllFlashcards();
+		notifyObserver("flashcardChange");
 	}
 
 	public void addFlashcard(String deckname, String question, String answer) throws UnvalidQAException {
 		getDeck(deckname).addFlashcard(question, answer);
+		notifyObserver("flashcardChange");
+		
 	}
 
 	public int getAmountOfFlashcards(String deckname) {
@@ -71,10 +77,12 @@ public class DeckManager extends Observable {
 
 	public void setQuestion(Flashcard flashcard, String question) {
 		flashcard.setQuestion(question);
+		notifyObserver("deckChange");
 	}
 
 	public void setAnswer(Flashcard flashcard, String answer) {
 		flashcard.setAnswer(answer);
+		notifyObserver("deckChange");
 	}
 
 	public void updateCSV(String deckname) {

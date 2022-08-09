@@ -15,7 +15,7 @@ import java.util.List;
 import util.DeckIsExistingException;
 import util.UnValidDecknameException;
 
-public class DeckOrganizer extends Observable {
+public class DeckOrganizer {
 
 	private HashMap<String, Deck> decks;
 	private static Path pathDirectory; // aktuelles deck
@@ -54,14 +54,12 @@ public class DeckOrganizer extends Observable {
 			Deck newDeck = new Deck(deckname);
 			decks.put(newDeck.getDeckname(), newDeck);
 			newDeck.saveDeckCSV();
-			notifyObserver("deckChange");
 		}
 
 	}
 
 	void loadDeck(Deck d) {
 		decks.put(d.getDeckname(), d);
-		notifyObserver("deckChange");
 	}
 
 	boolean isExisting(String deckname) {
@@ -78,14 +76,12 @@ public class DeckOrganizer extends Observable {
 
 	void setDecks(HashMap<String, Deck> decks) {
 		this.decks = decks;
-		notifyObserver("deckChange");
 	}
 
 	void removeDeck(String deckname) {
 		if (isExisting(deckname)) {
 			getDeck(deckname).deleteDeckCSV();
 			decks.remove(deckname);
-			notifyObserver("deckChange");
 		}
 	}
 

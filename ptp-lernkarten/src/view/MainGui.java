@@ -173,9 +173,9 @@ public class MainGui extends JFrame implements Observer {
 	@Override
 	public void update(String changeType) {
 
-		System.out.println("update");
 
 		if (changeType.equals("deckChange")) {
+			System.out.println("Deckupdate");
 			// combobox update
 			if (!deckmanager.decksisEmpty()) {
 				chooseDeckComboBox.removeAllItems();
