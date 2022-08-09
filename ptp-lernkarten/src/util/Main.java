@@ -25,12 +25,10 @@ public class Main {
 		// themeSetUp
 		System.setProperty("apple.awt.application.appearance", "system");
 
+		// FlatLaf setzen Light Theme und Ecken abrunden
 		FlatLightFlatIJTheme.setup();
-//		FlatArcDarkContrastIJTheme.setup();
-//		FlatArcIJTheme.setup();
 		UIManager.put("Button.arc", 12);
 		UIManager.put("Component.arc", 12);
-//		UIManager.put( "ComoboBox.arc", 12 );
 		UIManager.put("TextComponent.arc", 12);
 		UIManager.put("TextArea.arc", 12);
 		UIManager.put("ScrollPane.arc", 12);
@@ -96,15 +94,8 @@ public class Main {
 	/*
 	 * 
 	 */
-	public void createDirectory() {
-		deckmanager.createDirectories();
-	}
-
-	/*
-	 * 
-	 */
-	public DeckManager getDeckmanager() {
-		return deckmanager;
+	public void changeDirectory(String foldername) {
+		deckmanager.changeDirectory(foldername);
 	}
 
 	public String getAnswer(String deckname, int position) {
@@ -124,7 +115,6 @@ public class Main {
 	}
 
 	public String getPathDirectory() {
-		// TODO Auto-generated method stub
 		return DeckManager.getPathtoString();
 	}
 

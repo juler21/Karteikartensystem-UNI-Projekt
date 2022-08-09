@@ -21,6 +21,7 @@ public class MainTest {
 	@BeforeEach
 	public void newMain() {
 		app = new Main();
+		app.changeDirectory("test");
 	}
 
 	@Test
@@ -143,6 +144,7 @@ public class MainTest {
 		assertTrue(app.isDeckExisting("test4"));
 	}
 
+	@Test
 	public void testgetFlashcard() {
 		try {
 			app.createDeck("test5");
@@ -153,5 +155,35 @@ public class MainTest {
 		}
 		assertEquals("Frage1", app.getQuestion("test5", 0));
 		assertEquals("Antwort1", app.getAnswer("test5", 0));
+	}
+
+	@Test
+	public void testremoveAllFlashcards() {
+
+	}
+
+	@Test
+	public void testgetAnswer() {
+
+	}
+
+	@Test
+	public void testgetQuestion() {
+
+	}
+
+	@Test
+	public void testgetAmountFlashcards() {
+
+	}
+
+	@Test
+	public void testisDeckExisting() {
+
+	}
+
+	@Test
+	public void testgetPathDirectory() {
+
 	}
 }
