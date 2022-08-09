@@ -1,7 +1,6 @@
 package model;
 
 import java.io.File;
-import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
 
@@ -17,50 +16,20 @@ public class DeckManager extends Observable {
 		deckorganizer = new DeckOrganizer();
 	}
 
-//TODO Hier muss die instanz von einem Deckerstellt werden. 
 	public void addDeck(String deckname) throws UnValidDecknameException, DeckIsExistingException {
 		deckorganizer.addDeck(deckname);
-	}
-
-	public void loadDeck(Deck d) {
-		deckorganizer.loadDeck(d);
-	}
-
-	public boolean isExisting(String deckname) {
-		return deckorganizer.isExisting(deckname);
 	}
 
 	public Deck getDeck(String deckname) {
 		return deckorganizer.getDeck(deckname);
 	}
 
-	public void setDecks(HashMap<String, Deck> decks) {
-		deckorganizer.setDecks(decks);
-	}
-
 	public void removeDeck(String deckname) {
 		deckorganizer.removeDeck(deckname);
 	}
 
-	public List<String> findAllFilesInFolder(File folder) {
-		return deckorganizer.findAllFilesInFolder(folder);
-	}
-
-	public List<Path> findAllFilesInFolderPath(File folder) {
-		return deckorganizer.findAllFilesInFolderPath(folder);
-	}
-
-	public String pathToFileName(Path path) {
-		return deckorganizer.pathToFileName(path);
-	}
-
-//TODO nehme eine Methode
 	public void getData(File folder) {
 		deckorganizer.getData(folder);
-	}
-
-	public String getDeckname(Deck d) {
-		return d.getDeckname();
 	}
 
 	public List<Flashcard> getFlashcardList(String deckname) {
