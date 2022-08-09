@@ -11,7 +11,7 @@ import java.util.List;
 
 import util.UnvalidQAException;
 
-public class Deck extends Observable {
+public class Deck {
 
 	private List<Flashcard> flashcardList = new ArrayList<Flashcard>();
 
@@ -37,7 +37,7 @@ public class Deck extends Observable {
 			flashcardList.add(flash);
 			deleteDeckCSV();
 			saveDeckCSV();
-			notifyObserver("flashcardChange");
+//			notifyObserver("flashcardChange");
 		}
 
 	}
@@ -58,7 +58,7 @@ public class Deck extends Observable {
 		flashcardList.remove(index);
 		deleteDeckCSV();
 		saveDeckCSV();
-		notifyObserver("flashcardChange");
+//		notifyObserver("flashcardChange");
 	}
 
 	void saveDeckCSV() {

@@ -124,14 +124,14 @@ public class MainGui extends JFrame implements Observer {
 		// Start-Karte
 		startCard = new JPanel();
 		startCard.setLayout(new CardLayout(0, 0));
-		startGui = new StartGui(startCard, deckmanager, this);
+		startGui = new StartGui(startCard, deckmanager, fontStyle, this);
 		contentPanel.add(startCard, "startCard");
 
 		// Decks-Karte
 		decksCard = new JPanel();
 		decksCard.setLayout(new GridLayout(4, 1, 10, 5));
 //		deckListeErstellen();
-		decksGui = new DecksGui(decksCard, deckmanager, this);
+		decksGui = new DecksGui(decksCard, deckmanager, fontStyle, this);
 		contentPanel.add(decksCard, "decksCard");
 
 		// Statistik-Karte
@@ -140,7 +140,7 @@ public class MainGui extends JFrame implements Observer {
 
 		// Einstellungen-Karte
 		einstellungenCard = new JPanel();
-		settingsGui = new SettingsGui(einstellungenCard);
+		settingsGui = new SettingsGui(einstellungenCard, fontStyle);
 		contentPanel.add(einstellungenCard, "einstellungenCard");
 
 		// Anfangsbildschirm setzten auf "Start"
@@ -153,6 +153,7 @@ public class MainGui extends JFrame implements Observer {
 		chooseDeckComboBox = new JComboBox<Deck>();
 		chooseDeckComboBox.setSize(getPreferredSize());
 		update("deckChange");
+
 	}
 
 	public String getSelectedDeck() throws NoDeckSelectedExeption {
@@ -170,9 +171,8 @@ public class MainGui extends JFrame implements Observer {
 	@Override
 	public void update(String changeType) {
 
-		System.out.println("update");
-
 		if (changeType.equals("deckChange")) {
+			System.out.println("Deckupdate");
 			// combobox update
 			if (!deckmanager.decksisEmpty()) {
 				chooseDeckComboBox.removeAllItems();

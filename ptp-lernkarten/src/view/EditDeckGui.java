@@ -133,12 +133,8 @@ public class EditDeckGui extends JFrame implements Observer {
 		lowerButtonPanel.add(quitButton);
 		editDeckPanel.add(lowerButtonPanel, BorderLayout.PAGE_END);
 
-		try {
-			deckmanager.getDeck(decksgui.getSelectedDeck()).registerObserver(this);
-		} catch (NoDeckSelectedExeption e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		//Edit Deck Gui beobachtet Decks Klasse Deckmanager um Änderungen innerhalb der Decks zu registrieren 
+		deckmanager.registerObserver(this);
 		editDeckFrame.setVisible(true);
 
 	}
@@ -159,13 +155,11 @@ public class EditDeckGui extends JFrame implements Observer {
 	@Override
 	public void update(String changeType) {
 		if (changeType.equals("flashcardChange")) {
-			System.out.println("update");
+			System.out.println("flashcardUpdate");
 			flashcardComboBox.removeAllItems();
 			for (Flashcard f : deckmanager.getFlashcardList(selectedDeck)) {
 				flashcardComboBox.addItem(f);
 			}
-			// setzt flashcard combobox auf erstes objekt
-//			flashcardList.setSelectedIndex(0);
 		}
 	}
 
