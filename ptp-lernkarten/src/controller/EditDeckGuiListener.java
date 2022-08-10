@@ -5,7 +5,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import model.DeckManager;
+import model.Flashcard;
 import util.NoFlashcardSelectedExeption;
+import view.AddFlashcardGui;
 import view.CreateDeckGui;
 import view.EditDeckGui;
 import view.ErrorScreen;
@@ -16,11 +18,11 @@ public class EditDeckGuiListener implements ActionListener {
 	private String cmd;
 	private String selectedDeck;
 
-	public EditDeckGuiListener(EditDeckGui gui, String deck, DeckManager model, String cmd) {
+	public EditDeckGuiListener(EditDeckGui gui, String selectedDeck, DeckManager model, String cmd) {
 		this.gui = gui;
 		this.deckmanager = model;
 		this.cmd = cmd;
-		this.selectedDeck = deck;
+		this.selectedDeck = selectedDeck;
 	}
 
 	@Override
@@ -47,11 +49,14 @@ public class EditDeckGuiListener implements ActionListener {
 
 				deckmanager.updateCSV(selectedDeck);
 			} else if (cmd.equals("newFlashcard")) {
-				CreateDeckGui DeckGUI = new CreateDeckGui(deckmanager, selectedDeck.toString(), selectedDeck);
-				((CardLayout) DeckGUI.getFramePanel().getLayout()).show(DeckGUI.getFramePanel(), "deckKartenCard");
-//				Thread.sleep(500);
-//			    frame.setVisible(false);
-
+				new AddFlashcardGui(deckmanager, selectedDeck.toString(), selectedDeck);
+//				((CardLayout) DeckGUI.getCreateDeckFramePanel().getLayout()).show(DeckGUI.getCreateDeckFramePanel(), "createFlashcardCard");
+			} else if (cmd.equals("comboBoxChange")) {
+				if (gui.getFlashcardList().getSelectedItem() != null) {
+					Flashcard f = (Flashcard) (gui.getFlashcardList().getSelectedItem());
+					gui.setQuestionText(deckmanager.getQuestion(f));
+					gui.setAnswerText(deckmanager.getAnswer(f));
+				}	
 			}
 		} catch (NoFlashcardSelectedExeption e) {
 			new ErrorScreen(e.getError());

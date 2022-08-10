@@ -25,181 +25,179 @@ import controller.CreateDeckGuiListener;
 import model.DeckManager;
 
 public class CreateDeckGui {
-	// Model
+	
 	private DeckManager deckmanager;
-//	private CreateDeckGuiListener controller; // controller
+	private String fontStyle;
 
 	private JFrame createDeckFrame;
-
-	public JFrame getCreateDeckFrame() {
-		return createDeckFrame;
-	}
-
-	private JPanel framePanel;
+	private JPanel createDeckFramePanel;
 	private JPanel setDecknameCard;
-	private JPanel createFlashcardsCard;
-	private JTextField deckName;
-	private JTextArea question;
-	private JTextArea answer;
-	private JButton confirmDeckname;
+	private JPanel createFlashcardCard;
 
-	private String fontStyle;
+	private JTextField deckNameTextField;
+	private JTextArea questionTextArea;
 	private JScrollPane questionScrollPane;
+	private JTextArea answerTextArea;
 	private JScrollPane answerScrollPane;
+	private JButton confirmDecknameButton;
 
-	public CreateDeckGui(DeckManager deckmanager, String windowname, String d) {
+	//CreateDeckGui Konstruktor normal
+	public CreateDeckGui(DeckManager deckmanager, String windowname) {
+		
 		this.deckmanager = deckmanager;
+		fontStyle = "Helvetica";
+		
 
-		// JFrame erstellen
+		// JFrame erstllen
 		createDeckFrame = new JFrame(windowname);
 		createDeckFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		createDeckFrame.setBounds(480, 300, 500, 300);
-		fontStyle = "Helvetica";
 		setUIFont(new javax.swing.plaf.FontUIResource(fontStyle, Font.PLAIN, 20));
-//		mainFrame.setMinimumSize(new Dimension(680,400));
 
-		framePanel = new JPanel();
-		framePanel.setLayout(new CardLayout(0, 0));
-		createDeckFrame.setContentPane(framePanel);
+		// FramePanel mit CardLayout erstellen
+		createDeckFramePanel = new JPanel();
+		createDeckFramePanel.setLayout(new CardLayout(0, 0));
+		createDeckFrame.setContentPane(createDeckFramePanel);
 
-		// Karten auf dem framePanel erstellen
-		// setDeckname Karte
+		generateSetDecknameCard();
+		generateCreateFlashcardCard();
+		
+		createDeckFrame.setVisible(true);
+
+	}
+	
+	private void generateSetDecknameCard() {
+		
 		setDecknameCard = new JPanel();
 		setDecknameCard.setLayout(new BorderLayout());
-		framePanel.add(setDecknameCard, "decknameCard");
-
-		JLabel label1 = new JLabel("Geben Sie den Name des Decks ein:");
-		label1.setPreferredSize(new Dimension(300, 80));
-		label1.setFont(new Font(fontStyle, Font.PLAIN, 25));
-		deckName = new JTextField("");
-		JPanel buttonPanel1 = new JPanel(new FlowLayout());
-		buttonPanel1.setBorder(new EmptyBorder(15, 5, 15, 5));
-
-		confirmDeckname = new JButton("Deckname Bestätigen");
-		confirmDeckname.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				((CardLayout) framePanel.getLayout()).show(framePanel, "deckKartenCard");
-			}
-		});
-		confirmDeckname.addActionListener(new CreateDeckGuiListener(this, deckmanager, "Deckname"));
-		JButton closeButton = new JButton("Abbrechen");
-		closeButton.addActionListener(new CreateDeckGuiListener(this, deckmanager, "close"));
-
-		buttonPanel1.add(confirmDeckname);
-		buttonPanel1.add(closeButton);
-
-		deckName.addKeyListener(new KeyListener() {
-
+		createDeckFramePanel.add(setDecknameCard, "setDecknameCard");
+		
+		JLabel chooseNameLabel = new JLabel("Geben Sie den Name des Decks ein:");
+		chooseNameLabel.setPreferredSize(new Dimension(300, 80));
+		chooseNameLabel.setFont(new Font(fontStyle, Font.PLAIN, 25));
+		deckNameTextField = new JTextField("");
+		deckNameTextField.addKeyListener(new KeyListener() {
+			
 			@Override
 			public void keyTyped(KeyEvent e) {
 			}
-
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-					confirmDeckname.doClick();
-					System.out.println("confrimDeckname");
+					confirmDecknameButton.doClick();
 				}
 			}
-
 			@Override
 			public void keyReleased(KeyEvent e) {
 			}
 		});
-		deckName.setFocusable(true);
-		setDecknameCard.add(label1, BorderLayout.NORTH);
-		setDecknameCard.add(deckName, BorderLayout.CENTER);
-		setDecknameCard.add(buttonPanel1, BorderLayout.PAGE_END);
+		deckNameTextField.setFocusable(true);
+		
+		//Buttonpanel erstellen 
+		JPanel confirmNameButtonPanel = new JPanel(new FlowLayout());
+		confirmNameButtonPanel.setBorder(new EmptyBorder(15, 5, 15, 5));
+		
+		//confirmDeckButton
+		confirmDecknameButton = new JButton("Deckname Bestätigen");
+		confirmDecknameButton.addActionListener(new CreateDeckGuiListener(this, deckmanager, "confirmDeckname"));
+		confirmNameButtonPanel.add(confirmDecknameButton);
+		//closeButton
+		JButton closeButton = new JButton("Abbrechen");
+		closeButton.addActionListener(new CreateDeckGuiListener(this, deckmanager, "close"));
+		confirmNameButtonPanel.add(closeButton);
 
-		// createFlashcard Karte
-		createFlashcardsCard = new JPanel();
-		createFlashcardsCard.setLayout(new BorderLayout());
-		framePanel.add(createFlashcardsCard, "deckKartenCard");
 
+		setDecknameCard.add(chooseNameLabel, BorderLayout.NORTH);
+		setDecknameCard.add(deckNameTextField, BorderLayout.CENTER);
+		setDecknameCard.add(confirmNameButtonPanel, BorderLayout.PAGE_END);
+
+		
+	}
+	
+	private void generateCreateFlashcardCard() {
+		
+		createFlashcardCard = new JPanel();
+		createFlashcardCard.setLayout(new BorderLayout());
+		createDeckFramePanel.add(createFlashcardCard, "createFlashcardCard");
+
+		
 		String[] labels = { "Frage: ", "Antwort: " };
 		int numPairs = labels.length;
 
 		JPanel qaPanel = new JPanel(new SpringLayout());
-		JLabel lQuestion = new JLabel("Frage: ", JLabel.TRAILING);
-		JLabel lAnswer = new JLabel("Antwort: ", JLabel.TRAILING);
+		JLabel questionSpringLabel = new JLabel("Frage: ", JLabel.TRAILING);
+		JLabel answerSpringLabel = new JLabel("Antwort: ", JLabel.TRAILING);
 		
-		question = new JTextArea(2, 1);
-		question.setLineWrap(true);
-		question.setWrapStyleWord(true);
-		questionScrollPane = new JScrollPane(question);
 		
-		answer = new JTextArea(2, 1);
-		answer.setLineWrap(true);
-		answer.setWrapStyleWord(true);
-		answerScrollPane = new JScrollPane(answer);
+		questionTextArea = new JTextArea(2, 1);
+		questionTextArea.setLineWrap(true);
+		questionTextArea.setWrapStyleWord(true);
+		questionScrollPane = new JScrollPane(questionTextArea);
+		
+		answerTextArea = new JTextArea(2, 1);
+		answerTextArea.setLineWrap(true);
+		answerTextArea.setWrapStyleWord(true);
+		answerScrollPane = new JScrollPane(answerTextArea);
 
-		qaPanel.add(lQuestion);
+		qaPanel.add(questionSpringLabel);
 		qaPanel.add(questionScrollPane);
-		qaPanel.add(lAnswer);
+		qaPanel.add(answerSpringLabel);
 		qaPanel.add(answerScrollPane);
-		createFlashcardsCard.add(qaPanel);
-
-		// Lay out the panel.
-		SpringUtilities.makeCompactGrid(qaPanel, numPairs, 2, // rows, cols
+		
+		SpringUtilities.makeCompactGrid(qaPanel, numPairs, 2, 
 				6, 6, // initX, initY
 				6, 6); // xPad, yPad
+		
+		createFlashcardCard.add(qaPanel, BorderLayout.CENTER);
+//		createFlashcardCard.add(qaPanel);
 
+		//ButtonPanel erstellen	
 		JPanel buttonPanel = new JPanel(new FlowLayout());
 		JButton okButton = new JButton("OK");
-		okButton.addActionListener(new CreateDeckGuiListener(this, deckmanager, "ok", d));
-		okButton.addKeyListener(new KeyListener() {
-
+		okButton.addActionListener(new CreateDeckGuiListener(this, deckmanager, "ok"));
+		answerTextArea.addKeyListener(new KeyListener() {
 			@Override
 			public void keyTyped(KeyEvent e) {
 			}
-
 			@Override
 			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+				if (e.getKeyCode() == KeyEvent.VK_ALT) {
 					okButton.doClick();
 					System.out.println("ok");
 				}
 			}
-
 			@Override
 			public void keyReleased(KeyEvent e) {
 			}
 		});
-		okButton.setFocusable(true);
-
+		answerTextArea.setFocusable(true);
 		JButton confirmButton = new JButton("Schließen");
 		confirmButton.addActionListener(new CreateDeckGuiListener(this, deckmanager, "close"));
 
 		buttonPanel.add(okButton);
 		buttonPanel.add(confirmButton);
-		createFlashcardsCard.add(qaPanel, BorderLayout.CENTER);
-		createFlashcardsCard.add(buttonPanel, BorderLayout.PAGE_END);
-
-		// Start Karte des CardLayout setzten
-		((CardLayout) framePanel.getLayout()).show(framePanel, "startCard");
-
-		createDeckFrame.setVisible(true);
-
+		
+		createFlashcardCard.add(buttonPanel, BorderLayout.PAGE_END);	
 	}
 
 	public JTextArea getQuestion() {
-		return question;
+		return questionTextArea;
 	}
 
 	public JTextArea getAnswer() {
-		return answer;
+		return answerTextArea;
 	}
 
 	public JTextField getDeckName() {
-		return deckName;
+		return deckNameTextField;
 	}
 
-	public JPanel getFramePanel() {
-		return framePanel;
+	public JPanel getCreateDeckFramePanel() {
+		return createDeckFramePanel;
 	}
-
-	public void setFramePanel(JPanel framePanel) {
-		this.framePanel = framePanel;
+	
+	public JFrame getCreateDeckFrame() {
+		return createDeckFrame;
 	}
 
 	/*

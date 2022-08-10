@@ -1,5 +1,6 @@
 package controller;
 
+import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -11,25 +12,15 @@ import view.CreateDeckGui;
 import view.ErrorScreen;
 
 public class CreateDeckGuiListener implements ActionListener {
-	private CreateDeckGui gui;// view
+	private CreateDeckGui createDeckGui;// view
 	private DeckManager deckmanager;// model
 	private String cmd;
-	private static String _deckname;
+	private static String deckName;
 
 	public CreateDeckGuiListener(CreateDeckGui gui, DeckManager model, String cmd) {
-		this.gui = gui;
+		this.createDeckGui = gui;
 		this.deckmanager = model;
 		this.cmd = cmd;
-	}
-
-	public CreateDeckGuiListener(CreateDeckGui gui, DeckManager model, String cmd, String d) {
-		this.gui = gui;
-		this.deckmanager = model;
-		this.cmd = cmd;
-		if (d != null) {
-			_deckname = d;
-		}
-
 	}
 
 	@Override
@@ -39,34 +30,36 @@ public class CreateDeckGuiListener implements ActionListener {
 
 	private void doCommand(String cmd) {
 		if (cmd.equals("ok")) {
-			String question = gui.getQuestion().getText();
-			String answer = gui.getAnswer().getText();
+			String question = createDeckGui.getQuestion().getText();
+			String answer = createDeckGui.getAnswer().getText();
 			try {
-				deckmanager.addFlashcard(_deckname, question, answer);
+				deckmanager.addFlashcard(deckName, question, answer);
 			} catch (UnvalidQAException e) {
 				// TODO Auto-generated catch block
 				new ErrorScreen(e.toString());
 			}
-			gui.getQuestion().setText("");
-			gui.getAnswer().setText("");
+			createDeckGui.getQuestion().setText("");
+			createDeckGui.getAnswer().setText("");
+			
 		} else if (cmd.equals("close")) {
-			gui.getCreateDeckFrame().dispose();
-		} else if (cmd.equals("Deckname")) {
-			String deckname = gui.getDeckName().getText();
-			_deckname = deckname;
+			createDeckGui.getCreateDeckFrame().dispose();
+			
+		} else if (cmd.equals("confirmDeckname")) {
+			deckName = createDeckGui.getDeckName().getText();
 			try {
-				deckmanager.addDeck(deckname);
+				deckmanager.addDeck(deckName);
 			} catch (UnValidDecknameException e) {
 				new ErrorScreen(e.toString());
-				gui.getCreateDeckFrame().dispose();
-//				new CreateDeckGui(deckmanager, "DECK ERSTELLEN", null);
+				createDeckGui.getCreateDeckFrame().dispose();
 
 			} catch (DeckIsExistingException e) {
 				new ErrorScreen(e.toString());
-				gui.getCreateDeckFrame().dispose();
-//				new CreateDeckGui(deckmanager, "DECK ERSTELLEN", null);
+				createDeckGui.getCreateDeckFrame().dispose();
 			}
-			gui.getCreateDeckFrame().setTitle("Lernkarte zu: \"" + deckname + "\" hinzufügen");
+			createDeckGui.getCreateDeckFrame().setTitle("Lernkarte zu: \"" + deckName + "\" hinzufügen");
+			// CardLayout weiterschalten 
+			CardLayout cardLayout = (CardLayout) createDeckGui.getCreateDeckFramePanel().getLayout();
+			cardLayout.show(createDeckGui.getCreateDeckFramePanel(), "createFlashcardCard");
 
 		}
 

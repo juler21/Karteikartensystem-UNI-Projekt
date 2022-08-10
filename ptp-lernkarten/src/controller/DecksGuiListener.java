@@ -35,7 +35,7 @@ public class DecksGuiListener implements ActionListener {
 	private void doCommand(String cmd) {
 		if (cmd.equals("deckErstellen")) {
 
-			new CreateDeckGui(deckmanager, "Deck Erstellen", null);
+			new CreateDeckGui(deckmanager, "Deck Erstellen");
 			return;
 
 		}

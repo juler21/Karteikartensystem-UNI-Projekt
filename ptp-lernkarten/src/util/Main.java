@@ -24,7 +24,6 @@ public class Main {
 	public static void main(String[] args) {
 		// themeSetUp
 		System.setProperty("apple.awt.application.appearance", "system");
-
 		// FlatLaf setzen Light Theme und Ecken abrunden
 		FlatLightFlatIJTheme.setup();
 		UIManager.put("Button.arc", 12);
