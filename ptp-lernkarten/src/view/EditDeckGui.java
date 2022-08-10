@@ -58,41 +58,21 @@ public class EditDeckGui extends JFrame implements Observer {
 		this.selectedDeck = selectedDeck;
 		this.fontStyle = fontstyle;
 
-		// JFrame erstellen
+		//JFrame erstellen
 		editDeckFrame = new JFrame(windowname);
 		editDeckFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		editDeckFrame.setBounds(420, 270, 600, 400);
 		setUIFont(new javax.swing.plaf.FontUIResource(fontStyle, Font.PLAIN, 20));
 
-		//
+		//Panel erstellen
 		editDeckPanel = new JPanel();
 		editDeckPanel.setBackground(new Color(244, 244, 244));
 		editDeckPanel.setLayout(new BorderLayout(0, 0));
 		editDeckFrame.setContentPane(editDeckPanel);
 
-		Flashcard[] flashcardArray = new Flashcard[0];
-
-		flashcardArray = new Flashcard[deckmanager.getFlashcardList(selectedDeck).size()];
-		for (int i = 0; i < deckmanager.getAmountOfFlashcards(selectedDeck); i++) {
-			flashcardArray[i] = deckmanager.getFlashcard(selectedDeck, i);
-		}
-
-		flashcardComboBox = new JComboBox<Flashcard>(flashcardArray);
-//		flashcardComboBox.setBorder(new EmptyBorder(15,5,15,5));
-		editDeckPanel.add(flashcardComboBox, BorderLayout.PAGE_START);
-		flashcardComboBox.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (flashcardComboBox.getSelectedItem() != null) {
-					Flashcard f = (Flashcard) (flashcardComboBox.getSelectedItem());
-					questionText.setText(deckmanager.getQuestion(f));
-					answerText.setText(deckmanager.getAnswer(f));
-				}
-
-			}
-		});
-
+		generateFlashcardComboBox();
+		
+		
 		qaPanel = new JPanel();
 		qaPanel.setLayout(new GridLayout(4, 1));
 		System.out.println((Flashcard) (flashcardComboBox.getSelectedItem()));
@@ -142,10 +122,37 @@ public class EditDeckGui extends JFrame implements Observer {
 
 		//Edit Deck Gui beobachtet Decks Klasse Deckmanager um Änderungen innerhalb der Decks zu registrieren 
 		deckmanager.registerObserver(this);
+		
 		editDeckFrame.setVisible(true);
 
 	}
+	
+	private void generateFlashcardComboBox() {
+		
+		Flashcard[] flashcardArray = new Flashcard[0];
 
+		flashcardArray = new Flashcard[deckmanager.getFlashcardList(selectedDeck).size()];
+		for (int i = 0; i < deckmanager.getAmountOfFlashcards(selectedDeck); i++) {
+			flashcardArray[i] = deckmanager.getFlashcard(selectedDeck, i);
+		}
+
+		flashcardComboBox = new JComboBox<Flashcard>(flashcardArray);
+		flashcardComboBox.addActionListener(new EditDeckGuiListener(this, selectedDeck, deckmanager, "comboBoxChange"));
+		editDeckPanel.add(flashcardComboBox, BorderLayout.PAGE_START);
+//		flashcardComboBox.addActionListener(new ActionListener() {
+//
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				if (flashcardComboBox.getSelectedItem() != null) {
+//					Flashcard f = (Flashcard) (flashcardComboBox.getSelectedItem());
+//					questionText.setText(deckmanager.getQuestion(f));
+//					answerText.setText(deckmanager.getAnswer(f));
+//				}
+//
+//			}
+//		});
+		
+	}
 	public JComboBox<Flashcard> getFlashcardList() {
 		return flashcardComboBox;
 	}

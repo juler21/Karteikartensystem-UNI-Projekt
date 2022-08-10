@@ -24,10 +24,7 @@ public class Main {
 	public static void main(String[] args) {
 		// themeSetUp
 		System.setProperty("apple.awt.application.appearance", "system");
-
 		FlatLightFlatIJTheme.setup();
-//		FlatArcDarkContrastIJTheme.setup();
-//		FlatArcIJTheme.setup();
 		UIManager.put("Button.arc", 12);
 		UIManager.put("Component.arc", 12);
 //		UIManager.put( "ComoboBox.arc", 12 );
