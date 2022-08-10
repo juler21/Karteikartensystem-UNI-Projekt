@@ -9,6 +9,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import util.DeckIsExistingException;
 import util.UnvalidQAException;
 
 public class Deck {
@@ -22,7 +23,7 @@ public class Deck {
 	}
 
 	private boolean checkRegex(String question, String answer) throws UnvalidQAException {
-		String pattern = ".+";
+		String pattern = "..+";
 
 		if (question != null && answer != null && question.matches(pattern) && answer.matches(pattern)) {
 			return true;
@@ -32,14 +33,16 @@ public class Deck {
 	}
 
 	void addFlashcard(String question, String answer) throws UnvalidQAException {
-		if (checkRegex(question, answer)) {
+		System.out.println(question + answer);
+//		if (checkRegex(question, answer)) 
+			if (!(question.isBlank() || answer.isBlank())){
 			Flashcard flash = new Flashcard(question, answer);
 			flashcardList.add(flash);
 			deleteDeckCSV();
 			saveDeckCSV();
-//			notifyObserver("flashcardChange");
+		} else {
+			throw new UnvalidQAException();
 		}
-
 	}
 
 	void deleteAllFlashcards() {

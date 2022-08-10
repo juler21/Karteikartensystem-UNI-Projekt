@@ -39,11 +39,11 @@ public class AddFlashcardGuiListener implements ActionListener {
 			String answer = addFlashcardGui.getAnswerTextArea().getText();
 			try {
 				deckmanager.addFlashcard(deckName, question, answer);
+				addFlashcardGui.getQuestionTextArea().setText("");
+				addFlashcardGui.getAnswerTextArea().setText("");
 			} catch (UnvalidQAException e) {
 				new ErrorScreen(e.toString());
 			}
-			addFlashcardGui.getQuestionTextArea().setText("");
-			addFlashcardGui.getAnswerTextArea().setText("");
 			
 		} else if (cmd.equals("close")) {
 			addFlashcardGui.getAddFlashcardFrame().dispose();		

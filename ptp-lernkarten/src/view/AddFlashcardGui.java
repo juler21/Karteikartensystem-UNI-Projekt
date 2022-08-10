@@ -16,7 +16,6 @@ import javax.swing.SpringLayout;
 import javax.swing.UIManager;
 
 import controller.AddFlashcardGuiListener;
-import controller.CreateDeckGuiListener;
 import model.DeckManager;
 
 public class AddFlashcardGui {
