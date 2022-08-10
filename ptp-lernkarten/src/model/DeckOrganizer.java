@@ -22,7 +22,7 @@ public class DeckOrganizer {
 
 	public DeckOrganizer() {
 		decks = new HashMap<String, Deck>();
-		createDirectories();
+		createDirectories("decks");
 		getData(new File(getPathtoString()));
 	}
 
@@ -145,31 +145,24 @@ public class DeckOrganizer {
 		}
 	}
 
-	void createDirectories() {
+	void createDirectories(String foldername) {
 
 		String path = System.getProperty("user.home");
-		pathDirectory = Paths.get(path, "decks");
+		pathDirectory = Paths.get(path, foldername);
 		try {
 			Files.createDirectories(pathDirectory);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 	}
 
 	static String getPathtoString() {
-		String path = System.getProperty("user.home");
-		pathDirectory = Paths.get(path, "decks");
 		return pathDirectory.toString();
 	}
 
 	static Path getPathDirectory() {
 		return pathDirectory;
-	}
-
-	static void setPathDirectory(Path pathDirectory) {
-		DeckOrganizer.pathDirectory = pathDirectory;
 	}
 
 	boolean containsDeck(String deckname) {

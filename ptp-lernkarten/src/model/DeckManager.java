@@ -63,7 +63,7 @@ public class DeckManager extends Observable {
 	public void addFlashcard(String deckname, String question, String answer) throws UnvalidQAException {
 		getDeck(deckname).addFlashcard(question, answer);
 		notifyObserver("flashcardChange");
-		
+
 	}
 
 	public int getAmountOfFlashcards(String deckname) {
@@ -98,13 +98,12 @@ public class DeckManager extends Observable {
 		return f.getAnswer();
 	}
 
-	public void createDirectories() {
-		deckorganizer.createDirectories();
-
+	public static String getPathtoString() {
+		return DeckManager.getPathtoString();
 	}
 
-	public static String getPathtoString() {
-		return DeckOrganizer.getPathtoString();
+	public void changeDirectory(String foldername) {
+		deckorganizer.createDirectories(foldername);
 	}
 
 	public boolean decksisEmpty() {
