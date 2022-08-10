@@ -34,12 +34,12 @@ public class CreateDeckGuiListener implements ActionListener {
 			String answer = createDeckGui.getAnswer().getText();
 			try {
 				deckmanager.addFlashcard(deckName, question, answer);
+				createDeckGui.getQuestion().setText("");
+				createDeckGui.getAnswer().setText("");
 			} catch (UnvalidQAException e) {
 				// TODO Auto-generated catch block
 				new ErrorScreen(e.toString());
 			}
-			createDeckGui.getQuestion().setText("");
-			createDeckGui.getAnswer().setText("");
 			
 		} else if (cmd.equals("close")) {
 			createDeckGui.getCreateDeckFrame().dispose();
