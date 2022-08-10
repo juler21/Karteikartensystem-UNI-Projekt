@@ -21,7 +21,7 @@ public class MainTest {
 	@BeforeEach
 	public void newMain() {
 		app = new Main();
-		app.changeDirectory("test");
+		app.changeFoldername("test");
 	}
 
 	@Test

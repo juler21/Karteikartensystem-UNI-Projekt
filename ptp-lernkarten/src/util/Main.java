@@ -93,7 +93,7 @@ public class Main {
 	/*
 	 * 
 	 */
-	public void changeDirectory(String foldername) {
+	public void changeFoldername(String foldername) {
 		deckmanager.changeDirectory(foldername);
 	}
 
