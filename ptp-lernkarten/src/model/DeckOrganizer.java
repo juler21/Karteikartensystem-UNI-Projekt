@@ -133,7 +133,9 @@ public class DeckOrganizer {
 				BufferedReader br = new BufferedReader(new FileReader(paths.get(i)));
 				while ((line = br.readLine()) != null) {
 					String[] values = line.split(";");
-					newdeck.loadFlashcard(new Flashcard(values[1], values[2]));
+					String question = values[1].replace('\\', '\n');
+					String answer = values[2].replace('\\', '\n');
+					newdeck.loadFlashcard(new Flashcard(question, answer));
 				}
 				loadDeck(newdeck);
 			} catch (FileNotFoundException e) {

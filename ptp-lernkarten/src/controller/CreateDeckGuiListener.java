@@ -31,7 +31,9 @@ public class CreateDeckGuiListener implements ActionListener {
 	private void doCommand(String cmd) {
 		if (cmd.equals("ok")) {
 			String question = createDeckGui.getQuestion().getText();
+			System.out.println(question);
 			String answer = createDeckGui.getAnswer().getText();
+			System.out.println(answer);
 			try {
 				deckmanager.addFlashcard(deckName, question, answer);
 				createDeckGui.getQuestion().setText("");
@@ -40,10 +42,10 @@ public class CreateDeckGuiListener implements ActionListener {
 				// TODO Auto-generated catch block
 				new ErrorScreen(e.toString());
 			}
-			
+
 		} else if (cmd.equals("close")) {
 			createDeckGui.getCreateDeckFrame().dispose();
-			
+
 		} else if (cmd.equals("confirmDeckname")) {
 			deckName = createDeckGui.getDeckName().getText();
 			try {
@@ -57,7 +59,7 @@ public class CreateDeckGuiListener implements ActionListener {
 				createDeckGui.getCreateDeckFrame().dispose();
 			}
 			createDeckGui.getCreateDeckFrame().setTitle("Lernkarte zu: \"" + deckName + "\" hinzufügen");
-			// CardLayout weiterschalten 
+			// CardLayout weiterschalten
 			CardLayout cardLayout = (CardLayout) createDeckGui.getCreateDeckFramePanel().getLayout();
 			cardLayout.show(createDeckGui.getCreateDeckFramePanel(), "createFlashcardCard");
 

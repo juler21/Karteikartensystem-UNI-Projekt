@@ -1,19 +1,15 @@
 package controller;
 
-import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import model.DeckManager;
-import util.DeckIsExistingException;
-import util.UnValidDecknameException;
 import util.UnvalidQAException;
 import view.AddFlashcardGui;
-import view.CreateDeckGui;
 import view.ErrorScreen;
 
 public class AddFlashcardGuiListener implements ActionListener {
-	
+
 	private AddFlashcardGui addFlashcardGui;// view
 	private DeckManager deckmanager;// model
 	private String cmd;
@@ -24,7 +20,7 @@ public class AddFlashcardGuiListener implements ActionListener {
 		this.deckmanager = deckmanager;
 		this.cmd = cmd;
 		this.deckName = addFlashcardGui.getSelectedDeck();
-		
+
 	}
 
 	@Override
@@ -34,7 +30,7 @@ public class AddFlashcardGuiListener implements ActionListener {
 
 	private void doCommand(String cmd) {
 		if (cmd.equals("ok")) {
-			
+
 			String question = addFlashcardGui.getQuestionTextArea().getText();
 			String answer = addFlashcardGui.getAnswerTextArea().getText();
 			try {
@@ -44,10 +40,10 @@ public class AddFlashcardGuiListener implements ActionListener {
 			} catch (UnvalidQAException e) {
 				new ErrorScreen(e.toString());
 			}
-			
+
 		} else if (cmd.equals("close")) {
-			addFlashcardGui.getAddFlashcardFrame().dispose();		
-		} 
+			addFlashcardGui.getAddFlashcardFrame().dispose();
+		}
 
 	}
 }

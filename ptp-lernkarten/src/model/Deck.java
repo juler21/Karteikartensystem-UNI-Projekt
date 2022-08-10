@@ -9,7 +9,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import util.DeckIsExistingException;
 import util.UnvalidQAException;
 
 public class Deck {
@@ -33,9 +32,8 @@ public class Deck {
 	}
 
 	void addFlashcard(String question, String answer) throws UnvalidQAException {
-		System.out.println(question + answer);
 //		if (checkRegex(question, answer)) 
-			if (!(question.isBlank() || answer.isBlank())){
+		if (!(question.isBlank() || answer.isBlank())) {
 			Flashcard flash = new Flashcard(question, answer);
 			flashcardList.add(flash);
 			deleteDeckCSV();
@@ -73,7 +71,10 @@ public class Deck {
 			BufferedWriter writeBuffer = new BufferedWriter(new FileWriter(pathCSVString, true));
 			if (getAmountOfFlashcards() > 0) {
 				for (Flashcard f : flashcardList) {
-					String row = String.format("%d;%s;%s%n", flashcardList.indexOf(f), f.getQuestion(), f.getAnswer());
+					String questionString = f.getQuestion().replace('\n', '\\');
+					System.out.println("HIER:" + questionString);
+					String answerString = f.getAnswer().replace('\n', '\\');
+					String row = String.format("%d;%s;%s%n", flashcardList.indexOf(f), questionString, answerString);
 
 					writeBuffer.append(row);
 				}

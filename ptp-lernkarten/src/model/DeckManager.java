@@ -61,6 +61,7 @@ public class DeckManager extends Observable {
 	}
 
 	public void addFlashcard(String deckname, String question, String answer) throws UnvalidQAException {
+		System.out.println(question);
 		getDeck(deckname).addFlashcard(question, answer);
 		notifyObserver("flashcardChange");
 

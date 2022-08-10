@@ -4,8 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -19,7 +17,6 @@ import javax.swing.UIManager;
 import controller.EditDeckGuiListener;
 import model.DeckManager;
 import model.Flashcard;
-import util.NoDeckSelectedExeption;
 import util.NoFlashcardSelectedExeption;
 
 public class EditDeckGui extends JFrame implements Observer {
@@ -51,28 +48,28 @@ public class EditDeckGui extends JFrame implements Observer {
 
 	private JScrollPane answerScrollPane;
 
-	public EditDeckGui(DeckManager deckmanager, DecksGui decksgui, String selectedDeck, String windowname, String fontstyle) {
+	public EditDeckGui(DeckManager deckmanager, DecksGui decksgui, String selectedDeck, String windowname,
+			String fontstyle) {
 
 		this.deckmanager = deckmanager;
 		this.decksgui = decksgui;
 		this.selectedDeck = selectedDeck;
 		this.fontStyle = fontstyle;
 
-		//JFrame erstellen
+		// JFrame erstellen
 		editDeckFrame = new JFrame(windowname);
 		editDeckFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		editDeckFrame.setBounds(420, 270, 600, 400);
 		setUIFont(new javax.swing.plaf.FontUIResource(fontStyle, Font.PLAIN, 20));
 
-		//Panel erstellen
+		// Panel erstellen
 		editDeckPanel = new JPanel();
 		editDeckPanel.setBackground(new Color(244, 244, 244));
 		editDeckPanel.setLayout(new BorderLayout(0, 0));
 		editDeckFrame.setContentPane(editDeckPanel);
 
 		generateFlashcardComboBox();
-		
-		
+
 		qaPanel = new JPanel();
 		qaPanel.setLayout(new GridLayout(4, 1));
 		System.out.println((Flashcard) (flashcardComboBox.getSelectedItem()));
@@ -107,7 +104,7 @@ public class EditDeckGui extends JFrame implements Observer {
 		deleteFlashcardButton = new JButton("Löschen");
 		deleteFlashcardButton
 				.addActionListener(new EditDeckGuiListener(this, selectedDeck, deckmanager, "deleteFlashcard"));
-		saveFlashcardButton = new JButton("Speichern");
+		saveFlashcardButton = new JButton("Ändern");
 		saveFlashcardButton
 				.addActionListener((new EditDeckGuiListener(this, selectedDeck, deckmanager, "editFlashcard")));
 		quitButton = new JButton("Schließen");
@@ -120,15 +117,16 @@ public class EditDeckGui extends JFrame implements Observer {
 		lowerButtonPanel.add(quitButton);
 		editDeckPanel.add(lowerButtonPanel, BorderLayout.PAGE_END);
 
-		//Edit Deck Gui beobachtet Decks Klasse Deckmanager um Änderungen innerhalb der Decks zu registrieren 
+		// Edit Deck Gui beobachtet Decks Klasse Deckmanager um Änderungen innerhalb der
+		// Decks zu registrieren
 		deckmanager.registerObserver(this);
-		
+
 		editDeckFrame.setVisible(true);
 
 	}
-	
+
 	private void generateFlashcardComboBox() {
-		
+
 		Flashcard[] flashcardArray = new Flashcard[0];
 
 		flashcardArray = new Flashcard[deckmanager.getFlashcardList(selectedDeck).size()];
@@ -151,8 +149,9 @@ public class EditDeckGui extends JFrame implements Observer {
 //
 //			}
 //		});
-		
+
 	}
+
 	public JComboBox<Flashcard> getFlashcardList() {
 		return flashcardComboBox;
 	}
