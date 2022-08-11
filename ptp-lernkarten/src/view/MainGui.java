@@ -20,6 +20,12 @@ import model.Deck;
 import model.DeckManager;
 import util.NoDeckSelectedExeption;
 
+
+/** PTP 22 
+* Hauptguiklasse: Startpunkt der Anwendung
+* @author Mark Sterkel Julian Dillmann
+* @version 
+*/
 public class MainGui extends JFrame implements Observer {
 
 	// Fenster
@@ -49,6 +55,10 @@ public class MainGui extends JFrame implements Observer {
 
 	private JComboBox<Deck> chooseDeckComboBox;
 
+	/**
+	* Der MainGui Konstruktor erstellt die MainGui mit ihren Komponenten 
+	* und entsprechenden Listenern.
+	*/
 	public MainGui(DeckManager manager, String name) {
 		this.deckmanager = manager;
 		// JFrame erstellen
@@ -79,10 +89,9 @@ public class MainGui extends JFrame implements Observer {
 
 	}
 
-	public MainGui() {
-		// TODO Auto-generated constructor stub
-	}
-
+	/**
+	* erstellt das topButtonPanel zur Navigation
+	*/
 	private void generateTopButtons() {
 
 		// topButtonPanel erstellen und zum frameContentPane hinzufügen
@@ -90,6 +99,7 @@ public class MainGui extends JFrame implements Observer {
 		topButtonPanel.setLayout(new FlowLayout());
 		topButtonPanel.setBorder(new EmptyBorder(15, 5, 15, 5));
 		framePanel.add(topButtonPanel, BorderLayout.NORTH);
+		
 		// BUTTONS
 		startButton = new JButton("START");
 		startButton.setPreferredSize(new Dimension(130, 40));
@@ -112,7 +122,9 @@ public class MainGui extends JFrame implements Observer {
 		einstellungenButton.addActionListener(new MainGuiListener(this,deckmanager, "einstellungenCard"));
 
 	}
-
+	/**
+	* erstellt das contenPanel mit CardLayout und die jeweiligen Karten
+	*/
 	private void generateContentPanel() {
 
 		// ContentPanel erstellen
@@ -131,7 +143,6 @@ public class MainGui extends JFrame implements Observer {
 		// Decks-Karte
 		decksCard = new JPanel();
 		decksCard.setLayout(new GridLayout(4, 1, 10, 5));
-//		deckListeErstellen();
 		decksGui = new DecksGui(decksCard, deckmanager, fontStyle, this);
 		contentPanel.add(decksCard, "decksCard");
 
@@ -149,6 +160,9 @@ public class MainGui extends JFrame implements Observer {
 
 	}
 
+	/**
+	* erstellt die ComboBox, die in der DecksGui angezeigt wird und alle Decks enthält
+	*/
 	private void deckListeErstellen() {
 
 		chooseDeckComboBox = new JComboBox<Deck>();
@@ -156,7 +170,14 @@ public class MainGui extends JFrame implements Observer {
 		update("deckChange");
 
 	}
-
+	
+	/**
+	* gibt das aktuell in der Combobox gewählte Deck zurück 
+	* 
+	* @return das aktuell gewählte Deck als String 
+	* @exception NoDeckSelectedExeption wenn kein Deck gewählt ist 
+	* 
+	*/
 	public String getSelectedDeck() throws NoDeckSelectedExeption {
 		if (chooseDeckComboBox.getSelectedItem() != null) {
 			return chooseDeckComboBox.getSelectedItem().toString();
@@ -165,9 +186,6 @@ public class MainGui extends JFrame implements Observer {
 		}
 	}
 
-	public JComboBox<Deck> getJCombobox() {
-		return chooseDeckComboBox;
-	}
 
 	@Override
 	public void update(String changeType) {
@@ -194,9 +212,10 @@ public class MainGui extends JFrame implements Observer {
 		}
 
 	}
-
+	
 	/*
-	 * Setzt alle Default UI Fonts auf die übergebene Font
+	 * Setzt den default für alle UI Fonts auf die übergebene Font
+	 * @param f die gewünschte FontUIResource 
 	 *
 	 */
 	private void setUIFont(javax.swing.plaf.FontUIResource f) {
@@ -208,7 +227,19 @@ public class MainGui extends JFrame implements Observer {
 				UIManager.put(key, f);
 		}
 	}
+	
+	
+	// Getter + Setter 
 
+	/**
+	 * gibt die chooseDeckComboBox zurück
+	 * 
+	 * @return chooseDeckComboBox
+	 * 
+	 */
+	public JComboBox<Deck> getJCombobox() {
+		return chooseDeckComboBox;
+	}
 
 	public CardLayout getContentPanelCardLayout() {
 		return contentPanelCardLayout;

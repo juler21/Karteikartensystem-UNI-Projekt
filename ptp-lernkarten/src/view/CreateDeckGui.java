@@ -24,6 +24,11 @@ import javax.swing.border.EmptyBorder;
 import controller.CreateDeckGuiListener;
 import model.DeckManager;
 
+/** PTP 22 
+* Extra Fenster: Zuständig für die Erstellung von neuen Kartendecks
+* @author Mark Sterkel & Julian Dillmann
+* @version 
+*/
 public class CreateDeckGui {
 	
 	private DeckManager deckmanager;
@@ -41,15 +46,15 @@ public class CreateDeckGui {
 	private JScrollPane answerScrollPane;
 	private JButton confirmDecknameButton;
 
-	//CreateDeckGui Konstruktor normal
-	public CreateDeckGui(DeckManager deckmanager, String windowname) {
+
+	public CreateDeckGui(DeckManager deckmanager, String fontstyle) {
 		
 		this.deckmanager = deckmanager;
-		fontStyle = "Helvetica";
+		fontStyle = fontstyle;
 		
 
 		// JFrame erstllen
-		createDeckFrame = new JFrame(windowname);
+		createDeckFrame = new JFrame("Deck Erstellen");
 		createDeckFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		createDeckFrame.setBounds(480, 300, 500, 300);
 		setUIFont(new javax.swing.plaf.FontUIResource(fontStyle, Font.PLAIN, 20));
@@ -149,7 +154,6 @@ public class CreateDeckGui {
 				6, 6); // xPad, yPad
 		
 		createFlashcardCard.add(qaPanel, BorderLayout.CENTER);
-//		createFlashcardCard.add(qaPanel);
 
 		//ButtonPanel erstellen	
 		JPanel buttonPanel = new JPanel(new FlowLayout());
@@ -180,26 +184,6 @@ public class CreateDeckGui {
 		createFlashcardCard.add(buttonPanel, BorderLayout.PAGE_END);	
 	}
 
-	public JTextArea getQuestion() {
-		return questionTextArea;
-	}
-
-	public JTextArea getAnswer() {
-		return answerTextArea;
-	}
-
-	public JTextField getDeckName() {
-		return deckNameTextField;
-	}
-
-	public JPanel getCreateDeckFramePanel() {
-		return createDeckFramePanel;
-	}
-	
-	public JFrame getCreateDeckFrame() {
-		return createDeckFrame;
-	}
-
 	/*
 	 * Setzt alle Default UI Fonts auf die übergebene Font
 	 *
@@ -212,5 +196,26 @@ public class CreateDeckGui {
 			if (value instanceof javax.swing.plaf.FontUIResource)
 				UIManager.put(key, f);
 		}
+	}
+	
+	// Getter + Setter 
+	public JTextArea getQuestion() {
+		return questionTextArea;
+	}
+	
+	public JTextArea getAnswer() {
+		return answerTextArea;
+	}
+	
+	public JTextField getDeckName() {
+		return deckNameTextField;
+	}
+	
+	public JPanel getCreateDeckFramePanel() {
+		return createDeckFramePanel;
+	}
+	
+	public JFrame getCreateDeckFrame() {
+		return createDeckFrame;
 	}
 }

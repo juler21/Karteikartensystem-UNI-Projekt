@@ -11,25 +11,32 @@ import model.Deck;
 import model.DeckManager;
 import util.NoDeckSelectedExeption;
 
+/** PTP 22 
+* Hauptguiklasse: Startpunkt der Anwendung
+* @author Mark Sterkel Julian Dillmann
+* @version 
+*/
 public class DecksGui {
 	
-	private String fontStyle;
 	private MainGui mainGui;
+	private String fontStyle;
 	
 	private JComboBox<Deck> chooseDeckComboBox;
 	private DeckManager deckmanager;
 	
+	/**
+	* Der DecksGui Konstruktor erstellt die DecksGui mit ihren Komponenten 
+	* und entsprechenden Listenern.
+	*/
 	DecksGui(JPanel decksCard, DeckManager deckmanager, String fontstyle, MainGui maingui) {
 		
 		this.mainGui = maingui;
 		this.chooseDeckComboBox = mainGui.getJCombobox();
 		this.deckmanager = deckmanager;
 		fontStyle = fontstyle;
-//		deckmanager.registerObserver(this);
 		
 		JPanel comboBoxPanel = new JPanel();
 		chooseDeckComboBox.setPreferredSize(new Dimension(700, 40));
-//		chooseDeckComboBox.addActionListener(new DecksGuiListener(this, deckmanager, "comboBox"));
 		comboBoxPanel.add(chooseDeckComboBox);
 		decksCard.add(comboBoxPanel);
 
@@ -50,11 +57,14 @@ public class DecksGui {
 		
 	}
 	
+	/**
+	* gibt das aktuell in der Combobox gewählte Deck zurück 
+	* 
+	* @return das aktuell gewählte Deck als String 
+	* @exception NoDeckSelectedExeption wenn kein Deck gewählt ist 
+	* 
+	*/
 	public String getSelectedDeck() throws NoDeckSelectedExeption {
 		return mainGui.getSelectedDeck();
 	}
-
-	
-
-
 }
