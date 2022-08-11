@@ -18,7 +18,7 @@ import util.UnValidDecknameException;
 public class DeckOrganizer {
 
 	private HashMap<String, Deck> decks;
-	private static Path pathDirectory; // aktuelles deck
+	private static Path pathDirectory;
 
 	public DeckOrganizer() {
 		decks = new HashMap<String, Deck>();

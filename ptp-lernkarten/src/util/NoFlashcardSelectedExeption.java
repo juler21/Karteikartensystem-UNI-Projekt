@@ -1,6 +1,7 @@
 package util;
 
 public class NoFlashcardSelectedExeption extends Exception {
+	private static final long serialVersionUID = 2065042652578480369L;
 	private String error;
 
 	public NoFlashcardSelectedExeption() {

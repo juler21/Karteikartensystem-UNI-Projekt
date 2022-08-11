@@ -1,6 +1,8 @@
 package util;
 
 public class NoDeckSelectedExeption extends Exception {
+
+	private static final long serialVersionUID = 883439657634690636L;
 	private String error;
 
 	public NoDeckSelectedExeption() {

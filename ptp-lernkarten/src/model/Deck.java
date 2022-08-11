@@ -21,10 +21,9 @@ public class Deck {
 		deckname = deck;
 	}
 
-	private boolean checkRegex(String question, String answer) throws UnvalidQAException {
-		String pattern = "..+";
+	private boolean checkQAText(String text) throws UnvalidQAException {
 
-		if (question != null && answer != null && question.matches(pattern) && answer.matches(pattern)) {
+		if (!text.isBlank() && text != null) {
 			return true;
 		} else {
 			throw new UnvalidQAException();
@@ -32,14 +31,11 @@ public class Deck {
 	}
 
 	void addFlashcard(String question, String answer) throws UnvalidQAException {
-//		if (checkRegex(question, answer)) 
-		if (!(question.isBlank() || answer.isBlank())) {
+		if (checkQAText(question) && checkQAText(answer)) {
 			Flashcard flash = new Flashcard(question, answer);
 			flashcardList.add(flash);
 			deleteDeckCSV();
 			saveDeckCSV();
-		} else {
-			throw new UnvalidQAException();
 		}
 	}
 
@@ -59,7 +55,6 @@ public class Deck {
 		flashcardList.remove(index);
 		deleteDeckCSV();
 		saveDeckCSV();
-//		notifyObserver("flashcardChange");
 	}
 
 	void saveDeckCSV() {
