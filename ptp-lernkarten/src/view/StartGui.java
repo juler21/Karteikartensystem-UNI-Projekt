@@ -16,13 +16,16 @@ import model.DeckManager;
 import util.NoDeckSelectedExeption;
 
 
+/** PTP 22 
+* StartGuiklasse: Zuständig für den Startbildschirm und dessen unter Bildschirme
+* @author Mark Sterkel Julian Dillmann
+* @version 
+*/
 public class StartGui {
 	
-	//Panel auf dem alles liegt
+
 	private JPanel startCard;
-	//Font
 	private String fontStyle;
-	
 	private DeckManager deckmanager;
 	
 	//4 verscheidenen Karten die angezeigt werden können 
@@ -30,8 +33,7 @@ public class StartGui {
 	private JPanel learnQuestionCard;
 	private JPanel learnAnswerCard;
 	private JPanel learnEndCard;
-	
-	
+		
 	private JLabel currentDeckLabel;
 	private JTextArea onlyQuestionTextArea;
 	private JTextArea questionTextArea;
@@ -42,6 +44,10 @@ public class StartGui {
 	private AbstractButton lernenBeginnenButton;
 
 	
+	/**
+	* Der StartGui Konstruktor erstellt die StartGui mit ihren Komponenten 
+	* und entsprechenden Listenern.
+	*/
 	public StartGui(JPanel startCard, DeckManager deckmanager, String fontstyle, MainGui maingui) {
 		
 		super();
@@ -58,16 +64,16 @@ public class StartGui {
 		
 		createlearnEndCard();
 		
+		startCard.add(learnHomeCard, "learnHomeCard");
 		startCard.add(learnQuestionCard, "learnQuestionCard");
 		startCard.add(learnAnswerCard, "learnAnswerCard");
-		startCard.add(learnHomeCard, "learnHomeCard");
 		startCard.add(learnEndCard, "learnEndCard");
-		
-		//Anfangscreen auf Home setzten	
-		((CardLayout) startCard.getLayout()).show(startCard, "learnHomeCard");
 		
 	}
 
+	/**
+	* erstellt die learnHomeKarte des CardLayout
+	*/
 	private void createLearnHomeCard() {
 		
 		learnHomeCard = new JPanel();
@@ -110,7 +116,10 @@ public class StartGui {
 		lernenBeginnenButton.addActionListener(new StartGuiListener(this, deckmanager, "lernenBeginnenButton"));
 
 	}
-
+	
+	/**
+	* erstellt die learnHomeKarte des CardLayout
+	*/
 	private void createLearnQuestionCard() {
 			
 		// Question-Karte
@@ -193,7 +202,17 @@ public class StartGui {
 
 		
 	}
-
+	
+	/*
+	 * Aktiviert oder deaktiviert den lernenBeginnenButton 
+	 * @param value flase für deaktivieren true für aktivieren
+	 *
+	 */
+	public void enableLernenBeginnenButton(boolean value) {
+		lernenBeginnenButton.setEnabled(value);
+	}
+	
+	// Getter + Setter 
 	public String getSelectedDeck() throws NoDeckSelectedExeption {
 		return mainGui.getSelectedDeck();
 	}
@@ -222,9 +241,6 @@ public class StartGui {
 		currentDeckLabel.setText(text);
 	}
 	
-	public void enableLernenBeginnenButton(boolean value) {
-		lernenBeginnenButton.setEnabled(value);
-	}
 	
 	
 }

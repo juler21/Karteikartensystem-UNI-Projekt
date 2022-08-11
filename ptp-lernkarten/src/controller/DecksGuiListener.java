@@ -12,9 +12,7 @@ import view.ErrorScreen;
 
 public class DecksGuiListener implements ActionListener {
 
-	// Model
 	private DeckManager deckmanager;
-	// Startgui
 	private DecksGui decksgui;
 	private String cmd;
 	private String fontStyle;
@@ -35,17 +33,10 @@ public class DecksGuiListener implements ActionListener {
 	private void doCommand(String cmd) {
 		if (cmd.equals("deckErstellen")) {
 
-			new CreateDeckGui(deckmanager, "Deck Erstellen");
+			new CreateDeckGui(deckmanager, fontStyle);
 			return;
 
 		}
-//		
-//		if (cmd.equals("comboBox")) {
-//
-//			
-//			return;
-//
-//		}
 		try {
 
 			String selectedDeck = decksgui.getSelectedDeck();
