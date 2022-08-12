@@ -10,12 +10,20 @@ import view.AddFlashcardGui;
 import view.EditDeckGui;
 import view.ErrorScreen;
 
+/**
+ * PTP 22 - Controllerklasse: Realisiert Interaktionen mit der EditDeckGui 
+ * 
+ * @author J.Dillmann, M. Sterkel
+ */
 public class EditDeckGuiListener implements ActionListener {
 	private EditDeckGui gui;// view
 	private DeckManager deckmanager;// model
 	private String cmd;
 	private String selectedDeck;
 
+	/**
+	 * Im Konstruktor wird eine Instanz der Klasse EditDeckGuiListener erstellt.
+	 */
 	public EditDeckGuiListener(EditDeckGui gui, String selectedDeck, DeckManager model, String cmd) {
 		this.gui = gui;
 		this.deckmanager = model;
@@ -28,6 +36,9 @@ public class EditDeckGuiListener implements ActionListener {
 		doCommand(cmd);
 	}
 
+	/**
+	 * Methode führt je nach Interaktionstyp (zum Beispiel Knopfdruck) die entsprechende Aktion aus 
+	 */
 	private void doCommand(String cmd) {
 
 		if (cmd.equals("close")) {
@@ -48,7 +59,6 @@ public class EditDeckGuiListener implements ActionListener {
 				deckmanager.updateCSV(selectedDeck);
 			} else if (cmd.equals("newFlashcard")) {
 				new AddFlashcardGui(deckmanager, selectedDeck.toString(), selectedDeck);
-//				((CardLayout) DeckGUI.getCreateDeckFramePanel().getLayout()).show(DeckGUI.getCreateDeckFramePanel(), "createFlashcardCard");
 			} else if (cmd.equals("comboBoxChange")) {
 				if (gui.getFlashcardComboBox().getSelectedItem() != null) {
 					Flashcard f = (Flashcard) (gui.getFlashcardComboBox().getSelectedItem());
@@ -59,6 +69,5 @@ public class EditDeckGuiListener implements ActionListener {
 		} catch (NoFlashcardSelectedExeption e) {
 			new ErrorScreen(e.getError());
 		}
-
 	}
 }

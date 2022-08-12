@@ -10,7 +10,11 @@ import view.DecksGui;
 import view.EditDeckGui;
 import view.ErrorScreen;
 
-
+/**
+ * PTP 22 - Controllerklasse: Realisiert Interaktionen mit der DecksGui 
+ * 
+ * @author J.Dillmann, M. Sterkel
+ */
 public class DecksGuiListener implements ActionListener {
 
 	private DeckManager deckmanager;
@@ -18,7 +22,9 @@ public class DecksGuiListener implements ActionListener {
 	private String cmd;
 	private String fontStyle;
 
-	
+	/**
+	 * Im Konstruktor wird eine Instanz der Klasse DecksGuiListener erstellt.
+	 */
 	public DecksGuiListener(DecksGui decksgui, DeckManager deckmanager, String fontstyle, String cmd) {
 
 		this.deckmanager = deckmanager;
@@ -31,13 +37,15 @@ public class DecksGuiListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		doCommand(cmd);
 	}
-
+	
+	/**
+	 * Methode führt je nach Interaktionstyp (zum Beispiel Knopfdruck) die entsprechende Aktion aus 
+	 */
 	private void doCommand(String cmd) {
 		if (cmd.equals("deckErstellen")) {
 
 			new CreateDeckGui(deckmanager, fontStyle);
 			return;
-
 		}
 		try {
 
@@ -51,12 +59,10 @@ public class DecksGuiListener implements ActionListener {
 		} else if (cmd.equals("deckLöschen")) {
 
 				deckmanager.removeDeck(selectedDeck);
-
 		} 
 		}
 		catch (NoDeckSelectedExeption e) {
 			new ErrorScreen(e.getError());
 		}
 		}
-
 }

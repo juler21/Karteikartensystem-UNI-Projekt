@@ -10,6 +10,11 @@ import view.ErrorScreen;
 import view.MainGui;
 import view.StartGui;
 
+/**
+ * PTP 22 - Controllerklasse: Realisiert Interaktionen mit der StartGui 
+ * 
+ * @author J.Dillmann, M. Sterkel
+ */
 public class StartGuiListener implements ActionListener {
 	private String cmd;
 	private StartGui startgui;
@@ -17,12 +22,10 @@ public class StartGuiListener implements ActionListener {
 	private DeckManager deckmanager;
 	private static int flashcardLearnIndex = 0;
 	
-	public StartGuiListener(StartGui startgui, DeckManager deckmanager, String cmd) {
-		this.startgui = startgui;
-		this.deckmanager = deckmanager;
-		this.cmd = cmd;
-	}
 	
+	/**
+	 * Im Konstruktor wird eine Instanz der Klasse StartGuiListener erstellt.
+	 */
 	public StartGuiListener(StartGui startgui, MainGui maingui, DeckManager deckmanager, String cmd) {
 		this.startgui = startgui;
 		this.deckmanager = deckmanager;
@@ -35,9 +38,12 @@ public class StartGuiListener implements ActionListener {
 		doCommand(cmd);
 		
 	}
+	
+	/**
+	 * Methode führt je nach Interaktionstyp (zum Beispiel Knopfdruck) die entsprechende Aktion aus 
+	 */
 	private void doCommand(String cmd) {
 		try {
-
 			String selectedDeck = startgui.getSelectedDeck();
 
 			if (cmd.equals("lernenBeginnenButton")) {
@@ -86,11 +92,14 @@ public class StartGuiListener implements ActionListener {
 		} catch (NoDeckSelectedExeption e) {
 			new ErrorScreen(e.getError());
 		}
-		
 	}
 	
-	public void setLearnScreen(String screenCard) {
-
+	/**
+	 * Schaltet auf eine gewüschte Karte des StartCard CardLayout
+	 * 
+	 * @param screenCard die gewünschte Karte
+	 */
+	private void setLearnScreen(String screenCard) {
 		CardLayout cardLayout = (CardLayout) startgui.getStartCard().getLayout();
 		cardLayout.show(startgui.getStartCard(), screenCard);
 

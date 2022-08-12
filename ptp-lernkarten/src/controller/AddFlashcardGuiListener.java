@@ -8,13 +8,21 @@ import util.UnvalidQAException;
 import view.AddFlashcardGui;
 import view.ErrorScreen;
 
+/**
+ * PTP 22 - Controllerklasse: Realisiert Interaktionen mit der AddFlashcardGui
+ * 
+ * @author J.Dillmann, M. Sterkel
+ */
 public class AddFlashcardGuiListener implements ActionListener {
 
-	private AddFlashcardGui addFlashcardGui;// view
-	private DeckManager deckmanager;// model
+	private AddFlashcardGui addFlashcardGui;
+	private DeckManager deckmanager;
 	private String cmd;
 	private String deckName;
 
+	/**
+	 * Im Konstruktor wird eine Instanz der Klasse AddFlashcardGuiListener erstellt.
+	 */
 	public AddFlashcardGuiListener(AddFlashcardGui addflashcardgui, DeckManager deckmanager, String cmd) {
 		this.addFlashcardGui = addflashcardgui;
 		this.deckmanager = deckmanager;
@@ -28,6 +36,9 @@ public class AddFlashcardGuiListener implements ActionListener {
 		doCommand(cmd);
 	}
 
+	/**
+	 * Methode führt je nach Interaktionstyp (zum Beispiel Knopfdruck) die entsprechende Aktion aus 
+	 */
 	private void doCommand(String cmd) {
 		if (cmd.equals("ok")) {
 
@@ -40,10 +51,8 @@ public class AddFlashcardGuiListener implements ActionListener {
 			} catch (UnvalidQAException e) {
 				new ErrorScreen(e.toString());
 			}
-
 		} else if (cmd.equals("close")) {
 			addFlashcardGui.getAddFlashcardFrame().dispose();
 		}
-
 	}
 }

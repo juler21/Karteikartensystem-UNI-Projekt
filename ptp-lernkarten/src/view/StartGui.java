@@ -78,7 +78,7 @@ public class StartGui {
 		lernenBeginnenButton = new JButton("Lernen Beginnen");
 		lernenBeginnenButton.setFont(new Font(fontStyle, Font.PLAIN, 27));
 		lernenBeginnenButton.setBounds(50, 165, 300, 60);
-		lernenBeginnenButton.addActionListener(new StartGuiListener(this, deckmanager, "lernenBeginnenButton"));
+		lernenBeginnenButton.addActionListener(new StartGuiListener(this, mainGui, deckmanager, "lernenBeginnenButton"));
 
 		JLabel currentDeckInfoLabel = new JLabel("<html><body>Aktuelles Deck:</body></html>");
 		currentDeckInfoLabel.setFont(new Font(fontStyle, Font.PLAIN, 27));
@@ -120,7 +120,7 @@ public class StartGui {
 		
 		JButton showAnswerButton = new JButton("Antwort zeigen");
 		showAnswerButton.setFont(new Font(fontStyle, Font.PLAIN, 27));
-		showAnswerButton.addActionListener(new StartGuiListener(this, deckmanager, "showAnswerButton"));
+		showAnswerButton.addActionListener(new StartGuiListener(this, mainGui, deckmanager, "showAnswerButton"));
 		
 		learnQuestionCard.add(onlyQuestionTextArea);
 		learnQuestionCard.add(showAnswerButton);
@@ -156,7 +156,7 @@ public class StartGui {
 		
 		JButton nextQuestionButton = new JButton("Nächste Frage");
 		nextQuestionButton.setFont(new Font(fontStyle, Font.PLAIN, 27));
-		nextQuestionButton.addActionListener(new StartGuiListener(this, deckmanager, "nextQuestionButton"));
+		nextQuestionButton.addActionListener(new StartGuiListener(this, mainGui, deckmanager, "nextQuestionButton"));
 
 		learnAnswerCard.add(questionLabel);
 		learnAnswerCard.add(questionScrollPane);
@@ -183,7 +183,7 @@ public class StartGui {
 		learnEndCard.add(restartDeckButton);
 		learnEndCard.add(switchDeckButton);
 
-		restartDeckButton.addActionListener(new StartGuiListener(this, deckmanager, "restartDeckButton"));
+		restartDeckButton.addActionListener(new StartGuiListener(this, mainGui, deckmanager, "restartDeckButton"));
 		switchDeckButton.addActionListener(new StartGuiListener(this, mainGui, deckmanager, "switchDeckButton"));
 	}
 	

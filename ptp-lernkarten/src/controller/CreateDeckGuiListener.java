@@ -11,12 +11,20 @@ import util.UnvalidQAException;
 import view.CreateDeckGui;
 import view.ErrorScreen;
 
+/**
+ * PTP 22 - Controllerklasse: Realisiert Interaktionen mit der CreateDeckGui 
+ * 
+ * @author J.Dillmann, M. Sterkel
+ */
 public class CreateDeckGuiListener implements ActionListener {
 	private CreateDeckGui createDeckGui;// view
 	private DeckManager deckmanager;// model
 	private String cmd;
 	private static String deckName;
 
+	/**
+	 * Im Konstruktor wird eine Instanz der Klasse CreateDeckGuiListener erstellt.
+	 */
 	public CreateDeckGuiListener(CreateDeckGui gui, DeckManager model, String cmd) {
 		this.createDeckGui = gui;
 		this.deckmanager = model;
@@ -27,7 +35,10 @@ public class CreateDeckGuiListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		doCommand(cmd);
 	}
-
+	
+	/**
+	 * Methode führt je nach Interaktionstyp (zum Beispiel Knopfdruck) die entsprechende Aktion aus 
+	 */
 	private void doCommand(String cmd) {
 		if (cmd.equals("ok")) {
 			String question = createDeckGui.getQuestion().getText();
@@ -39,7 +50,6 @@ public class CreateDeckGuiListener implements ActionListener {
 				createDeckGui.getQuestion().setText("");
 				createDeckGui.getAnswer().setText("");
 			} catch (UnvalidQAException e) {
-				// TODO Auto-generated catch block
 				new ErrorScreen(e.toString());
 			}
 
@@ -62,8 +72,6 @@ public class CreateDeckGuiListener implements ActionListener {
 			// CardLayout weiterschalten
 			CardLayout cardLayout = (CardLayout) createDeckGui.getCreateDeckFramePanel().getLayout();
 			cardLayout.show(createDeckGui.getCreateDeckFramePanel(), "createFlashcardCard");
-
 		}
-
 	}
 }

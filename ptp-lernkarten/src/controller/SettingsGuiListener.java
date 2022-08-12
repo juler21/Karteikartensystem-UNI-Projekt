@@ -7,11 +7,19 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import view.SettingsGui;
 
+/**
+ * PTP 22 - Controllerklasse: Realisiert Interaktionen mit der SettingsGui 
+ * 
+ * @author J.Dillmann, M. Sterkel
+ */
 public class SettingsGuiListener implements ActionListener {
 	private String cmd;
 	private String theme;
 	private SettingsGui settingsGui;
 
+	/**
+	 * Im Konstruktor wird eine Instanz der Klasse SettingsGuiListener erstellt.
+	 */
 	public SettingsGuiListener(SettingsGui settingsgui, String cmd) {
 		this.theme = "light";
 		this.settingsGui = settingsgui;
@@ -24,6 +32,9 @@ public class SettingsGuiListener implements ActionListener {
 
 	}
 
+	/**
+	 * Methode führt je nach Interaktionstyp (zum Beispiel Knopfdruck) die entsprechende Aktion aus 
+	 */
 	private void doCommand(String cmd) {
 		if (cmd.equals("switchThemeButton")) {
 			try {
@@ -39,10 +50,8 @@ public class SettingsGuiListener implements ActionListener {
 					theme = "light";
 				}
 			} catch (UnsupportedLookAndFeelException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-
 	}
 }

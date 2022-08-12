@@ -7,17 +7,20 @@ import model.DeckManager;
 import util.NoDeckSelectedExeption;
 import view.MainGui;
 
-/** PTP 22 
-* Controllerklasse: Realisiert Interaktionen mit der MainGui 
-* @author Mark Sterkel & Julian Dillmann
-* @version 
-*/
+/**
+ * PTP 22 - Controllerklasse: Realisiert Interaktionen mit der MainGui 
+ * 
+ * @author J.Dillmann, M. Sterkel
+ */
 public class MainGuiListener implements ActionListener {
 
 	private MainGui mainGui;
 	private String cmd;
 	private DeckManager deckManager;
 
+	/**
+	 * Im Konstruktor wird eine Instanz der Klasse MainGuiListener erstellt.
+	 */
 	public MainGuiListener(MainGui maingui, DeckManager deckmanager,  String cmd) {
 
 		this.mainGui = maingui;
@@ -30,8 +33,10 @@ public class MainGuiListener implements ActionListener {
 		doCommand(cmd);
 	}
 
+	/**
+	 * Methode führt je nach Interaktionstyp (zum Beispiel Knopfdruck) die entsprechende Aktion aus 
+	 */
 	private void doCommand(String cmd) {
-		
 		if (cmd.equals("startCard")) {
 
 			CardLayout cardLayout = mainGui.getContentPanelCardLayout();
@@ -54,16 +59,12 @@ public class MainGuiListener implements ActionListener {
 				mainGui.getStartGui().setCurrentDeckLabel("kein Deck vorhanden");
 				mainGui.getStartGui().enableLernenBeginnenButton(false);
 			}
-			
-
 		} else {
 	
 			CardLayout cardLayout = mainGui.getContentPanelCardLayout();
 			cardLayout.show(mainGui.getContentPanel(), cmd);
-
 	}
-	}
-		
+	}	
 }
 
 
