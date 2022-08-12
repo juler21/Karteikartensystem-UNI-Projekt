@@ -64,6 +64,14 @@ public class DeckManager extends Observable {
 		deckorganizer.removeDeck(deckname);
 		notifyObserver("deckChange");
 	}
+	
+	/**
+	 * Löscht alle Decks aus dem aktuellen Verzeichnis.
+	 * 
+	 */
+	public void removeAllDecks() {
+		deckorganizer.removeAllDecks();
+	}
 
 	/**
 	 * Holt sich die Daten (CSV) aus dem Ordner und lädt sie in die HashMap.
@@ -75,7 +83,16 @@ public class DeckManager extends Observable {
 	}
 
 	/**
-	 * Gibt die Liste der Karteikarten eines Decks wieder.
+	 * Gibt die aktuelle Anzahl an Decks zurück
+	 * 
+	 * @return anzahl Decks
+	 */
+	public int getAmountOfDecks() {
+		return deckorganizer.getAmountOfDecks();
+	}
+	
+	/**
+	 *Gibt die Liste der Karteikarten eines Decks wieder.
 	 * 
 	 * @param deckname Deckname vom dem neuen Deck
 	 * @return List<Flashcard> Karteikartenliste
@@ -270,5 +287,6 @@ public class DeckManager extends Observable {
 	public HashMap<String, Deck> getDecks() {
 		return deckorganizer.getDecks();
 	}
+	
 
 }

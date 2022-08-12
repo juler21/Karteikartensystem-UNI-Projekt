@@ -10,7 +10,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map.Entry;
 
 import util.DeckIsExistingException;
 import util.UnValidDecknameException;
@@ -120,6 +122,22 @@ public class DeckOrganizer {
 			decks.remove(deckname);
 		}
 	}
+	
+	/**
+	 * Löscht alle Decks aus dem aktuellen Verzeichnis.
+	 * 
+	 */
+	void removeAllDecks() {
+		List<String> decknames = new ArrayList<>();
+
+		for(Entry e: decks.entrySet()) {
+			decknames.add((String) e.getKey());
+		}
+		
+		for(String g: decknames) {
+			removeDeck(g);
+		}
+	}
 
 	/**
 	 * Findet alle Dateien in einem Ordner und gibt die Dateipfade als String
@@ -220,6 +238,16 @@ public class DeckOrganizer {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * gibt die aktuelle Anzahl an Decks zurück
+	 * @return 
+	 * 
+	 * @return anzahl Decks
+	 */
+	public int getAmountOfDecks() {
+		return decks.size();
 	}
 
 	/**

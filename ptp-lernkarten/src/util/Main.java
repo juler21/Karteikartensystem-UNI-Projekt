@@ -1,5 +1,7 @@
 package util;
 
+import java.io.File;
+
 import javax.swing.UIManager;
 
 import com.formdev.flatlaf.intellijthemes.FlatLightFlatIJTheme;
@@ -144,6 +146,14 @@ public class Main {
 	public void deleteDeck(String deckname) {
 		deckmanager.removeDeck(deckname);
 	}
+	
+	/**
+	 * Löscht alle Decks aus dem aktuellen Verzeichnis.
+	 * 
+	 */
+	public void removeAllDecks() {
+		deckmanager.removeAllDecks();
+	}
 
 	/**
 	 * Ändert den Ordnername, wo die DeckCSV Dateien gespeichert werden.
@@ -192,6 +202,15 @@ public class Main {
 	}
 
 	/**
+	 * Gibt die aktuelle Anzahl an Decks zurück
+	 * 
+	 * @return anzahl Decks
+	 */
+	public int getAmountOfDecks() {
+		return deckmanager.getAmountOfDecks();
+	}
+	
+	/**
 	 * Gibt wieder, ob ein Deck Existiert oder nicht.
 	 * 
 	 * @param deckname Deckname vom dem Deck, welches geprüft werden soll
@@ -210,6 +229,24 @@ public class Main {
 	 * @return Dateipfad
 	 */
 	public String getPathDirectory() {
+		return DeckManager.getPathtoString();
+	}
+	
+	/**
+	 * Holt sich die Daten (CSV) aus dem Ordner und lädt sie in die HashMap.
+	 * 
+	 * @param folder Ordener, wo die Daten liegen
+	 */
+	public void getData(File folder) {
+		deckmanager.getData(folder);
+	}
+	
+	/**
+	 * Gibt den Dateipfad als String wieder.
+	 * 
+	 * @return Dateipfad als String
+	 */
+	public String getPathtoString() {
 		return DeckManager.getPathtoString();
 	}
 
