@@ -78,7 +78,6 @@ public class DeckManager extends Observable {
 	 * Gibt die Liste der Karteikarten eines Decks wieder.
 	 * 
 	 * @param deckname Deckname vom dem neuen Deck
-	 * 
 	 * @return List<Flashcard> Karteikartenliste
 	 */
 	public List<Flashcard> getFlashcardList(String deckname) {
@@ -89,9 +88,7 @@ public class DeckManager extends Observable {
 	 * Gibt die Antwort einer Karteikarte wieder.
 	 * 
 	 * @param deckname Deckname vom dem Deck
-	 * 
 	 * @param position Position der Karteikarte
-	 * 
 	 * @return Antwort
 	 */
 	public String getAnswerFlashcard(String deckname, int position) {
@@ -102,9 +99,7 @@ public class DeckManager extends Observable {
 	 * Gibt die Frage einer Karteikarte wieder.
 	 * 
 	 * @param deckname Deckname vom dem Deck
-	 * 
 	 * @param position Position der Karteikarte
-	 * 
 	 * @return Frage
 	 */
 	public String getQuestionFlashcard(String deckname, int position) {
@@ -115,9 +110,7 @@ public class DeckManager extends Observable {
 	 * Gibt die Karteikarte aus dem gewählten Deck wieder.
 	 * 
 	 * @param deckname Deckname vom dem Deck
-	 * 
 	 * @param position Position der Karteikarte in der Liste
-	 * 
 	 * @return Flashcard die entsprechende Karteikarte
 	 */
 	public Flashcard getFlashcard(String deckname, int position) {
@@ -130,7 +123,6 @@ public class DeckManager extends Observable {
 	 * 
 	 * @param deckname Deckname vom dem Deck, wo eine Karteikarte gelöscht werden
 	 *                 soll
-	 * 
 	 * @param position Position der Karteikarte in der Liste
 	 */
 	public void deleteFlashcard(String deckname, int position) {
@@ -155,11 +147,8 @@ public class DeckManager extends Observable {
 	 * 
 	 * @param deckname Deckname vom dem Deck, wo eine Karteikarte hinzugefügt werden
 	 *                 soll
-	 * 
 	 * @param question Frage, welche hinzugefügt wird
-	 * 
 	 * @param answer   Antwort die der Karteikarte hinzugefügt wird
-	 * 
 	 * @throws UnvalidQAException wirft eine Exception, wenn mindestens ein Feld
 	 *                            null oder leer ist.
 	 */
@@ -173,7 +162,6 @@ public class DeckManager extends Observable {
 	 * Gibt die Anzahl der Karteikarten in einem Deck wieder.
 	 * 
 	 * @param deckname Deckname vom dem Deck
-	 * 
 	 * @return Karteikartenanzahl
 	 */
 	public int getAmountOfFlashcards(String deckname) {
@@ -184,7 +172,6 @@ public class DeckManager extends Observable {
 	 * Gibt wieder, ob ein Deck in der Map vorhanden ist oder nicht.
 	 * 
 	 * @param deckname Deckname vom dem Deck, welches geprüft werden soll
-	 * 
 	 * @return Ergebnis true -> Gleiches Deck ist vorhanden, false -> Deck ist noch
 	 *         nicht vorhanden
 	 */
@@ -197,7 +184,6 @@ public class DeckManager extends Observable {
 	 * Setzt die Frage einer Karteikarte neu.
 	 * 
 	 * @param flashcard Karteikarte
-	 * 
 	 * @param question  neue Frage
 	 */
 	public void setQuestion(Flashcard flashcard, String question) {
@@ -209,7 +195,6 @@ public class DeckManager extends Observable {
 	 * Setzt die Antwort einer Karteikarte neu.
 	 * 
 	 * @param flashcard Karteikarte
-	 * 
 	 * @param answer    neue Antwort
 	 */
 	public void setAnswer(Flashcard flashcard, String answer) {
@@ -231,7 +216,6 @@ public class DeckManager extends Observable {
 	 * Gibt die Frage einer Karteikarte wieder.
 	 * 
 	 * @param flashcard Karteikarte
-	 * 
 	 * @return Frage
 	 */
 	public String getQuestion(Flashcard flashcard) {
@@ -242,7 +226,6 @@ public class DeckManager extends Observable {
 	 * Gibt die Antwort einer Karteikarte wieder.
 	 * 
 	 * @param flashcard Karteikarte
-	 * 
 	 * @return Antwort
 	 */
 	public String getAnswer(Flashcard flashcard) {
@@ -272,7 +255,6 @@ public class DeckManager extends Observable {
 	 * Überprüft ob mindestens ein Deck abgespeichert ist, also ob die Map Elemente
 	 * enthält.
 	 * 
-	 *
 	 * @return Ergebnis kein Deck vorhanden -> true, mindestens ein Deck vorhanden
 	 *         -> false
 	 */
