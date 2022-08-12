@@ -5,6 +5,11 @@ import java.util.List;
 
 import view.Observer;
 
+/**
+ * PTP 22 - Klasse von der alle Beobachtbaren Klassen erben müssen 
+ *  
+ * @author J.Dillmann, M. Sterkel
+ */
 public class Observable {
 	
 	private List<Observer> observerList = new ArrayList<>();

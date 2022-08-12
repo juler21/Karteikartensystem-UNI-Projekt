@@ -179,7 +179,18 @@ public class MainTest {
 
 	@Test
 	public void testisDeckExisting() {
-
+		//positiv Test
+		try {
+			app.createDeck("testisDeckExisting");
+			assertTrue(app.isDeckExisting("testisDeckExisting"));
+			
+		} catch (UnValidDecknameException e) {
+			e.printStackTrace();
+		} catch (DeckIsExistingException e) {
+			e.printStackTrace();
+		}
+		//negativ Test
+			assertFalse(app.isDeckExisting("notExistingDeckExisting"));
 	}
 
 	@Test
