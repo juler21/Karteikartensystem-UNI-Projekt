@@ -1,5 +1,12 @@
 package util;
 
+/**
+ * PTP 22 - Exception: wird bei unzulässigen Decknamen geworfen 
+ * Decknamen dürfen nur aus Buchstaben und Zahlen bestehen. 
+ * Leerzeichen sind nicht zulässig. 
+ * 
+ * @author J.Dillmann, M. Sterkel
+ */
 public class UnValidDecknameException extends Exception {
 	private static final long serialVersionUID = 1L;
 

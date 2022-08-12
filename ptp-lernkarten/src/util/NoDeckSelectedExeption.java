@@ -1,5 +1,10 @@
 package util;
 
+/**
+ * PTP 22 - Exception: wird bei geworfen wenn kein Deck in der ComboBox gewählt ist 
+ * 
+ * @author J.Dillmann, M. Sterkel
+ */
 public class NoDeckSelectedExeption extends Exception {
 
 	private static final long serialVersionUID = 883439657634690636L;
