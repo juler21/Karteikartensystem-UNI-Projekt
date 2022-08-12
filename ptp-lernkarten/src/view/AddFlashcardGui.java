@@ -19,19 +19,19 @@ import controller.AddFlashcardGuiListener;
 import model.DeckManager;
 
 public class AddFlashcardGui {
-	
-private DeckManager deckmanager;
-private JFrame addFlashcardFrame;
-private String fontStyle;
-private JPanel addFlashcardCard;
-private JTextArea questionTextArea;
-private JScrollPane questionScrollPane;
-private JTextArea answerTextArea;
-private JScrollPane answerScrollPane;
-private String selectedDeck;
 
-public AddFlashcardGui(DeckManager deckmanager, String windowname, String selectedDeckString) {
-		
+	private DeckManager deckmanager;
+	private JFrame addFlashcardFrame;
+	private String fontStyle;
+	private JPanel addFlashcardCard;
+	private JTextArea questionTextArea;
+	private JScrollPane questionScrollPane;
+	private JTextArea answerTextArea;
+	private JScrollPane answerScrollPane;
+	private String selectedDeck;
+
+	public AddFlashcardGui(DeckManager deckmanager, String windowname, String selectedDeckString) {
+
 		this.deckmanager = deckmanager;
 		this.selectedDeck = selectedDeckString;
 		fontStyle = "Helvetica";
@@ -45,27 +45,25 @@ public AddFlashcardGui(DeckManager deckmanager, String windowname, String select
 		addFlashcardFrame.setContentPane(addFlashcardCard);
 		addFlashcardFrame.setVisible(true);
 
-}
+	}
 
 	private void generateAddFlashCardPanel() {
-	
+
 		addFlashcardCard = new JPanel();
 		addFlashcardCard.setLayout(new BorderLayout());
 
-		
 		String[] labels = { "Frage: ", "Antwort: " };
 		int numPairs = labels.length;
 
 		JPanel qaPanel = new JPanel(new SpringLayout());
 		JLabel questionSpringLabel = new JLabel("Frage: ", JLabel.TRAILING);
 		JLabel answerSpringLabel = new JLabel("Antwort: ", JLabel.TRAILING);
-		
-		
+
 		questionTextArea = new JTextArea(2, 1);
 		questionTextArea.setLineWrap(true);
 		questionTextArea.setWrapStyleWord(true);
 		questionScrollPane = new JScrollPane(questionTextArea);
-		
+
 		answerTextArea = new JTextArea(2, 1);
 		answerTextArea.setLineWrap(true);
 		answerTextArea.setWrapStyleWord(true);
@@ -75,15 +73,14 @@ public AddFlashcardGui(DeckManager deckmanager, String windowname, String select
 		qaPanel.add(questionScrollPane);
 		qaPanel.add(answerSpringLabel);
 		qaPanel.add(answerScrollPane);
-		
-		SpringUtilities.makeCompactGrid(qaPanel, numPairs, 2, 
-				6, 6, // initX, initY
+
+		SpringUtilities.makeCompactGrid(qaPanel, numPairs, 2, 6, 6, // initX, initY
 				6, 6); // xPad, yPad
-		
+
 		addFlashcardCard.add(qaPanel, BorderLayout.CENTER);
 //		createFlashcardCard.add(qaPanel);
 
-		//ButtonPanel erstellen	
+		// ButtonPanel erstellen
 		JPanel buttonPanel = new JPanel(new FlowLayout());
 		JButton okButton = new JButton("OK");
 		okButton.addActionListener(new AddFlashcardGuiListener(this, deckmanager, "ok"));
@@ -91,6 +88,7 @@ public AddFlashcardGui(DeckManager deckmanager, String windowname, String select
 			@Override
 			public void keyTyped(KeyEvent e) {
 			}
+
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_ALT) {
@@ -98,6 +96,7 @@ public AddFlashcardGui(DeckManager deckmanager, String windowname, String select
 					System.out.println("ok");
 				}
 			}
+
 			@Override
 			public void keyReleased(KeyEvent e) {
 			}
@@ -108,15 +107,14 @@ public AddFlashcardGui(DeckManager deckmanager, String windowname, String select
 
 		buttonPanel.add(okButton);
 		buttonPanel.add(confirmButton);
-		
-		addFlashcardCard.add(buttonPanel, BorderLayout.PAGE_END);	
-	
-}
+
+		addFlashcardCard.add(buttonPanel, BorderLayout.PAGE_END);
+
+	}
 
 	public JTextArea getAnswerTextArea() {
 		return answerTextArea;
 	}
-
 
 	public JTextArea getQuestionTextArea() {
 		return questionTextArea;
@@ -126,12 +124,10 @@ public AddFlashcardGui(DeckManager deckmanager, String windowname, String select
 		return addFlashcardFrame;
 	}
 
-
 	public String getSelectedDeck() {
 		return selectedDeck;
 	}
-	
-	
+
 	/*
 	 * Setzt alle Default UI Fonts auf die übergebene Font
 	 *
@@ -145,8 +141,5 @@ public AddFlashcardGui(DeckManager deckmanager, String windowname, String select
 				UIManager.put(key, f);
 		}
 	}
-
-
-
 
 }

@@ -86,7 +86,6 @@ public class Deck {
 		try {
 			Files.deleteIfExists(pathCSV);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			System.out.println(e);
 		}
 	}

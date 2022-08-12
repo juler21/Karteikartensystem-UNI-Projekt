@@ -5,28 +5,25 @@ import java.awt.event.ActionListener;
 
 import javax.swing.UnsupportedLookAndFeelException;
 
-import model.DeckManager;
-import view.CreateDeckGui;
-import view.MainGui;
 import view.SettingsGui;
 
-public class SettingsGuiListener implements ActionListener{
+public class SettingsGuiListener implements ActionListener {
 	private String cmd;
 	private String theme;
 	private SettingsGui settingsGui;
-	
+
 	public SettingsGuiListener(SettingsGui settingsgui, String cmd) {
 		this.theme = "light";
 		this.settingsGui = settingsgui;
 		this.cmd = cmd;
 	}
-	
-	
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		doCommand(cmd);
-		
+
 	}
+
 	private void doCommand(String cmd) {
 		if (cmd.equals("switchThemeButton")) {
 			try {
@@ -47,5 +44,5 @@ public class SettingsGuiListener implements ActionListener{
 			}
 		}
 
-}
+	}
 }

@@ -16,7 +16,7 @@ import view.MainGui;
  * Application Programming Interface
  * 
  * @author J. Dillmann, M. Sterkel
- * @version 7.0 03.03.08 mod. AH 25.03.08
+ * @version
  */
 public class Main {
 
@@ -54,30 +54,30 @@ public class Main {
 		new Main();
 	}
 
-	/*
+	/**
 	 * Fügt einem Deck eine Karteikarte mit Frage und Antwort hinzu. Wirft eine
 	 * UnvalidQAException. Fügt eine Zeile in der CSV Datei mit den Daten hinzu.
 	 * 
 	 * @param deckname Deckname vom dem Deck, wo eine Karteikarte hinzugefügt werden
-	 * soll
+	 *                 soll
 	 * 
 	 * @param question Frage, welche hinzugefügt wird
 	 * 
-	 * @param answer Antwort die der Karteikarte hinzugefügt wird
-	 *
+	 * @param answer   Antwort die der Karteikarte hinzugefügt wird
+	 * 
 	 * @throws UnvalidQAException wirft eine Exception, wenn mindestens ein Feld
-	 * null oder leer ist.
+	 *                            null oder leer ist.
 	 */
 	public void addFlashcard(String deckname, String question, String answer) throws UnvalidQAException {
 		deckmanager.addFlashcard(deckname, question, answer);
 	}
 
-	/*
+	/**
 	 * Löscht eine Karteikarte aus dem gewählten Deck und löscht die entsprechende
 	 * Zeile.
 	 * 
 	 * @param deckname Deckname vom dem Deck, wo eine Karteikarte gelöscht werden
-	 * soll
+	 *                 soll
 	 * 
 	 * @param position Position der Karteikarte in der Liste
 	 */
@@ -85,17 +85,17 @@ public class Main {
 		deckmanager.deleteFlashcard(deckname, position);
 	}
 
-	/*
+	/**
 	 * Löscht alle Karteikarten aus einem Deck
 	 * 
 	 * @param deckname Deckname vom dem Deck, wo alle Karteikarte gelöscht werden
-	 * sollen
+	 *                 sollen
 	 */
 	public void removeAllFlashcards(String deckname) {
 		deckmanager.removeAllFlashcards(deckname);
 	}
 
-	/*
+	/**
 	 * Gibt die Karteikarte aus dem gewählten Deck wieder.
 	 * 
 	 * @param deckname Deckname vom dem Deck
@@ -108,23 +108,24 @@ public class Main {
 		return deckmanager.getFlashcard(deckname, position);
 	}
 
-	/*
+	/**
 	 * Erstellt ein neues Deck mit Decknamen. Es wird eine CSV Datei erstellt und in
 	 * den Ordner hinzugefügt.
 	 * 
 	 * @param deckname Deckname vom dem neuen Deck
-	 *
-	 * @throws UnValidDecknameException deckname darf nicht null oder leer sein.
-	 * Folgende Zeichen sind nicht erlaubt: *, &, %, ., Leerzeichen
 	 * 
-	 * @throws DeckIsExistingException deckname darf nicht schon einmal gewählt
-	 * worden sein.
+	 * @throws UnValidDecknameException deckname darf nicht null oder leer sein.
+	 *                                  Folgende Zeichen sind nicht erlaubt: *, &,
+	 *                                  %, ., Leerzeichen
+	 * 
+	 * @throws DeckIsExistingException  deckname darf nicht schon einmal gewählt
+	 *                                  worden sein.
 	 */
 	public void createDeck(String deckname) throws UnValidDecknameException, DeckIsExistingException {
 		deckmanager.addDeck(deckname);
 	}
 
-	/*
+	/**
 	 * Gibt das Deck wieder.
 	 * 
 	 * @param deckname Deckname vom dem Deck
@@ -135,7 +136,7 @@ public class Main {
 		return deckmanager.getDeck(deckname);
 	}
 
-	/*
+	/**
 	 * Löscht das gewählte Deck und löscht die CSV Datei.
 	 * 
 	 * @param deckname Deckname vom dem neuen Deck
@@ -144,7 +145,7 @@ public class Main {
 		deckmanager.removeDeck(deckname);
 	}
 
-	/*
+	/**
 	 * Ändert den Ordnername, wo die DeckCSV Dateien gespeichert werden.
 	 * 
 	 * @param foldername der neue Ordername
@@ -153,7 +154,7 @@ public class Main {
 		deckmanager.changeDirectory(foldername);
 	}
 
-	/*
+	/**
 	 * Gibt die Antwort einer Karteikarte wieder.
 	 * 
 	 * @param deckname Deckname vom dem Deck
@@ -166,7 +167,7 @@ public class Main {
 		return deckmanager.getAnswerFlashcard(deckname, position);
 	}
 
-	/*
+	/**
 	 * Gibt die Frage einer Karteikarte wieder.
 	 * 
 	 * @param deckname Deckname vom dem Deck
@@ -179,7 +180,7 @@ public class Main {
 		return deckmanager.getQuestionFlashcard(deckname, position);
 	}
 
-	/*
+	/**
 	 * Gibt die Anzahl der Karteikarten in einem Deck wieder.
 	 * 
 	 * @param deckname Deckname vom dem Deck
@@ -190,19 +191,19 @@ public class Main {
 		return deckmanager.getAmountOfFlashcards(deckname);
 	}
 
-	/*
+	/**
 	 * Gibt wieder, ob ein Deck Existiert oder nicht.
 	 * 
 	 * @param deckname Deckname vom dem Deck, welches geprüft werden soll
 	 * 
-	 * @return Ergebnis true -> Gleiches Deck ist vorhanden false -> Deck ist noch
-	 * nicht vorhanden
+	 * @return Ergebnis true -> Gleiches Deck ist vorhanden, false -> Deck ist noch
+	 *         nicht vorhanden
 	 */
 	public boolean isDeckExisting(String deckname) {
 		return deckmanager.containsDeck(deckname);
 	}
 
-	/*
+	/**
 	 * Gibt den Dateipfad als String des Ordners wieder, wo die Decks als CSV
 	 * Dateien gespeichert werden.
 	 *

@@ -12,6 +12,8 @@ import javax.swing.plaf.metal.MetalLookAndFeel;
 
 class ColorTitleBar extends JFrame {
 
+	private static final long serialVersionUID = 1119638945416982923L;
+
 	ColorTitleBar() {
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
