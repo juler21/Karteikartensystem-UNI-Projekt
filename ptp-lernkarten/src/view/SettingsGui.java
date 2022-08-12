@@ -24,19 +24,13 @@ public class SettingsGui {
 	private JPanel einstellungenCard;
 	private String fontStyle;
 	private JButton switchThemeButton;
-<<<<<<< HEAD
-	
+
 	/**
 	* Der SettingsGui Konstruktor erstellt die SettingsGui mit ihren Komponenten 
 	* und entsprechenden Listenern.
 	*/
-	public SettingsGui(JPanel einstellungenCard, String fontstyle) {
-		
-=======
-
 	public SettingsGui(JPanel einstellungenCard, String fontstyle, DeckManager deckmanager) {
 
->>>>>>> branch 'main' of https://git.informatik.uni-hamburg.de/0sterkel/ptp22-do08-lernkarten.git
 		this.einstellungenCard = einstellungenCard;
 		this.fontStyle = fontstyle;
 

@@ -45,23 +45,14 @@ public class CreateDeckGui {
 	private JScrollPane answerScrollPane;
 	private JButton confirmDecknameButton;
 
-<<<<<<< HEAD
 	/**
 	* Der CreateDeckGui-Konstruktor erstellt die CreateDeckGui mit ihren Komponenten 
 	* und entsprechenden Listenern.
 	*/
-=======
->>>>>>> branch 'main' of https://git.informatik.uni-hamburg.de/0sterkel/ptp22-do08-lernkarten.git
 	public CreateDeckGui(DeckManager deckmanager, String fontstyle) {
 
 		this.deckmanager = deckmanager;
 		fontStyle = fontstyle;
-<<<<<<< HEAD
-		
-=======
-
->>>>>>> branch 'main' of https://git.informatik.uni-hamburg.de/0sterkel/ptp22-do08-lernkarten.git
-		// JFrame erstllen
 		createDeckFrame = new JFrame("Deck Erstellen");
 		createDeckFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		createDeckFrame.setBounds(480, 300, 500, 300);
