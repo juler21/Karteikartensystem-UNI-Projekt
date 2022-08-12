@@ -20,12 +20,12 @@ import model.Deck;
 import model.DeckManager;
 import util.NoDeckSelectedExeption;
 
-
-/** PTP 22 
-* Hauptguiklasse: Startpunkt der Anwendung
-* @author Mark Sterkel Julian Dillmann
-* @version 
-*/
+/**
+ * PTP 22 Hauptguiklasse: Startpunkt der Anwendung
+ * 
+ * @author Mark Sterkel Julian Dillmann
+ * @version
+ */
 public class MainGui extends JFrame implements Observer {
 
 	// Fenster
@@ -56,9 +56,9 @@ public class MainGui extends JFrame implements Observer {
 	private JComboBox<Deck> chooseDeckComboBox;
 
 	/**
-	* Der MainGui Konstruktor erstellt die MainGui mit ihren Komponenten 
-	* und entsprechenden Listenern.
-	*/
+	 * Der MainGui Konstruktor erstellt die MainGui mit ihren Komponenten und
+	 * entsprechenden Listenern.
+	 */
 	public MainGui(DeckManager manager, String name) {
 		this.deckmanager = manager;
 		// JFrame erstellen
@@ -90,8 +90,8 @@ public class MainGui extends JFrame implements Observer {
 	}
 
 	/**
-	* erstellt das topButtonPanel zur Navigation
-	*/
+	 * erstellt das topButtonPanel zur Navigation
+	 */
 	private void generateTopButtons() {
 
 		// topButtonPanel erstellen und zum frameContentPane hinzufügen
@@ -99,7 +99,7 @@ public class MainGui extends JFrame implements Observer {
 		topButtonPanel.setLayout(new FlowLayout());
 		topButtonPanel.setBorder(new EmptyBorder(15, 5, 15, 5));
 		framePanel.add(topButtonPanel, BorderLayout.NORTH);
-		
+
 		// BUTTONS
 		startButton = new JButton("START");
 		startButton.setPreferredSize(new Dimension(130, 40));
@@ -117,14 +117,15 @@ public class MainGui extends JFrame implements Observer {
 
 		// ACTIONLISTENER
 		startButton.addActionListener(new MainGuiListener(this, deckmanager, "startCard"));
-		decksButton.addActionListener(new MainGuiListener(this,deckmanager, "decksCard"));
-		statistikButton.addActionListener(new MainGuiListener(this,deckmanager, "statistikCard"));
-		einstellungenButton.addActionListener(new MainGuiListener(this,deckmanager, "einstellungenCard"));
+		decksButton.addActionListener(new MainGuiListener(this, deckmanager, "decksCard"));
+		statistikButton.addActionListener(new MainGuiListener(this, deckmanager, "statistikCard"));
+		einstellungenButton.addActionListener(new MainGuiListener(this, deckmanager, "einstellungenCard"));
 
 	}
+
 	/**
-	* erstellt das contenPanel mit CardLayout und die jeweiligen Karten
-	*/
+	 * erstellt das contenPanel mit CardLayout und die jeweiligen Karten
+	 */
 	private void generateContentPanel() {
 
 		// ContentPanel erstellen
@@ -139,7 +140,6 @@ public class MainGui extends JFrame implements Observer {
 		startGui = new StartGui(startCard, deckmanager, fontStyle, this);
 		contentPanel.add(startCard, "startCard");
 
-		
 		// Decks-Karte
 		decksCard = new JPanel();
 		decksCard.setLayout(new GridLayout(4, 1, 10, 5));
@@ -152,7 +152,7 @@ public class MainGui extends JFrame implements Observer {
 
 		// Einstellungen-Karte
 		einstellungenCard = new JPanel();
-		settingsGui = new SettingsGui(einstellungenCard, fontStyle);
+		settingsGui = new SettingsGui(einstellungenCard, fontStyle, deckmanager);
 		contentPanel.add(einstellungenCard, "einstellungenCard");
 
 		// Anfangsbildschirm setzten auf "Start"
@@ -161,8 +161,9 @@ public class MainGui extends JFrame implements Observer {
 	}
 
 	/**
-	* erstellt die ComboBox, die in der DecksGui angezeigt wird und alle Decks enthält
-	*/
+	 * erstellt die ComboBox, die in der DecksGui angezeigt wird und alle Decks
+	 * enthält
+	 */
 	private void deckListeErstellen() {
 
 		chooseDeckComboBox = new JComboBox<Deck>();
@@ -170,14 +171,14 @@ public class MainGui extends JFrame implements Observer {
 		update("deckChange");
 
 	}
-	
+
 	/**
-	* gibt das aktuell in der Combobox gewählte Deck zurück 
-	* 
-	* @return das aktuell gewählte Deck als String 
-	* @exception NoDeckSelectedExeption wenn kein Deck gewählt ist 
-	* 
-	*/
+	 * gibt das aktuell in der Combobox gewählte Deck zurück
+	 * 
+	 * @return das aktuell gewählte Deck als String
+	 * @exception NoDeckSelectedExeption wenn kein Deck gewählt ist
+	 * 
+	 */
 	public String getSelectedDeck() throws NoDeckSelectedExeption {
 		if (chooseDeckComboBox.getSelectedItem() != null) {
 			return chooseDeckComboBox.getSelectedItem().toString();
@@ -185,7 +186,6 @@ public class MainGui extends JFrame implements Observer {
 			throw new NoDeckSelectedExeption();
 		}
 	}
-
 
 	@Override
 	public void update(String changeType) {
@@ -200,8 +200,8 @@ public class MainGui extends JFrame implements Observer {
 				});
 				// setzt default Item in Combobox
 				chooseDeckComboBox.setSelectedIndex(0);
-				
-				//aktiviert lernen beginnen Button
+
+				// aktiviert lernen beginnen Button
 //				if(startGui != null) {
 //					startGui.enableLernenBeginnenButton(true);
 //				}
@@ -212,10 +212,11 @@ public class MainGui extends JFrame implements Observer {
 		}
 
 	}
-	
+
 	/*
 	 * Setzt den default für alle UI Fonts auf die übergebene Font
-	 * @param f die gewünschte FontUIResource 
+	 * 
+	 * @param f die gewünschte FontUIResource
 	 *
 	 */
 	private void setUIFont(javax.swing.plaf.FontUIResource f) {
@@ -227,9 +228,8 @@ public class MainGui extends JFrame implements Observer {
 				UIManager.put(key, f);
 		}
 	}
-	
-	
-	// Getter + Setter 
+
+	// Getter + Setter
 
 	/**
 	 * gibt die chooseDeckComboBox zurück

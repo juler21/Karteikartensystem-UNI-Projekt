@@ -65,7 +65,7 @@ public class EditDeckGui extends JFrame implements Observer {
 		// JFrame erstellen
 		editDeckFrame = new JFrame(windowname);
 		editDeckFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		editDeckFrame.setBounds(420, 270, 600, 400);
+		editDeckFrame.setBounds(420, 270, 650, 400);
 		setUIFont(new javax.swing.plaf.FontUIResource(fontStyle, Font.PLAIN, 20));
 
 		// Panel erstellen
