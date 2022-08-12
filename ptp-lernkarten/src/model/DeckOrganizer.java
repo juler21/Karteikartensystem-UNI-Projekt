@@ -10,7 +10,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
 
@@ -130,7 +129,7 @@ public class DeckOrganizer {
 	void removeAllDecks() {
 		List<String> decknames = new ArrayList<>();
 
-		for(Entry e: decks.entrySet()) {
+		for(Entry<String, Deck> e: decks.entrySet()) {
 			decknames.add((String) e.getKey());
 		}
 		
