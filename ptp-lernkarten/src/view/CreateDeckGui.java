@@ -7,6 +7,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Enumeration;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -23,10 +24,9 @@ import controller.CreateDeckGuiListener;
 import model.DeckManager;
 
 /**
- * PTP 22 Extra Fenster: Zuständig für die Erstellung von neuen Kartendecks
+ * PTP 22 - Extra Fenster: Zuständig für die Erstellung von neuen Kartendecks
  * 
- * @author Mark Sterkel & Julian Dillmann
- * @version
+ * @author J.Dillmann, M. Sterkel
  */
 public class CreateDeckGui {
 
@@ -69,8 +69,10 @@ public class CreateDeckGui {
 		createDeckFrame.setVisible(true);
 	}
 
+	/**
+	* erstellt die Ansicht zur Decknamen Eingabe
+	*/
 	private void generateSetDecknameCard() {
-
 		setDecknameCard = new JPanel();
 		setDecknameCard.setLayout(new BorderLayout());
 		createDeckFramePanel.add(setDecknameCard, "setDecknameCard");
@@ -114,11 +116,12 @@ public class CreateDeckGui {
 		setDecknameCard.add(chooseNameLabel, BorderLayout.NORTH);
 		setDecknameCard.add(deckNameTextField, BorderLayout.CENTER);
 		setDecknameCard.add(confirmNameButtonPanel, BorderLayout.PAGE_END);
-
 	}
 
+	/**
+	* erstellt die Ansicht zur Karteikarten erstellung
+	*/
 	private void generateCreateFlashcardCard() {
-
 		createFlashcardCard = new JPanel();
 		createFlashcardCard.setLayout(new BorderLayout());
 		createDeckFramePanel.add(createFlashcardCard, "createFlashcardCard");
@@ -177,8 +180,8 @@ public class CreateDeckGui {
 
 		buttonPanel.add(okButton);
 		buttonPanel.add(confirmButton);
-
 		createFlashcardCard.add(buttonPanel, BorderLayout.PAGE_END);
+
 	}
 
 	/*
@@ -187,8 +190,7 @@ public class CreateDeckGui {
 	 *
 	 */
 	private void setUIFont(javax.swing.plaf.FontUIResource f) {
-		@SuppressWarnings("rawtypes")
-		java.util.Enumeration keys = UIManager.getDefaults().keys();
+		Enumeration<Object> keys = UIManager.getDefaults().keys();
 		while (keys.hasMoreElements()) {
 			Object key = keys.nextElement();
 			Object value = UIManager.get(key);

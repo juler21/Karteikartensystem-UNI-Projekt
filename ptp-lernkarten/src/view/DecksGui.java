@@ -11,10 +11,10 @@ import model.Deck;
 import model.DeckManager;
 import util.NoDeckSelectedExeption;
 
-/** PTP 22 
-* Hauptguiklasse: Startpunkt der Anwendung
-* @author Mark Sterkel Julian Dillmann
-* @version 
+/** 
+* PTP 22 - DecksGuiklasse: Zuständig für den Decksbildschirm innerhalb des Hauptfensters
+* 
+* @author J.Dillmann, M. Sterkel
 */
 public class DecksGui {
 	
@@ -22,7 +22,6 @@ public class DecksGui {
 	private String fontStyle;
 	
 	private JComboBox<Deck> chooseDeckComboBox;
-	private DeckManager deckmanager;
 	
 	/**
 	* Der DecksGui Konstruktor erstellt die DecksGui mit ihren Komponenten 
@@ -32,7 +31,6 @@ public class DecksGui {
 		
 		this.mainGui = maingui;
 		this.chooseDeckComboBox = mainGui.getJCombobox();
-		this.deckmanager = deckmanager;
 		fontStyle = fontstyle;
 		
 		JPanel comboBoxPanel = new JPanel();
@@ -54,7 +52,6 @@ public class DecksGui {
 		deckLöschenButton.setFont(new Font(fontStyle, Font.PLAIN, 27));
 		deckLöschenButton.addActionListener(new DecksGuiListener(this, deckmanager, fontStyle, "deckLöschen"));
 		decksCard.add(deckLöschenButton);
-		
 	}
 	
 	/**

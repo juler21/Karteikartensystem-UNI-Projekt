@@ -1,10 +1,12 @@
 package view;
 
 import java.awt.BorderLayout;
+
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Enumeration;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -18,6 +20,11 @@ import javax.swing.UIManager;
 import controller.AddFlashcardGuiListener;
 import model.DeckManager;
 
+/** 
+*  PTP 22 - Extra Fenster: Zuständig für das Hinzufügen von Karteikarten
+*  
+* @author J.Dillmann, M. Sterkel
+*/
 public class AddFlashcardGui {
 
 	private DeckManager deckmanager;
@@ -30,11 +37,16 @@ public class AddFlashcardGui {
 	private JScrollPane answerScrollPane;
 	private String selectedDeck;
 
+	/**
+	* Der AddFlashcardGui-Konstruktor erstellt die EditDeckGui mit ihren Komponenten 
+	* und entsprechenden Listenern.
+	*/
 	public AddFlashcardGui(DeckManager deckmanager, String windowname, String selectedDeckString) {
 
 		this.deckmanager = deckmanager;
 		this.selectedDeck = selectedDeckString;
 		fontStyle = "Helvetica";
+		
 		// JFrame erstllen
 		addFlashcardFrame = new JFrame(windowname);
 		addFlashcardFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -42,13 +54,15 @@ public class AddFlashcardGui {
 		setUIFont(new javax.swing.plaf.FontUIResource(fontStyle, Font.PLAIN, 20));
 
 		generateAddFlashCardPanel();
+		
 		addFlashcardFrame.setContentPane(addFlashcardCard);
 		addFlashcardFrame.setVisible(true);
-
 	}
 
+	/**
+	* erstellt die Frage, Antwortfelder und Knöpfe der Ansicht
+	*/
 	private void generateAddFlashCardPanel() {
-
 		addFlashcardCard = new JPanel();
 		addFlashcardCard.setLayout(new BorderLayout());
 
@@ -78,7 +92,6 @@ public class AddFlashcardGui {
 				6, 6); // xPad, yPad
 
 		addFlashcardCard.add(qaPanel, BorderLayout.CENTER);
-//		createFlashcardCard.add(qaPanel);
 
 		// ButtonPanel erstellen
 		JPanel buttonPanel = new JPanel(new FlowLayout());
@@ -107,11 +120,25 @@ public class AddFlashcardGui {
 
 		buttonPanel.add(okButton);
 		buttonPanel.add(confirmButton);
-
 		addFlashcardCard.add(buttonPanel, BorderLayout.PAGE_END);
-
 	}
 
+	/*
+	 * Setzt den default für alle UI Fonts auf die übergebene Font
+	 * @param f die gewünschte FontUIResource 
+	 *
+	 */
+	private void setUIFont(javax.swing.plaf.FontUIResource f) {
+		Enumeration<Object> keys = UIManager.getDefaults().keys();
+		while (keys.hasMoreElements()) {
+			Object key = keys.nextElement();
+			Object value = UIManager.get(key);
+			if (value instanceof javax.swing.plaf.FontUIResource)
+				UIManager.put(key, f);
+		}
+	}
+	
+	// Getter + Setter 
 	public JTextArea getAnswerTextArea() {
 		return answerTextArea;
 	}
@@ -127,19 +154,4 @@ public class AddFlashcardGui {
 	public String getSelectedDeck() {
 		return selectedDeck;
 	}
-
-	/*
-	 * Setzt alle Default UI Fonts auf die übergebene Font
-	 *
-	 */
-	private void setUIFont(javax.swing.plaf.FontUIResource f) {
-		java.util.Enumeration keys = UIManager.getDefaults().keys();
-		while (keys.hasMoreElements()) {
-			Object key = keys.nextElement();
-			Object value = UIManager.get(key);
-			if (value instanceof javax.swing.plaf.FontUIResource)
-				UIManager.put(key, f);
-		}
-	}
-
 }

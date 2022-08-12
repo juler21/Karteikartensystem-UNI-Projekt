@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.util.Enumeration;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -20,16 +21,16 @@ import model.Flashcard;
 import util.NoDeckSelectedExeption;
 import util.NoFlashcardSelectedExeption;
 
-/** PTP 22 
-* Extra Fenster: Zuständig für das Bearbeiten,Erstellen,Löschen und Hinzufügen von Karteikarten
-* @author Mark Sterkel & Julian Dillmann
-* @version 
+/** 
+*  PTP 22 - Extra Fenster: Zuständig für das Bearbeiten,Löschen und Hinzufügen von Karteikarten
+*  
+* @author J.Dillmann, M. Sterkel
 */
 
 public class EditDeckGui extends JFrame implements Observer {
 
+	private static final long serialVersionUID = 9110178847400995998L;
 	private DeckManager deckmanager;
-	private DecksGui decksgui;
 	private String selectedDeck;
 	private String fontStyle;
 
@@ -37,7 +38,6 @@ public class EditDeckGui extends JFrame implements Observer {
 	private JPanel editDeckPanel;
 	private JComboBox<Flashcard> flashcardComboBox;
 	private JPanel lowerButtonPanel;
-	private JPanel listPanel;
 	private JPanel qaPanel;
 	private JLabel questionLabel;
 	private JTextArea questionText;
@@ -58,7 +58,6 @@ public class EditDeckGui extends JFrame implements Observer {
 			String fontstyle) {
 
 		this.deckmanager = deckmanager;
-		this.decksgui = decksgui;
 		this.selectedDeck = selectedDeck;
 		this.fontStyle = fontstyle;
 
@@ -83,8 +82,10 @@ public class EditDeckGui extends JFrame implements Observer {
 		editDeckFrame.setVisible(true);
 	}
 
+	/**
+	* erstellt die Frage, Antwortfelder
+	*/
 	private void generateQAPanel() {
-		
 		qaPanel = new JPanel();
 		qaPanel.setLayout(new GridLayout(4, 1));
 		System.out.println((Flashcard) (flashcardComboBox.getSelectedItem()));
@@ -113,13 +114,13 @@ public class EditDeckGui extends JFrame implements Observer {
 		qaPanel.add(questionScrollPane);
 		qaPanel.add(answerLabel);
 		qaPanel.add(answerScrollPane);
-
 		editDeckPanel.add(qaPanel, BorderLayout.CENTER);
 	}
 
-	
+	/**
+	* erstellt die Steuerungsknöpfe
+	*/
 	private void generateButtonPanel() {
-		
 		lowerButtonPanel = new JPanel();
 		deleteFlashcardButton = new JButton("Löschen");
 		deleteFlashcardButton
@@ -135,17 +136,14 @@ public class EditDeckGui extends JFrame implements Observer {
 		lowerButtonPanel.add(saveFlashcardButton);
 		lowerButtonPanel.add(newFlashcardButton);
 		lowerButtonPanel.add(quitButton);
-		editDeckPanel.add(lowerButtonPanel, BorderLayout.PAGE_END);
-		
+		editDeckPanel.add(lowerButtonPanel, BorderLayout.PAGE_END);	
 	}
-
-
+	
 	/**
 	* erstellt die FlashcardComboBox
 	* 
 	*/
 	private void generateFlashcardComboBox() {
-
 		Flashcard[] flashcardArray = new Flashcard[0];
 		flashcardArray = new Flashcard[deckmanager.getFlashcardList(selectedDeck).size()];
 		for (int i = 0; i < deckmanager.getAmountOfFlashcards(selectedDeck); i++) {
@@ -173,6 +171,13 @@ public class EditDeckGui extends JFrame implements Observer {
 
 	}
 
+	/*
+	 * Update Methode des ObserverPattern: Updated die Karteikarten ComboBox sofern es eine Änderung
+	 * innerhalb des ausgewählten Deck gab 
+	 * 
+	 * @param changeType über den Parameter können DeckListen und Deck Änderungen unterschieden werden
+	 *
+	 */
 	@Override
 	public void update(String changeType) {
 		if (changeType.equals("flashcardChange")) {
@@ -190,7 +195,7 @@ public class EditDeckGui extends JFrame implements Observer {
 	 *
 	 */
 	private void setUIFont(javax.swing.plaf.FontUIResource f) {
-		java.util.Enumeration keys = UIManager.getDefaults().keys();
+		Enumeration<Object> keys = UIManager.getDefaults().keys();
 		while (keys.hasMoreElements()) {
 			Object key = keys.nextElement();
 			Object value = UIManager.get(key);

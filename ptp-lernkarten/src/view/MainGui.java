@@ -7,6 +7,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.util.Enumeration;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -21,13 +22,15 @@ import model.DeckManager;
 import util.NoDeckSelectedExeption;
 
 /**
- * PTP 22 Hauptguiklasse: Startpunkt der Anwendung
+ * PTP 22 - HauptGui-Klasse: Startpunkt der Anwendung
+ * von hier aus werden die anderen Gui KLassen erstellt
  * 
- * @author Mark Sterkel Julian Dillmann
- * @version
+ * @author J.Dillmann, M. Sterkel
  */
 public class MainGui extends JFrame implements Observer {
-
+	
+	private static final long serialVersionUID = 531951800455880798L;
+	
 	// Fenster
 	private JFrame mainFrame;
 	private JPanel framePanel;
@@ -36,23 +39,20 @@ public class MainGui extends JFrame implements Observer {
 	private JPanel topButtonPanel;
 	private JButton startButton;
 	private JButton decksButton;
-	private JButton statistikButton;
-	private JButton einstellungenButton;
+	private JButton statisticButton;
+	private JButton settingsButton;
 
 	// ContentPanel auf dem verschiedene CardLayout Karten liegen
 	private JPanel contentPanel;
 	private CardLayout contentPanelCardLayout;
 	private JPanel startCard;
 	private JPanel decksCard;
-	private JPanel statistikCard;
-	private JPanel einstellungenCard;
+	private JPanel statisticCard;
+	private JPanel settingsCard;
 	private String fontStyle;
 
 	private DeckManager deckmanager;
-	private SettingsGui settingsGui;
 	private StartGui startGui;
-	private DecksGui decksGui;
-
 	private JComboBox<Deck> chooseDeckComboBox;
 
 	/**
@@ -60,6 +60,7 @@ public class MainGui extends JFrame implements Observer {
 	 * entsprechenden Listenern.
 	 */
 	public MainGui(DeckManager manager, String name) {
+		
 		this.deckmanager = manager;
 		// JFrame erstellen
 		mainFrame = new JFrame(name);
@@ -86,14 +87,12 @@ public class MainGui extends JFrame implements Observer {
 
 		deckmanager.registerObserver(this);
 		mainFrame.setVisible(true);
-
 	}
 
 	/**
 	 * erstellt das topButtonPanel zur Navigation
 	 */
 	private void generateTopButtons() {
-
 		// topButtonPanel erstellen und zum frameContentPane hinzufügen
 		topButtonPanel = new JPanel();
 		topButtonPanel.setLayout(new FlowLayout());
@@ -105,29 +104,27 @@ public class MainGui extends JFrame implements Observer {
 		startButton.setPreferredSize(new Dimension(130, 40));
 		decksButton = new JButton("DECKS");
 		decksButton.setPreferredSize(new Dimension(130, 40));
-		statistikButton = new JButton("STATISTIK");
-		statistikButton.setPreferredSize(new Dimension(160, 40));
-		einstellungenButton = new JButton("EINSTELLUNGEN");
-		einstellungenButton.setPreferredSize(new Dimension(230, 40));
+		statisticButton = new JButton("STATISTIK");
+		statisticButton.setPreferredSize(new Dimension(160, 40));
+		settingsButton = new JButton("EINSTELLUNGEN");
+		settingsButton.setPreferredSize(new Dimension(230, 40));
 
 		topButtonPanel.add(startButton);
 		topButtonPanel.add(decksButton);
-		topButtonPanel.add(statistikButton);
-		topButtonPanel.add(einstellungenButton);
+		topButtonPanel.add(statisticButton);
+		topButtonPanel.add(settingsButton);
 
 		// ACTIONLISTENER
 		startButton.addActionListener(new MainGuiListener(this, deckmanager, "startCard"));
 		decksButton.addActionListener(new MainGuiListener(this, deckmanager, "decksCard"));
-		statistikButton.addActionListener(new MainGuiListener(this, deckmanager, "statistikCard"));
-		einstellungenButton.addActionListener(new MainGuiListener(this, deckmanager, "einstellungenCard"));
-
+		statisticButton.addActionListener(new MainGuiListener(this, deckmanager, "statistikCard"));
+		settingsButton.addActionListener(new MainGuiListener(this, deckmanager, "einstellungenCard"));
 	}
 
 	/**
 	 * erstellt das contenPanel mit CardLayout und die jeweiligen Karten
 	 */
 	private void generateContentPanel() {
-
 		// ContentPanel erstellen
 		contentPanel = new JPanel();
 		contentPanelCardLayout = new CardLayout(0, 0);
@@ -143,21 +140,17 @@ public class MainGui extends JFrame implements Observer {
 		// Decks-Karte
 		decksCard = new JPanel();
 		decksCard.setLayout(new GridLayout(4, 1, 10, 5));
-		decksGui = new DecksGui(decksCard, deckmanager, fontStyle, this);
+		new DecksGui(decksCard, deckmanager, fontStyle, this);
 		contentPanel.add(decksCard, "decksCard");
 
 		// Statistik-Karte
-		statistikCard = new JPanel();
-		contentPanel.add(statistikCard, "statistikCard");
+		statisticCard = new JPanel();
+		contentPanel.add(statisticCard, "statistikCard");
 
 		// Einstellungen-Karte
-		einstellungenCard = new JPanel();
-		settingsGui = new SettingsGui(einstellungenCard, fontStyle, deckmanager);
-		contentPanel.add(einstellungenCard, "einstellungenCard");
-
-		// Anfangsbildschirm setzten auf "Start"
-		((CardLayout) contentPanel.getLayout()).show(contentPanel, "startCard");
-
+		settingsCard = new JPanel();
+		new SettingsGui(settingsCard, fontStyle, deckmanager);
+		contentPanel.add(settingsCard, "einstellungenCard");
 	}
 
 	/**
@@ -165,11 +158,9 @@ public class MainGui extends JFrame implements Observer {
 	 * enthält
 	 */
 	private void deckListeErstellen() {
-
 		chooseDeckComboBox = new JComboBox<Deck>();
 		chooseDeckComboBox.setSize(getPreferredSize());
 		update("deckChange");
-
 	}
 
 	/**
@@ -187,9 +178,14 @@ public class MainGui extends JFrame implements Observer {
 		}
 	}
 
+	/*
+	 * Update Methode des ObserverPattern: Updated die ComboBox sofern es eine Änderung in der DeckListe gab
+	 * 
+	 * @param changeType über den Parameter können DeckListen und Deck Änderungen unterschieden werden
+	 *
+	 */
 	@Override
 	public void update(String changeType) {
-
 		if (changeType.equals("deckChange")) {
 			System.out.println("Deckupdate");
 			// combobox update
@@ -198,19 +194,13 @@ public class MainGui extends JFrame implements Observer {
 				deckmanager.getDecks().forEach((key, value) -> {
 					chooseDeckComboBox.addItem(deckmanager.getDeck(key));
 				});
-				// setzt default Item in Combobox
+				// selektiert ein default Item in  der Combobox
 				chooseDeckComboBox.setSelectedIndex(0);
-
-				// aktiviert lernen beginnen Button
-//				if(startGui != null) {
-//					startGui.enableLernenBeginnenButton(true);
-//				}
+				
 			} else {
 				chooseDeckComboBox.removeAllItems();
 			}
-
 		}
-
 	}
 
 	/*
@@ -220,7 +210,7 @@ public class MainGui extends JFrame implements Observer {
 	 *
 	 */
 	private void setUIFont(javax.swing.plaf.FontUIResource f) {
-		java.util.Enumeration keys = UIManager.getDefaults().keys();
+		Enumeration<Object> keys = UIManager.getDefaults().keys();
 		while (keys.hasMoreElements()) {
 			Object key = keys.nextElement();
 			Object value = UIManager.get(key);
@@ -231,12 +221,6 @@ public class MainGui extends JFrame implements Observer {
 
 	// Getter + Setter
 
-	/**
-	 * gibt die chooseDeckComboBox zurück
-	 * 
-	 * @return chooseDeckComboBox
-	 * 
-	 */
 	public JComboBox<Deck> getJCombobox() {
 		return chooseDeckComboBox;
 	}
@@ -258,11 +242,11 @@ public class MainGui extends JFrame implements Observer {
 	}
 
 	public JPanel getStatistikCard() {
-		return statistikCard;
+		return statisticCard;
 	}
 
 	public JPanel getEinstellungenCard() {
-		return einstellungenCard;
+		return settingsCard;
 	}
 
 	public String getFontStyle() {
@@ -276,5 +260,4 @@ public class MainGui extends JFrame implements Observer {
 	public StartGui getStartGui() {
 		return startGui;
 	}
-
 }

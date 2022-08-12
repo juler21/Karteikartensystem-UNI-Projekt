@@ -1,34 +1,30 @@
 package view;
 
-import java.awt.CardLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
-
 import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-
 import controller.StartGuiListener;
 import model.DeckManager;
 import util.NoDeckSelectedExeption;
 
 
-/** PTP 22 
-* StartGuiklasse: Zuständig für den Startbildschirm und dessen unter Bildschirme
-* @author Mark Sterkel Julian Dillmann
-* @version 
+/** 
+* PTP 22 - StartGuiklasse: Zuständig für den Startbildschirm und dessen unter Bildschirme
+* 
+* @author J.Dillmann, M. Sterkel
 */
 public class StartGui {
 	
-
 	private JPanel startCard;
 	private String fontStyle;
 	private DeckManager deckmanager;
 	
-	//4 verscheidenen Karten die angezeigt werden können 
+	//4 verscheidene Karten die angezeigt werden können 
 	private JPanel learnHomeCard;
 	private JPanel learnQuestionCard;
 	private JPanel learnAnswerCard;
@@ -56,29 +52,23 @@ public class StartGui {
 		this.mainGui =maingui;
 		fontStyle = fontstyle;
 		
-		createLearnHomeCard();
-		
+		createLearnHomeCard();	
 		createLearnQuestionCard();
-		
 		createlearnAnswerCard();
-		
 		createlearnEndCard();
 		
 		startCard.add(learnHomeCard, "learnHomeCard");
 		startCard.add(learnQuestionCard, "learnQuestionCard");
 		startCard.add(learnAnswerCard, "learnAnswerCard");
-		startCard.add(learnEndCard, "learnEndCard");
-		
+		startCard.add(learnEndCard, "learnEndCard");	
 	}
 
 	/**
-	* erstellt die learnHomeKarte des CardLayout
+	* erstellt die Home-Karte des StartBildschirm CardLayout
 	*/
 	private void createLearnHomeCard() {
-		
 		learnHomeCard = new JPanel();
 		learnHomeCard.setLayout(null);
-
 
 		JLabel startLearningLabel = new JLabel();
 		startLearningLabel.setText("<html><body>Karteikarten einfach<br>lernen!</body></html>");
@@ -88,6 +78,7 @@ public class StartGui {
 		lernenBeginnenButton = new JButton("Lernen Beginnen");
 		lernenBeginnenButton.setFont(new Font(fontStyle, Font.PLAIN, 27));
 		lernenBeginnenButton.setBounds(50, 165, 300, 60);
+		lernenBeginnenButton.addActionListener(new StartGuiListener(this, deckmanager, "lernenBeginnenButton"));
 
 		JLabel currentDeckInfoLabel = new JLabel("<html><body>Aktuelles Deck:</body></html>");
 		currentDeckInfoLabel.setFont(new Font(fontStyle, Font.PLAIN, 27));
@@ -112,16 +103,12 @@ public class StartGui {
 		learnHomeCard.add(lernenBeginnenButton);
 		learnHomeCard.add(currentDeckInfoLabel);
 		learnHomeCard.add(currentDeckLabel);
-
-		lernenBeginnenButton.addActionListener(new StartGuiListener(this, deckmanager, "lernenBeginnenButton"));
-
 	}
 	
 	/**
-	* erstellt die learnHomeKarte des CardLayout
+	* erstellt die Question-Karte des StartBildschirm CardLayout
 	*/
-	private void createLearnQuestionCard() {
-			
+	private void createLearnQuestionCard() {	
 		// Question-Karte
 		learnQuestionCard = new JPanel();
 		learnQuestionCard.setLayout(new GridLayout(2, 1, 10, 5));
@@ -131,17 +118,18 @@ public class StartGui {
 		onlyQuestionTextArea.setWrapStyleWord(true);
 		onlyQuestionTextArea.setEditable(false);
 		
-
 		JButton showAnswerButton = new JButton("Antwort zeigen");
 		showAnswerButton.setFont(new Font(fontStyle, Font.PLAIN, 27));
 		showAnswerButton.addActionListener(new StartGuiListener(this, deckmanager, "showAnswerButton"));
 		
 		learnQuestionCard.add(onlyQuestionTextArea);
 		learnQuestionCard.add(showAnswerButton);
-
 		
 	}
 	
+	/**
+	* erstellt die Answer-Karte des StartBildschirm CardLayout
+	*/
 	private void createlearnAnswerCard() {
 		// Answer-Karte
 		learnAnswerCard = new JPanel();
@@ -156,7 +144,6 @@ public class StartGui {
 		questionTextArea.setEditable(false);
 		questionScrollPane = new JScrollPane(questionTextArea);
 
-		
 		JLabel answerLabel = new JLabel("Antwort:");
 		answerLabel.setFont(new Font(fontStyle, Font.BOLD, 27));
 
@@ -166,8 +153,7 @@ public class StartGui {
 		answerTextArea.setWrapStyleWord(true);
 		answerTextArea.setEditable(false);
 		answerScrollPane = new JScrollPane(answerTextArea);
-//						answerScrollPane.setBounds(3,3,400,400);
-
+		
 		JButton nextQuestionButton = new JButton("Nächste Frage");
 		nextQuestionButton.setFont(new Font(fontStyle, Font.PLAIN, 27));
 		nextQuestionButton.addActionListener(new StartGuiListener(this, deckmanager, "nextQuestionButton"));
@@ -177,12 +163,12 @@ public class StartGui {
 		learnAnswerCard.add(answerLabel);
 		learnAnswerCard.add(answerScrollPane);
 		learnAnswerCard.add(nextQuestionButton);
-		
 	}
 	
-
+	/**
+	* erstellt die Endbildschirm des StartBildschirm CardLayout
+	*/
 	private void createlearnEndCard() {
-		
 		// learnEnd-Karte
 		learnEndCard = new JPanel();
 		learnEndCard.setLayout(new GridLayout(3, 1, 10, 5));
@@ -199,13 +185,11 @@ public class StartGui {
 
 		restartDeckButton.addActionListener(new StartGuiListener(this, deckmanager, "restartDeckButton"));
 		switchDeckButton.addActionListener(new StartGuiListener(this, mainGui, deckmanager, "switchDeckButton"));
-
-		
 	}
 	
 	/*
-	 * Aktiviert oder deaktiviert den lernenBeginnenButton 
-	 * @param value flase für deaktivieren true für aktivieren
+	 * Aktiviert oder Deaktiviert den lernenBeginnenButton 
+	 * @param value false für Deaktivieren, true für Aktivieren
 	 *
 	 */
 	public void enableLernenBeginnenButton(boolean value) {
@@ -240,8 +224,6 @@ public class StartGui {
 	public void setCurrentDeckLabel(String text) {
 		currentDeckLabel.setText(text);
 	}
-	
-	
 	
 }
 
