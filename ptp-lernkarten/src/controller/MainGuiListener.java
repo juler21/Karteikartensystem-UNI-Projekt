@@ -3,11 +3,15 @@ package controller;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import model.DeckManager;
 import util.NoDeckSelectedExeption;
 import view.MainGui;
 
+/** PTP 22 
+* Controllerklasse: Realisiert Interaktionen mit der MainGui 
+* @author Mark Sterkel & Julian Dillmann
+* @version 
+*/
 public class MainGuiListener implements ActionListener {
 
 	private MainGui mainGui;

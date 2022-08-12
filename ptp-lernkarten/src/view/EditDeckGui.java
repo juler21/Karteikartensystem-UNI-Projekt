@@ -17,22 +17,28 @@ import javax.swing.UIManager;
 import controller.EditDeckGuiListener;
 import model.DeckManager;
 import model.Flashcard;
+import util.NoDeckSelectedExeption;
 import util.NoFlashcardSelectedExeption;
+
+/** PTP 22 
+* Extra Fenster: Zuständig für das Bearbeiten,Erstellen,Löschen und Hinzufügen von Karteikarten
+* @author Mark Sterkel & Julian Dillmann
+* @version 
+*/
 
 public class EditDeckGui extends JFrame implements Observer {
 
-	// Model
 	private DeckManager deckmanager;
-
 	private DecksGui decksgui;
 	private String selectedDeck;
+	private String fontStyle;
 
 	private JFrame editDeckFrame;
 	private JPanel editDeckPanel;
+	private JComboBox<Flashcard> flashcardComboBox;
 	private JPanel lowerButtonPanel;
 	private JPanel listPanel;
 	private JPanel qaPanel;
-	private JComboBox<Flashcard> flashcardComboBox;
 	private JLabel questionLabel;
 	private JTextArea questionText;
 	private JLabel answerLabel;
@@ -41,13 +47,13 @@ public class EditDeckGui extends JFrame implements Observer {
 	private JButton saveFlashcardButton;
 	private JButton quitButton;
 	private JButton newFlashcardButton;
-
-	private String fontStyle;
-
 	private JScrollPane questionScrollPane;
-
 	private JScrollPane answerScrollPane;
 
+	/**
+	* Der EditDeckGui-Konstruktor erstellt die EditDeckGui mit ihren Komponenten 
+	* und entsprechenden Listenern.
+	*/
 	public EditDeckGui(DeckManager deckmanager, DecksGui decksgui, String selectedDeck, String windowname,
 			String fontstyle) {
 
@@ -69,7 +75,16 @@ public class EditDeckGui extends JFrame implements Observer {
 		editDeckFrame.setContentPane(editDeckPanel);
 
 		generateFlashcardComboBox();
+		generateQAPanel();
+		generateButtonPanel();
+	
+		//EditDeckGui beobachtet den Deckmanager um Änderungen innerhalb der Decks zu registrieren
+		deckmanager.registerObserver(this);
+		editDeckFrame.setVisible(true);
+	}
 
+	private void generateQAPanel() {
+		
 		qaPanel = new JPanel();
 		qaPanel.setLayout(new GridLayout(4, 1));
 		System.out.println((Flashcard) (flashcardComboBox.getSelectedItem()));
@@ -88,6 +103,7 @@ public class EditDeckGui extends JFrame implements Observer {
 		answerText.setWrapStyleWord(true);
 		answerScrollPane = new JScrollPane(answerText);
 
+		//initiales füllen 
 		if (!deckmanager.getFlashcardList(selectedDeck).isEmpty()) {
 			questionText.setText(deckmanager.getQuestion(f));
 			answerText.setText(deckmanager.getAnswer(f));
@@ -99,14 +115,18 @@ public class EditDeckGui extends JFrame implements Observer {
 		qaPanel.add(answerScrollPane);
 
 		editDeckPanel.add(qaPanel, BorderLayout.CENTER);
+	}
 
+	
+	private void generateButtonPanel() {
+		
 		lowerButtonPanel = new JPanel();
 		deleteFlashcardButton = new JButton("Löschen");
 		deleteFlashcardButton
-				.addActionListener(new EditDeckGuiListener(this, selectedDeck, deckmanager, "deleteFlashcard"));
+		.addActionListener(new EditDeckGuiListener(this, selectedDeck, deckmanager, "deleteFlashcard"));
 		saveFlashcardButton = new JButton("Ändern");
 		saveFlashcardButton
-				.addActionListener((new EditDeckGuiListener(this, selectedDeck, deckmanager, "editFlashcard")));
+		.addActionListener((new EditDeckGuiListener(this, selectedDeck, deckmanager, "editFlashcard")));
 		quitButton = new JButton("Schließen");
 		quitButton.addActionListener((new EditDeckGuiListener(this, selectedDeck, deckmanager, "close")));
 		newFlashcardButton = new JButton("Hinzufügen");
@@ -116,19 +136,17 @@ public class EditDeckGui extends JFrame implements Observer {
 		lowerButtonPanel.add(newFlashcardButton);
 		lowerButtonPanel.add(quitButton);
 		editDeckPanel.add(lowerButtonPanel, BorderLayout.PAGE_END);
-
-		// Edit Deck Gui beobachtet Decks Klasse Deckmanager um Änderungen innerhalb der
-		// Decks zu registrieren
-		deckmanager.registerObserver(this);
-
-		editDeckFrame.setVisible(true);
-
+		
 	}
 
+
+	/**
+	* erstellt die FlashcardComboBox
+	* 
+	*/
 	private void generateFlashcardComboBox() {
 
 		Flashcard[] flashcardArray = new Flashcard[0];
-
 		flashcardArray = new Flashcard[deckmanager.getFlashcardList(selectedDeck).size()];
 		for (int i = 0; i < deckmanager.getAmountOfFlashcards(selectedDeck); i++) {
 			flashcardArray[i] = deckmanager.getFlashcard(selectedDeck, i);
@@ -137,25 +155,15 @@ public class EditDeckGui extends JFrame implements Observer {
 		flashcardComboBox = new JComboBox<Flashcard>(flashcardArray);
 		flashcardComboBox.addActionListener(new EditDeckGuiListener(this, selectedDeck, deckmanager, "comboBoxChange"));
 		editDeckPanel.add(flashcardComboBox, BorderLayout.PAGE_START);
-//		flashcardComboBox.addActionListener(new ActionListener() {
-//
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				if (flashcardComboBox.getSelectedItem() != null) {
-//					Flashcard f = (Flashcard) (flashcardComboBox.getSelectedItem());
-//					questionText.setText(deckmanager.getQuestion(f));
-//					answerText.setText(deckmanager.getAnswer(f));
-//				}
-//
-//			}
-//		});
-
 	}
-
-	public JComboBox<Flashcard> getFlashcardList() {
-		return flashcardComboBox;
-	}
-
+	
+	/**
+	* gibt das aktuell in der Combobox gewählte Deck zurück 
+	* 
+	* @return das aktuell gewählte Deck als String 
+	* @exception NoDeckSelectedExeption wenn kein Deck gewählt ist 
+	* 
+	*/
 	public Flashcard getSelectedFlashcard() throws NoFlashcardSelectedExeption {
 		if (flashcardComboBox.getSelectedItem() != null) {
 			return (Flashcard) flashcardComboBox.getSelectedItem();
@@ -176,6 +184,26 @@ public class EditDeckGui extends JFrame implements Observer {
 		}
 	}
 
+	/*
+	 * Setzt den default für alle UI Fonts auf die übergebene Font
+	 * @param f die gewünschte FontUIResource 
+	 *
+	 */
+	private void setUIFont(javax.swing.plaf.FontUIResource f) {
+		java.util.Enumeration keys = UIManager.getDefaults().keys();
+		while (keys.hasMoreElements()) {
+			Object key = keys.nextElement();
+			Object value = UIManager.get(key);
+			if (value instanceof javax.swing.plaf.FontUIResource)
+				UIManager.put(key, f);
+		}
+	}
+	
+	// Getter + Setter 
+	public JComboBox<Flashcard> getFlashcardComboBox() {
+		return flashcardComboBox;
+	}
+	
 	public JFrame getEditDeckFrame() {
 		return editDeckFrame;
 	}
@@ -196,17 +224,4 @@ public class EditDeckGui extends JFrame implements Observer {
 		this.answerText.setText(answerText);
 	}
 
-	/*
-	 * Setzt alle Default UI Fonts auf die übergebene Font
-	 *
-	 */
-	private void setUIFont(javax.swing.plaf.FontUIResource f) {
-		java.util.Enumeration keys = UIManager.getDefaults().keys();
-		while (keys.hasMoreElements()) {
-			Object key = keys.nextElement();
-			Object value = UIManager.get(key);
-			if (value instanceof javax.swing.plaf.FontUIResource)
-				UIManager.put(key, f);
-		}
-	}
 }
