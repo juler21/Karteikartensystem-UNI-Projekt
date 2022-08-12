@@ -45,12 +45,14 @@ public class CreateDeckGui {
 	private JScrollPane answerScrollPane;
 	private JButton confirmDecknameButton;
 
+	/**
+	* Der CreateDeckGui-Konstruktor erstellt die CreateDeckGui mit ihren Komponenten 
+	* und entsprechenden Listenern.
+	*/
 	public CreateDeckGui(DeckManager deckmanager, String fontstyle) {
 
 		this.deckmanager = deckmanager;
 		fontStyle = fontstyle;
-
-		// JFrame erstllen
 		createDeckFrame = new JFrame("Deck Erstellen");
 		createDeckFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		createDeckFrame.setBounds(480, 300, 500, 300);
@@ -65,7 +67,6 @@ public class CreateDeckGui {
 		generateCreateFlashcardCard();
 
 		createDeckFrame.setVisible(true);
-
 	}
 
 	private void generateSetDecknameCard() {
@@ -181,7 +182,8 @@ public class CreateDeckGui {
 	}
 
 	/*
-	 * Setzt alle Default UI Fonts auf die übergebene Font
+	 * Setzt den default für alle UI Fonts auf die übergebene Font
+	 * @param f die gewünschte FontUIResource 
 	 *
 	 */
 	private void setUIFont(javax.swing.plaf.FontUIResource f) {

@@ -10,6 +10,7 @@ import view.DecksGui;
 import view.EditDeckGui;
 import view.ErrorScreen;
 
+
 public class DecksGuiListener implements ActionListener {
 
 	private DeckManager deckmanager;
@@ -17,6 +18,7 @@ public class DecksGuiListener implements ActionListener {
 	private String cmd;
 	private String fontStyle;
 
+	
 	public DecksGuiListener(DecksGui decksgui, DeckManager deckmanager, String fontstyle, String cmd) {
 
 		this.deckmanager = deckmanager;

@@ -25,6 +25,10 @@ public class SettingsGui {
 	private String fontStyle;
 	private JButton switchThemeButton;
 
+	/**
+	* Der SettingsGui Konstruktor erstellt die SettingsGui mit ihren Komponenten 
+	* und entsprechenden Listenern.
+	*/
 	public SettingsGui(JPanel einstellungenCard, String fontstyle, DeckManager deckmanager) {
 
 		this.einstellungenCard = einstellungenCard;

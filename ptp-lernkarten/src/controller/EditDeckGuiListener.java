@@ -50,8 +50,8 @@ public class EditDeckGuiListener implements ActionListener {
 				new AddFlashcardGui(deckmanager, selectedDeck.toString(), selectedDeck);
 //				((CardLayout) DeckGUI.getCreateDeckFramePanel().getLayout()).show(DeckGUI.getCreateDeckFramePanel(), "createFlashcardCard");
 			} else if (cmd.equals("comboBoxChange")) {
-				if (gui.getFlashcardList().getSelectedItem() != null) {
-					Flashcard f = (Flashcard) (gui.getFlashcardList().getSelectedItem());
+				if (gui.getFlashcardComboBox().getSelectedItem() != null) {
+					Flashcard f = (Flashcard) (gui.getFlashcardComboBox().getSelectedItem());
 					gui.setQuestionText(deckmanager.getQuestion(f));
 					gui.setAnswerText(deckmanager.getAnswer(f));
 				}
