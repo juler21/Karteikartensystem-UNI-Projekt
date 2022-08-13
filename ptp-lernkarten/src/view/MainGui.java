@@ -22,15 +22,15 @@ import model.DeckManager;
 import util.NoDeckSelectedExeption;
 
 /**
- * PTP 22 - HauptGui-Klasse: Startpunkt der Anwendung
- * von hier aus werden die anderen Gui KLassen erstellt
+ * PTP 22 - HauptGui-Klasse: Startpunkt der Anwendung von hier aus werden die
+ * anderen Gui KLassen erstellt
  * 
  * @author J.Dillmann, M. Sterkel
  */
 public class MainGui extends JFrame implements Observer {
-	
+
 	private static final long serialVersionUID = 531951800455880798L;
-	
+
 	// Fenster
 	private JFrame mainFrame;
 	private JPanel framePanel;
@@ -60,14 +60,13 @@ public class MainGui extends JFrame implements Observer {
 	 * entsprechenden Listenern.
 	 */
 	public MainGui(DeckManager manager, String name) {
-		
+
 		this.deckmanager = manager;
 		// JFrame erstellen
 		mainFrame = new JFrame(name);
 
 		fontStyle = "Helvetica";
 		setUIFont(new javax.swing.plaf.FontUIResource(fontStyle, Font.PLAIN, 20));
-		mainFrame.setTitle("Lernkarten");
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setBounds(270, 170, 900, 550);
 		mainFrame.setMinimumSize(new Dimension(680, 400));
@@ -179,9 +178,11 @@ public class MainGui extends JFrame implements Observer {
 	}
 
 	/*
-	 * Update Methode des ObserverPattern: Updated die ComboBox sofern es eine Änderung in der DeckListe gab
+	 * Update Methode des ObserverPattern: Updated die ComboBox sofern es eine
+	 * Änderung in der DeckListe gab
 	 * 
-	 * @param changeType über den Parameter können DeckListen und Deck Änderungen unterschieden werden
+	 * @param changeType über den Parameter können DeckListen und Deck Änderungen
+	 * unterschieden werden
 	 *
 	 */
 	@Override
@@ -194,9 +195,9 @@ public class MainGui extends JFrame implements Observer {
 				deckmanager.getDecks().forEach((key, value) -> {
 					chooseDeckComboBox.addItem(deckmanager.getDeck(key));
 				});
-				// selektiert ein default Item in  der Combobox
+				// selektiert ein default Item in der Combobox
 				chooseDeckComboBox.setSelectedIndex(0);
-				
+
 			} else {
 				chooseDeckComboBox.removeAllItems();
 			}

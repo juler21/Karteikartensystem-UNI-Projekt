@@ -44,17 +44,12 @@ public class MainTest {
 		try {
 			app.createDeck("test1");
 		} catch (UnValidDecknameException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (DeckIsExistingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		File folder = new File(app.getPathDirectory());
 		boolean result = false;
-		for (String f : folder.list()) {
-			System.out.println("Hier:" + f);
-		}
 		for (String f : folder.list()) {
 			if (f.equals("test1.csv")) {
 				result = true;
@@ -150,7 +145,6 @@ public class MainTest {
 			app.createDeck("test5");
 			app.addFlashcard("test5", "Frage1", "Antwort1");
 		} catch (UnvalidQAException | UnValidDecknameException | DeckIsExistingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		assertEquals("Frage1", app.getQuestion("test5", 0));
@@ -164,12 +158,25 @@ public class MainTest {
 
 	@Test
 	public void testgetAnswer() {
+		try {
+			app.createDeck("test9");
+			app.addFlashcard("test9", "testFrage2", "testAntwort2");
+		} catch (UnValidDecknameException | DeckIsExistingException | UnvalidQAException e) {
+			e.printStackTrace();
+		}
+		assertEquals("testAntwort2", app.getAnswer("test9", 0));
 
 	}
 
 	@Test
 	public void testgetQuestion() {
-
+		try {
+			app.createDeck("test10");
+			app.addFlashcard("test10", "testFrage3", "testAntwort3");
+		} catch (UnValidDecknameException | DeckIsExistingException | UnvalidQAException e) {
+			e.printStackTrace();
+		}
+		assertEquals("testFrage3", app.getQuestion("test10", 0));
 	}
 
 	@Test
@@ -179,18 +186,18 @@ public class MainTest {
 
 	@Test
 	public void testisDeckExisting() {
-		//positiv Test
+		// positiv Test
 		try {
 			app.createDeck("testisDeckExisting");
 			assertTrue(app.isDeckExisting("testisDeckExisting"));
-			
+
 		} catch (UnValidDecknameException e) {
 			e.printStackTrace();
 		} catch (DeckIsExistingException e) {
 			e.printStackTrace();
 		}
-		//negativ Test
-			assertFalse(app.isDeckExisting("notExistingDeckExisting"));
+		// negativ Test
+		assertFalse(app.isDeckExisting("notExistingDeckExisting"));
 	}
 
 	@Test
