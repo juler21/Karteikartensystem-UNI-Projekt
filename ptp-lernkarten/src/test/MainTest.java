@@ -1,15 +1,18 @@
 package test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.File;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import model.DeckOrganizer;
 import util.DeckIsExistingException;
 import util.Main;
 import util.UnValidDecknameException;
@@ -22,8 +25,39 @@ public class MainTest {
 	public void newMain() {
 		app = new Main();
 		app.changeFoldername("test");
-	}
+		app.getData(new File(app.getPathtoString()));
+		app.removeAllDecks();
 
+	}
+	
+	
+	@Test
+	public void testremoveAllDecks() {
+		try {
+			app.createDeck("testremoveAllDecks");
+			app.createDeck("testremoveAllDecks2");
+			app.createDeck("testremoveAllDecks3");
+			app.createDeck("testremoveAllDecks4");
+			app.removeAllDecks();
+		} catch (UnValidDecknameException | DeckIsExistingException e) {
+			e.printStackTrace();
+		}
+		assertEquals(0, app.getAmountOfDecks());
+	}
+	
+	@Test
+	public void testgetAmountofDecks() {
+		try {
+			app.createDeck("testgetAmountofDecks");
+			app.createDeck("testgetAmountofDecks2");
+			app.createDeck("testgetAmountofDecks3");
+			app.createDeck("testgetAmountofDecks4");
+		} catch (UnValidDecknameException | DeckIsExistingException e) {
+			e.printStackTrace();
+		}
+		assertEquals(4, app.getAmountOfDecks());
+	}
+	
 	@Test
 	public void testCreateDirectory() {
 		boolean result = false;
@@ -153,7 +187,32 @@ public class MainTest {
 
 	@Test
 	public void testremoveAllFlashcards() {
-
+		//positiv Test
+		try {
+			app.createDeck("testremoveAllFlashcards");
+			app.addFlashcard("testremoveAllFlashcards", "frage1", "antwort1");
+			app.addFlashcard("testremoveAllFlashcards", "frage2", "antwort2");
+			app.addFlashcard("testremoveAllFlashcards", "frage3", "antwort3");
+			app.removeAllFlashcards("testremoveAllFlashcards");
+			
+			assertEquals(0, app.getAmountFlashcards("testremoveAllFlashcards"));
+			
+		} catch (UnValidDecknameException e) {
+			e.printStackTrace();
+		} catch (DeckIsExistingException e) {
+			e.printStackTrace();
+		} catch (UnvalidQAException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//Test wenn keine Karteikarten enthalten 
+		try {
+			app.createDeck("testremoveAllFlashcards2");
+			app.removeAllFlashcards("testremoveAllFlashcards2");
+		} catch (UnValidDecknameException | DeckIsExistingException e) {
+			e.printStackTrace();
+		}
+		assertEquals(0, app.getAmountFlashcards("testremoveAllFlashcards2"));
 	}
 
 	@Test
@@ -181,7 +240,17 @@ public class MainTest {
 
 	@Test
 	public void testgetAmountFlashcards() {
-
+		try {
+			app.createDeck("testgetAmountFlashcards");
+			app.addFlashcard("testgetAmountFlashcards", "frage1", "antwort1");
+			app.addFlashcard("testgetAmountFlashcards", "frage2", "antwort2");
+			app.addFlashcard("testgetAmountFlashcards", "frage3", "antwort3");
+		} catch (UnValidDecknameException | DeckIsExistingException e) {
+			e.printStackTrace();
+		} catch (UnvalidQAException e) {
+			e.printStackTrace();
+		}
+		assertEquals(3, app.getAmountFlashcards("testgetAmountFlashcards"));
 	}
 
 	@Test
