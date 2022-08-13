@@ -8,16 +8,21 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import model.DeckOrganizer;
 import util.DeckIsExistingException;
 import util.Main;
 import util.UnValidDecknameException;
 import util.UnvalidQAException;
 
+/**
+ * 
+ * Testmethoden testen intern und extern.
+ * 
+ * @author J.Dillmann, Mark Sterkel
+ *
+ */
 public class MainTest {
 	private Main app;
 
@@ -29,8 +34,7 @@ public class MainTest {
 		app.removeAllDecks();
 
 	}
-	
-	
+
 	@Test
 	public void testremoveAllDecks() {
 		try {
@@ -44,7 +48,7 @@ public class MainTest {
 		}
 		assertEquals(0, app.getAmountOfDecks());
 	}
-	
+
 	@Test
 	public void testgetAmountofDecks() {
 		try {
@@ -57,13 +61,12 @@ public class MainTest {
 		}
 		assertEquals(4, app.getAmountOfDecks());
 	}
-	
+
 	@Test
 	public void testCreateDirectory() {
 		boolean result = false;
 		String path = System.getProperty("user.home");
 		File folder = new File(path);
-		System.out.println(folder.getPath());
 		for (File f : folder.listFiles()) {
 			if (f.getPath().equals(app.getPathDirectory())) {
 				result = true;
@@ -74,9 +77,8 @@ public class MainTest {
 
 	@Test
 	public void testaddDeck() {
-		app.deleteDeck("test1");
 		try {
-			app.createDeck("test1");
+			app.createDeck("testaddDeck");
 		} catch (UnValidDecknameException e) {
 			e.printStackTrace();
 		} catch (DeckIsExistingException e) {
@@ -85,12 +87,12 @@ public class MainTest {
 		File folder = new File(app.getPathDirectory());
 		boolean result = false;
 		for (String f : folder.list()) {
-			if (f.equals("test1.csv")) {
+			if (f.equals("testaddDeck.csv")) {
 				result = true;
 			}
 		}
 		assertTrue(result);
-		assertTrue(app.isDeckExisting("test1"));
+		assertTrue(app.isDeckExisting("testaddDeck"));
 
 		assertThrows(UnValidDecknameException.class, () -> {
 			app.createDeck(null);
@@ -99,78 +101,85 @@ public class MainTest {
 			app.createDeck("Hallo%");
 		});
 		assertThrows(DeckIsExistingException.class, () -> {
-			app.createDeck("test1");
+			app.createDeck("testaddDeck");
 		});
 	}
 
 	@Test
 	public void testDeleteDeck() {
-		app.deleteDeck("test1");
+		app.deleteDeck("testDeleteDeck");
 		File folder = new File(app.getPathDirectory());
 		boolean result = false;
 		for (String f : folder.list()) {
-			System.out.println("Hier:" + f);
-		}
-		for (String f : folder.list()) {
-			if (f.equals("test1.csv")) {
+			if (f.equals("testDeleteDeck.csv")) {
 				result = true;
 			}
 		}
 		assertFalse(result);
-		assertFalse(app.isDeckExisting("test1"));
+		assertFalse(app.isDeckExisting("testDeleteDeck"));
 	}
 
 	@Test
 	public void testaddFlashcard() {
 		try {
-			app.createDeck("test2");
-			app.addFlashcard("test2", "Frage", "Antwort");
+			app.createDeck("testaddFlashcard");
+			app.addFlashcard("testaddFlashcard", "Frage", "Antwort");
 		} catch (UnValidDecknameException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (DeckIsExistingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (UnvalidQAException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		assertEquals("Frage", app.getQuestion("test2", 0));
+		assertEquals("Frage", app.getQuestion("testaddFlashcard", 0));
+
+		assertThrows(UnvalidQAException.class, () -> {
+			app.addFlashcard("testaddFlashcard", "", "Antwort");
+		});
+		assertThrows(UnvalidQAException.class, () -> {
+			app.addFlashcard("testaddFlashcard", null, "Antwort");
+		});
+		assertThrows(UnvalidQAException.class, () -> {
+			app.addFlashcard("testaddFlashcard", "Frage", "");
+		});
+		assertThrows(UnvalidQAException.class, () -> {
+			app.addFlashcard("testaddFlashcard", "Frage", null);
+		});
 	}
 
 	@Test
 	public void testdeleteFlashcard() {
-		app.deleteDeck("test3");
 		try {
-			app.createDeck("test3");
+			app.createDeck("testdeleteFlashcard");
 		} catch (UnValidDecknameException | DeckIsExistingException e1) {
 			e1.printStackTrace();
 		}
 
 		try {
-			app.addFlashcard("test3", "Hallo", "Tschüss");
-			app.addFlashcard("test3", "Moin", "Hello");
+			app.addFlashcard("testdeleteFlashcard", "Hallo", "Tschüss");
+			app.addFlashcard("testdeleteFlashcard", "Moin", "Hello");
 		} catch (UnvalidQAException e) {
 			e.printStackTrace();
 		}
-		app.deleteFlashcard("test3", 0);
+		app.deleteFlashcard("testdeleteFlashcard", 0);
 		// neuer vergleich
-		assertEquals(app.getQuestion("test3", 0), "Moin");
-		assertEquals(app.getAnswer("test3", 0), "Hello");
+		assertEquals(app.getQuestion("testdeleteFlashcard", 0), "Moin");
+		assertEquals(app.getAnswer("testdeleteFlashcard", 0), "Hello");
 		// alter vergleich
-		assertEquals(1, app.getAmountFlashcards("test3"));
+		assertEquals(1, app.getAmountFlashcards("testdeleteFlashcard"));
 	}
 
 	@Test
 	public void testgetDeck() {
 		try {
-			app.createDeck("test4");
+			app.createDeck("testgetDeck");
 		} catch (UnValidDecknameException | DeckIsExistingException e) {
 
 			e.printStackTrace();
 		}
-		assertTrue(app.isDeckExisting("test4"));
+		assertTrue(app.isDeckExisting("testgetDeck"));
+		assertEquals("testgetDeck", app.getDeck("testgetDeck").toString());
 	}
 
 	@Test
@@ -187,16 +196,16 @@ public class MainTest {
 
 	@Test
 	public void testremoveAllFlashcards() {
-		//positiv Test
+		// positiv Test
 		try {
 			app.createDeck("testremoveAllFlashcards");
 			app.addFlashcard("testremoveAllFlashcards", "frage1", "antwort1");
 			app.addFlashcard("testremoveAllFlashcards", "frage2", "antwort2");
 			app.addFlashcard("testremoveAllFlashcards", "frage3", "antwort3");
 			app.removeAllFlashcards("testremoveAllFlashcards");
-			
+
 			assertEquals(0, app.getAmountFlashcards("testremoveAllFlashcards"));
-			
+
 		} catch (UnValidDecknameException e) {
 			e.printStackTrace();
 		} catch (DeckIsExistingException e) {
@@ -205,7 +214,7 @@ public class MainTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//Test wenn keine Karteikarten enthalten 
+		// Test wenn keine Karteikarten enthalten
 		try {
 			app.createDeck("testremoveAllFlashcards2");
 			app.removeAllFlashcards("testremoveAllFlashcards2");
@@ -271,6 +280,10 @@ public class MainTest {
 
 	@Test
 	public void testgetPathDirectory() {
-
+		String testPath = app.getPathDirectory();
+		String comparePathPositiv = System.getProperty("user.home") + "/test";
+		String comparePathNegativ = System.getProperty("user.home") + "/decks";
+		assertEquals(comparePathPositiv, testPath);
+		assertNotEquals(comparePathNegativ, testPath);
 	}
 }

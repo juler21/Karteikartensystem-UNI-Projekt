@@ -165,8 +165,7 @@ public class Deck {
 
 	// checkt ob der Text null oder leer ist. Sonst wirft er eine Exeption
 	private boolean checkQAText(String text) throws UnvalidQAException {
-
-		if (!text.isBlank() && text != null) {
+		if (text != null && (!text.isBlank())) {
 			return true;
 		} else {
 			throw new UnvalidQAException();

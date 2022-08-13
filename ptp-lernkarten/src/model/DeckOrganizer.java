@@ -121,7 +121,7 @@ public class DeckOrganizer {
 			decks.remove(deckname);
 		}
 	}
-	
+
 	/**
 	 * Löscht alle Decks aus dem aktuellen Verzeichnis.
 	 * 
@@ -129,11 +129,11 @@ public class DeckOrganizer {
 	void removeAllDecks() {
 		List<String> decknames = new ArrayList<>();
 
-		for(Entry<String, Deck> e: decks.entrySet()) {
+		for (Entry<String, Deck> e : decks.entrySet()) {
 			decknames.add((String) e.getKey());
 		}
-		
-		for(String g: decknames) {
+
+		for (String g : decknames) {
 			removeDeck(g);
 		}
 	}
@@ -238,14 +238,13 @@ public class DeckOrganizer {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
-	 * gibt die aktuelle Anzahl an Decks zurück
-	 * @return 
+	 * Gibt die aktuelle Anzahl an Decks zurück
 	 * 
 	 * @return anzahl Decks
 	 */
-	public int getAmountOfDecks() {
+	int getAmountOfDecks() {
 		return decks.size();
 	}
 
