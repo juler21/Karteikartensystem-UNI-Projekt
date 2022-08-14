@@ -84,6 +84,7 @@ public class MainTest {
 		} catch (DeckIsExistingException e) {
 			e.printStackTrace();
 		}
+		// extern
 		File folder = new File(app.getPathDirectory());
 		boolean result = false;
 		for (String f : folder.list()) {
@@ -92,6 +93,7 @@ public class MainTest {
 			}
 		}
 		assertTrue(result);
+		// intern
 		assertTrue(app.isDeckExisting("testaddDeck"));
 
 		assertThrows(UnValidDecknameException.class, () -> {
@@ -164,8 +166,8 @@ public class MainTest {
 		}
 		app.deleteFlashcard("testdeleteFlashcard", 0);
 		// neuer vergleich
-		assertEquals(app.getQuestion("testdeleteFlashcard", 0), "Moin");
-		assertEquals(app.getAnswer("testdeleteFlashcard", 0), "Hello");
+		assertEquals("Moin", app.getQuestion("testdeleteFlashcard", 0));
+		assertEquals("Hello", app.getAnswer("testdeleteFlashcard", 0));
 		// alter vergleich
 		assertEquals(1, app.getAmountFlashcards("testdeleteFlashcard"));
 	}
